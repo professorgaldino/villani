@@ -1,167 +1,150 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Boletim Escolar 2</title>
+<meta charset="UTF-8">
+<title>Boletim Geral</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      padding: 20px;
-    }
+<style>
+body {
+  font-family: Arial;
+  background: #f5f5f5;
+  padding: 20px;
+}
 
-    .lista button {
-      margin: 4px;
-      padding: 8px;
-      cursor: pointer;
-    }
+h1 {
+  text-align: center;
+}
 
-    .boletim {
-      margin-top: 20px;
-      border: 1px solid #ccc;
-      padding: 15px;
-      border-radius: 10px;
-    }
+#lista {
+  max-height: 300px;
+  overflow-y: auto;
+  background: white;
+  padding: 10px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
 
-    img {
-      width: 120px;
-      border-radius: 10px;
-    }
-  </style>
+.aluno {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.aluno:hover {
+  background: #eee;
+}
+
+#boletim {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+img {
+  width: 120px;
+  border-radius: 10px;
+}
+</style>
+
 </head>
 <body>
 
-<h2>📋 Boletim Geral</h2>
+<h1>📋 Boletim Geral</h1>
 
-<div id="lista">Carregando...</div>
+<div id="lista">Carregando alunos...</div>
 
-<div class="boletim" id="boletim">
-  Clique em um aluno
+<div id="boletim">
+Clique em um aluno
 </div>
 
 <script>
 
-// 🔗 SEUS WEB APPS
+// 🔗 LINKS DOS APPS SCRIPT (SEUS)
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-const URL_NOTAS  = "https://script.google.com/macros/s/AKfycbxV79Zwk5OlhLoHonFAkjFJMgpGi8isFm7diseGns9ey8asfJQ9FCAmRKC2QZ0nKWXQ/exec";
+const URL_NOTAS  = "https://script.google.com/macros/s/AKfycbx6ijQUGAagM-Jvfj07eD4I1eIquYvMeGCZhm26qp9KRAEWaYIYJeqvrZA3cHJcpmBT/exec";
 
-let dados = [];
-
-// ==============================
-// 🔧 NORMALIZAR
-// ==============================
-
+// normalizar texto (ESSENCIAL pra bater nome)
 function normalizar(txt) {
-  return String(txt)
+  return txt
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
     .trim();
 }
 
-
-// ==============================
-// 🔗 CRUZAR
-// ==============================
-
-function cruzar(alunos, notas) {
-
-  let mapa = {};
-
-  alunos.forEach(a => {
-    let chave = normalizar(a.nome) + "|" + normalizar(a.sala);
-    mapa[chave] = a;
-  });
-
-  let resultado = [];
-
-  notas.forEach(n => {
-
-    let chave = normalizar(n.nome) + "|" + normalizar(n.sala);
-
-    if (mapa[chave]) {
-      resultado.push({
-        nome: n.nome,
-        sala: n.sala,
-        situacao: n.situacao,
-        total: n.total || "",
-        frequencia: n.frequencia || "",
-        foto: mapa[chave].foto || ""
-      });
-    }
-
-  });
-
-  return resultado;
-}
-
-
-// ==============================
-// 📥 CARREGAR
-// ==============================
-
-async function carregar() {
+// carregar alunos
+async function carregarAlunos() {
 
   try {
 
-    let alunos = await fetch(URL_ALUNOS).then(r => r.json());
-    let notas  = await fetch(URL_NOTAS).then(r => r.json());
+    const res = await fetch(URL_ALUNOS);
+    const alunos = await res.json();
 
-    dados = cruzar(alunos, notas);
+    const lista = document.getElementById("lista");
+    lista.innerHTML = "";
 
-    renderLista();
+    alunos.forEach((aluno, i) => {
+
+      const div = document.createElement("div");
+      div.className = "aluno";
+
+      div.innerText = `${i+1} - ${aluno.nome}`;
+
+      div.onclick = () => carregarBoletim(aluno);
+
+      lista.appendChild(div);
+    });
 
   } catch (e) {
-    document.getElementById("lista").innerHTML = "Erro ao carregar dados";
-    console.error(e);
+    document.getElementById("lista").innerText = "Erro ao carregar alunos";
   }
 }
 
+// carregar boletim
+async function carregarBoletim(aluno) {
 
-// ==============================
-// 🔢 LISTA
-// ==============================
+  document.getElementById("boletim").innerHTML = "Carregando...";
 
-function renderLista() {
+  try {
 
-  let html = "";
+    const res = await fetch(URL_NOTAS);
+    const notas = await res.json();
 
-  dados.forEach((a, i) => {
-    html += `<button onclick="abrir(${i})">${i+1}</button>`;
-  });
+    // 🔥 RELAÇÃO POR NOME + SALA
+    const notaAluno = notas.find(n =>
+      normalizar(n.ALUNO) === normalizar(aluno.nome) &&
+      normalizar(n.sala) === normalizar(aluno.sala)
+    );
 
-  document.getElementById("lista").innerHTML = html;
+    if (!notaAluno) {
+      document.getElementById("boletim").innerHTML = "Aluno não encontrado nas notas";
+      return;
+    }
+
+    document.getElementById("boletim").innerHTML = `
+      <h2>${aluno.nome}</h2>
+
+      <img src="https://drive.google.com/uc?export=view&id=${aluno.foto}">
+
+      <p><b>Sala:</b> ${aluno.sala}</p>
+      <p><b>Tutor:</b> ${aluno.tutor}</p>
+
+      <hr>
+
+      <h3>📊 Notas</h3>
+
+      <pre style="white-space: pre-wrap;">
+${JSON.stringify(notaAluno, null, 2)}
+      </pre>
+    `;
+
+  } catch (e) {
+    document.getElementById("boletim").innerHTML = "Erro ao carregar notas";
+  }
 }
 
-
-// ==============================
-// 📄 BOLETIM
-// ==============================
-
-function abrir(i) {
-
-  let a = dados[i];
-
-  let foto = a.foto
-    ? `https://drive.google.com/uc?id=${a.foto}`
-    : "https://via.placeholder.com/120";
-
-  let html = `
-    <h3>${a.nome}</h3>
-    <img src="${foto}">
-    <p><b>Sala:</b> ${a.sala}</p>
-    <p><b>Situação:</b> ${a.situacao}</p>
-    <p><b>Total de Faltas:</b> ${a.total}</p>
-    <p><b>Frequência:</b> ${a.frequencia}</p>
-  `;
-
-  document.getElementById("boletim").innerHTML = html;
-}
-
-
-// 🚀 INICIAR
-carregar();
+// iniciar
+carregarAlunos();
 
 </script>
 
