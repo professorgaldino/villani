@@ -2,246 +2,110 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Boletim Escolar</title>
+<title>Boletim Geral</title>
 
 <style>
-body {
-  font-family: Arial;
-  text-align:center;
-  background:#f5f5f5;
-  margin:0;
-  padding:20px;
-}
+body { font-family: Arial; text-align:center; background:#f5f5f5; }
 
-h1 { color:#2259f2; }
-
-img {
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  object-fit:cover;
-  border:4px solid #2259f2;
-  margin-top:10px;
-}
-
-.info {
-  margin-top:10px;
+select {
+  padding:10px;
   font-size:16px;
+  margin-top:20px;
 }
 
-table {
-  width:90%;
-  margin:20px auto;
-  border-collapse:collapse;
-  background:white;
+#lista button {
+  display:block;
+  width:300px;
+  margin:5px auto;
+  padding:10px;
+  border:none;
+  border-radius:5px;
+  background:#eee;
+  cursor:pointer;
 }
 
-th, td {
-  border:1px solid #ccc;
-  padding:8px;
-}
-
-th {
+#lista button:hover {
   background:#2259f2;
   color:white;
-}
-
-.erro {
-  color:red;
-  font-weight:bold;
-  margin-top:20px;
 }
 </style>
 </head>
 
 <body>
 
-<h1 id="nome">Carregando...</h1>
-<img id="foto" src="" alt="Foto do aluno">
+<h1>Boletim Geral</h1>
 
-<div class="info" id="info"></div>
+<select id="sala">
+  <option value="">Selecione a sala</option>
+</select>
 
-<div class="erro" id="erro"></div>
-
-<table id="boletim"></table>
+<div id="lista"></div>
 
 <script>
-
-/* ========= CONFIG ========= */
-
-const NOTAS_ID = "2PACX-1vRWCKugXWiT7nasKa2ntzA3MiKhgPdYnFdVlEhJX652sYj8ABu5h4hFpxYZepwcDjbv-thgb8_Z5zJt";
-const NOTAS_ABA = "notas";
 
 const ALUNOS_ID = "2PACX-1vRErpxipk_S3WA3Ar2ZznvdZidvrvW4ZvHXpf3GGk_MH26-wHdD941VKyqmIcIaWnF0UmNKTNERAlUO";
 const ALUNOS_ABA = "alunos";
 
 /* ========= FETCH ========= */
 
-async function fetchSheet(id, aba) {
-  try {
-    const url = `https://opensheet.elk.sh/${id}/${aba}`;
-    const res = await fetch(url);
-
-    if (!res.ok) throw new Error("Erro ao acessar planilha");
-
-    return await res.json();
-  } catch (e) {
-    document.getElementById("erro").textContent = "Erro ao carregar planilhas.";
-    console.error(e);
-    return [];
-  }
+async function fetchSheet() {
+  const url = `https://opensheet.elk.sh/${ALUNOS_ID}/${ALUNOS_ABA}`;
+  const res = await fetch(url);
+  return await res.json();
 }
 
 /* ========= NORMALIZAR ========= */
 
 function normalizar(txt) {
-  return String(txt)
-    .toUpperCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .trim();
+  return String(txt).toUpperCase().trim();
 }
 
-/* ========= DISCIPLINAS ========= */
-
-function extrairDisciplinas(header) {
-  const keys = Object.keys(header);
-  const disciplinas = [];
-
-  for (let i = 2; i < keys.length; i += 4) {
-    const nome = header[keys[i]];
-    if (nome) {
-      disciplinas.push({
-        nome: nome.split("\n")[0],
-        index: i
-      });
-    }
-  }
-
-  return disciplinas;
-}
-
-/* ========= PARSER SED ========= */
-
-function transformarSED(dados) {
-  if (!dados.length) return [];
-
-  const disciplinas = extrairDisciplinas(dados[0]);
-  const resultado = [];
-
-  dados.forEach(linha => {
-    const keys = Object.keys(linha);
-
-    const nome = linha[keys[0]];
-    const situacao = linha[keys[1]];
-
-    if (!nome || normalizar(nome).includes("ALUNO")) return;
-
-    disciplinas.forEach(d => {
-      const nota = linha[keys[d.index + 1]];
-      const faltas = linha[keys[d.index + 2]];
-
-      resultado.push({
-        nome,
-        disciplina: d.nome,
-        nota,
-        faltas,
-        situacao
-      });
-    });
-  });
-
-  return resultado;
-}
-
-/* ========= BOLETIM ========= */
-
-function montarBoletim(dados, nomeAluno) {
-  const res = {};
-
-  dados
-    .filter(d => normalizar(d.nome) === normalizar(nomeAluno))
-    .forEach(d => {
-      if (!res[d.disciplina]) {
-        res[d.disciplina] = { nota: "-", faltas: "-" };
-      }
-
-      res[d.disciplina].nota = d.nota || "-";
-      res[d.disciplina].faltas = d.faltas || "-";
-    });
-
-  return res;
-}
-
-/* ========= RENDER ========= */
-
-function renderBoletim(boletim) {
-  let html = "<tr><th>Disciplina</th><th>Nota</th><th>Faltas</th></tr>";
-
-  for (const d in boletim) {
-    const nota = boletim[d].nota;
-
-    let cor = "";
-    if (!nota || nota === "-") {
-      cor = "background:#eee;";
-    } else if (!isNaN(nota) && parseFloat(nota) < 5) {
-      cor = "color:red;font-weight:bold;";
-    }
-
-    html += `
-      <tr>
-        <td>${d}</td>
-        <td style="${cor}">${nota}</td>
-        <td>${boletim[d].faltas}</td>
-      </tr>
-    `;
-  }
-
-  document.getElementById("boletim").innerHTML = html;
-}
-
-/* ========= MAIN ========= */
+/* ========= CARREGAR SALAS ========= */
 
 async function iniciar() {
 
-  const params = new URLSearchParams(window.location.search);
-  const ra = params.get("ra");
+  const alunos = await fetchSheet();
 
-  if (!ra) {
-    document.getElementById("erro").textContent = "Use ?ra=NUMERO_DO_RA na URL";
-    return;
-  }
+  const salas = [...new Set(alunos.map(a => a.sala))];
 
-  const alunos = await fetchSheet(ALUNOS_ID, ALUNOS_ABA);
-  const notasRaw = await fetchSheet(NOTAS_ID, NOTAS_ABA);
+  const select = document.getElementById("sala");
 
-  if (!alunos.length || !notasRaw.length) return;
+  salas.forEach(s => {
+    const opt = document.createElement("option");
+    opt.value = s;
+    opt.textContent = s;
+    select.appendChild(opt);
+  });
 
-  const aluno = alunos.find(a => String(a.RA).trim() === String(ra).trim());
+  select.addEventListener("change", () => {
+    carregarLista(alunos, select.value);
+  });
+}
 
-  if (!aluno) {
-    document.getElementById("erro").textContent = "Aluno não encontrado.";
-    return;
-  }
+/* ========= LISTA ========= */
 
-  const notas = transformarSED(notasRaw);
-  const boletim = montarBoletim(notas, aluno.nome);
+function carregarLista(alunos, sala) {
 
-  /* ===== preencher dados ===== */
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
 
-  document.getElementById("nome").textContent = aluno.nome || "Sem nome";
+  const filtrados = alunos
+    .filter(a => normalizar(a.sala) === normalizar(sala))
+    .sort((a, b) => a.nome.localeCompare(b.nome));
 
-  document.getElementById("foto").src =
-    aluno.foto || "https://via.placeholder.com/150";
+  filtrados.forEach((aluno, i) => {
 
-  document.getElementById("info").innerHTML = `
-    <b>RA:</b> ${aluno.RA || "-"} <br>
-    <b>Sala:</b> ${aluno.sala || "-"} <br>
-    <b>Tutor:</b> ${aluno.tutor || "-"} <br>
-    <b>Eletivas:</b> ${aluno.eletiva1 || "-"} / ${aluno.eletiva2 || "-"}
-  `;
+    const btn = document.createElement("button");
 
-  renderBoletim(boletim);
+    btn.textContent = `${i + 1} - ${aluno.nome}`;
+
+    btn.onclick = () => {
+      const url = `boletim.html?sala=${encodeURIComponent(aluno.sala)}&nome=${encodeURIComponent(aluno.nome)}`;
+      window.location.href = url;
+    };
+
+    lista.appendChild(btn);
+  });
 }
 
 iniciar();
