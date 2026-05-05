@@ -1,114 +1,167 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Boletim Geral</title>
+  <meta charset="UTF-8">
+  <title>Boletim Escolar 2</title>
 
-<style>
-body { font-family: Arial; text-align:center; background:#f5f5f5; }
+  <style>
+    body {
+      font-family: Arial;
+      padding: 20px;
+    }
 
-select {
-  padding:10px;
-  font-size:16px;
-  margin-top:20px;
-}
+    .lista button {
+      margin: 4px;
+      padding: 8px;
+      cursor: pointer;
+    }
 
-#lista button {
-  display:block;
-  width:300px;
-  margin:5px auto;
-  padding:10px;
-  border:none;
-  border-radius:5px;
-  background:#eee;
-  cursor:pointer;
-}
+    .boletim {
+      margin-top: 20px;
+      border: 1px solid #ccc;
+      padding: 15px;
+      border-radius: 10px;
+    }
 
-#lista button:hover {
-  background:#2259f2;
-  color:white;
-}
-</style>
+    img {
+      width: 120px;
+      border-radius: 10px;
+    }
+  </style>
 </head>
-
 <body>
 
-<h1>Boletim Geral</h1>
+<h2>📋 Boletim Geral</h2>
 
-<select id="sala">
-  <option value="">Selecione a sala</option>
-</select>
+<div id="lista">Carregando...</div>
 
-<div id="lista"></div>
+<div class="boletim" id="boletim">
+  Clique em um aluno
+</div>
 
 <script>
 
-const ALUNOS_ID = "2PACX-1vRErpxipk_S3WA3Ar2ZznvdZidvrvW4ZvHXpf3GGk_MH26-wHdD941VKyqmIcIaWnF0UmNKTNERAlUO";
-const ALUNOS_ABA = "alunos";
+// 🔗 SEUS WEB APPS
+const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+const URL_NOTAS  = "https://script.google.com/macros/s/AKfycbxV79Zwk5OlhLoHonFAkjFJMgpGi8isFm7diseGns9ey8asfJQ9FCAmRKC2QZ0nKWXQ/exec";
 
-/* ========= FETCH ========= */
+let dados = [];
 
-async function fetchSheet() {
-  const url = `https://opensheet.elk.sh/${ALUNOS_ID}/${ALUNOS_ABA}`;
-  const res = await fetch(url);
-  return await res.json();
-}
-
-/* ========= NORMALIZAR ========= */
+// ==============================
+// 🔧 NORMALIZAR
+// ==============================
 
 function normalizar(txt) {
-  return String(txt).toUpperCase().trim();
+  return String(txt)
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
-/* ========= CARREGAR SALAS ========= */
 
-async function iniciar() {
+// ==============================
+// 🔗 CRUZAR
+// ==============================
 
-  const alunos = await fetchSheet();
+function cruzar(alunos, notas) {
 
-  const salas = [...new Set(alunos.map(a => a.sala))];
+  let mapa = {};
 
-  const select = document.getElementById("sala");
-
-  salas.forEach(s => {
-    const opt = document.createElement("option");
-    opt.value = s;
-    opt.textContent = s;
-    select.appendChild(opt);
+  alunos.forEach(a => {
+    let chave = normalizar(a.nome) + "|" + normalizar(a.sala);
+    mapa[chave] = a;
   });
 
-  select.addEventListener("change", () => {
-    carregarLista(alunos, select.value);
+  let resultado = [];
+
+  notas.forEach(n => {
+
+    let chave = normalizar(n.nome) + "|" + normalizar(n.sala);
+
+    if (mapa[chave]) {
+      resultado.push({
+        nome: n.nome,
+        sala: n.sala,
+        situacao: n.situacao,
+        total: n.total || "",
+        frequencia: n.frequencia || "",
+        foto: mapa[chave].foto || ""
+      });
+    }
+
   });
+
+  return resultado;
 }
 
-/* ========= LISTA ========= */
 
-function carregarLista(alunos, sala) {
+// ==============================
+// 📥 CARREGAR
+// ==============================
 
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
+async function carregar() {
 
-  const filtrados = alunos
-    .filter(a => normalizar(a.sala) === normalizar(sala))
-    .sort((a, b) => a.nome.localeCompare(b.nome));
+  try {
 
-  filtrados.forEach((aluno, i) => {
+    let alunos = await fetch(URL_ALUNOS).then(r => r.json());
+    let notas  = await fetch(URL_NOTAS).then(r => r.json());
 
-    const btn = document.createElement("button");
+    dados = cruzar(alunos, notas);
 
-    btn.textContent = `${i + 1} - ${aluno.nome}`;
+    renderLista();
 
-    btn.onclick = () => {
-      const url = `boletim.html?sala=${encodeURIComponent(aluno.sala)}&nome=${encodeURIComponent(aluno.nome)}`;
-      window.location.href = url;
-    };
-
-    lista.appendChild(btn);
-  });
+  } catch (e) {
+    document.getElementById("lista").innerHTML = "Erro ao carregar dados";
+    console.error(e);
+  }
 }
 
-iniciar();
+
+// ==============================
+// 🔢 LISTA
+// ==============================
+
+function renderLista() {
+
+  let html = "";
+
+  dados.forEach((a, i) => {
+    html += `<button onclick="abrir(${i})">${i+1}</button>`;
+  });
+
+  document.getElementById("lista").innerHTML = html;
+}
+
+
+// ==============================
+// 📄 BOLETIM
+// ==============================
+
+function abrir(i) {
+
+  let a = dados[i];
+
+  let foto = a.foto
+    ? `https://drive.google.com/uc?id=${a.foto}`
+    : "https://via.placeholder.com/120";
+
+  let html = `
+    <h3>${a.nome}</h3>
+    <img src="${foto}">
+    <p><b>Sala:</b> ${a.sala}</p>
+    <p><b>Situação:</b> ${a.situacao}</p>
+    <p><b>Total de Faltas:</b> ${a.total}</p>
+    <p><b>Frequência:</b> ${a.frequencia}</p>
+  `;
+
+  document.getElementById("boletim").innerHTML = html;
+}
+
+
+// 🚀 INICIAR
+carregar();
 
 </script>
 
