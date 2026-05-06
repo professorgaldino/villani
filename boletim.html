@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Boletim Escolar</title>
+<title>Boletim Escolar 2</title>
 
 <style>
 body {
@@ -18,7 +18,7 @@ body {
 
 select {
   padding: 8px;
-  margin: 5px;
+  margin-bottom: 20px;
 }
 
 .aluno {
@@ -67,18 +67,10 @@ th {
 
 <h2>Boletim Escolar</h2>
 
-<!-- SALA -->
 <select id="salaSelect" onchange="carregarDados()">
   <option value="6a">6º A</option>
   <option value="6b">6º B</option>
-</select>
-
-<!-- BIMESTRE -->
-<select id="bimestreSelect" onchange="carregarDados()">
-  <option value="pb">1º Bimestre</option>
-  <option value="sb">2º Bimestre</option>
-  <option value="tb">3º Bimestre</option>
-  <option value="qb">4º Bimestre</option>
+  <option value="6c">6º C</option>
 </select>
 
 <div id="boletim"></div>
@@ -87,76 +79,113 @@ th {
 
 <script>
 
-// 🔗 APP SCRIPT
+// 🔗 SUA API (APP SCRIPT)
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
-// 🔥 NORMALIZADOR
-function normalizar(texto) {
-  return (texto || "")
+// 📚 Bimestres
+const BIMESTRES = ["pb", "sb", "tb", "qb"];
+
+// 🔧 Normaliza texto (ESSENCIAL)
+function normalizar(txt) {
+  return (txt || "")
+    .toString()
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
+    .replace(/º/g, "")
+    .replace(/\s+/g, "")
     .trim();
+}
+
+// 🔄 Ajusta sala (resolve 6º A, 6 A, etc)
+function normalizarSala(sala) {
+  return normalizar(sala);
 }
 
 async function carregarDados() {
 
   const sala = document.getElementById("salaSelect").value;
-  const bimestre = document.getElementById("bimestreSelect").value;
+  const salaNorm = normalizarSala(sala);
 
-  // 🔥 monta nome do arquivo automaticamente
-  const arquivo = `${sala}${bimestre}.json`;
+  console.log("📌 Sala selecionada:", salaNorm);
 
   try {
-
+    // 🔹 busca alunos
     const resAlunos = await fetch(URL_ALUNOS);
     const alunos = await resAlunos.json();
 
-    let notas = {};
+    console.log("👥 Alunos carregados:", alunos.length);
 
-    try {
-      const resNotas = await fetch(arquivo);
-      notas = await resNotas.json();
-    } catch {
-      console.warn("Arquivo não encontrado:", arquivo);
+    // 🔹 filtra alunos da sala
+    const alunosSala = alunos.filter(a =>
+      normalizarSala(a.sala) === salaNorm
+    );
+
+    console.log("🎯 Alunos da sala:", alunosSala.length);
+
+    // 🔹 tenta carregar TODOS os bimestres
+    const dadosBimestres = [];
+
+    for (let b of BIMESTRES) {
+      const arquivo = `${salaNorm}${b}.json`;
+
+      try {
+        const res = await fetch(arquivo);
+
+        if (!res.ok) throw new Error("não existe");
+
+        const json = await res.json();
+
+        console.log("✅ JSON carregado:", arquivo);
+
+        dadosBimestres.push(json);
+
+      } catch {
+        console.warn("⚠️ JSON não encontrado:", arquivo);
+      }
     }
 
-    montarBoletim(alunos, notas, sala);
+    montarBoletim(alunosSala, dadosBimestres);
 
   } catch (erro) {
-    console.error("Erro geral:", erro);
+    console.error("❌ Erro geral:", erro);
   }
 }
 
-function montarBoletim(alunos, notas, salaSelecionada) {
+function montarBoletim(alunos, listaBimestres) {
 
   const container = document.getElementById("boletim");
   container.innerHTML = "";
 
-  // 🔥 mapa de notas por nome
-  const mapaNotas = {};
+  // 🔹 junta todos os JSONs
+  const notasPorNome = {};
 
-  for (let key in notas) {
-    const alunoNota = notas[key];
+  listaBimestres.forEach(json => {
+    for (let key in json) {
+      const aluno = json[key];
+      if (!aluno.nome) continue;
 
-    if (!alunoNota.nome || !alunoNota.disciplinas) continue;
+      const nome = normalizar(aluno.nome);
 
-    const nome = normalizar(alunoNota.nome);
-    mapaNotas[nome] = alunoNota;
-  }
+      if (!notasPorNome[nome]) {
+        notasPorNome[nome] = aluno;
+      } else {
+        // 🔥 mescla disciplinas
+        Object.assign(
+          notasPorNome[nome].disciplinas,
+          aluno.disciplinas
+        );
+      }
+    }
+  });
 
-  const alunosSala = alunos.filter(a =>
-    normalizar(a.sala) === normalizar(salaSelecionada)
-  );
-
-  alunosSala.forEach(aluno => {
+  alunos.forEach(aluno => {
 
     const nome = normalizar(aluno.nome);
-    const dadosNota = mapaNotas[nome];
+    const dados = notasPorNome[nome];
 
-    // 🔥 só mostra se tiver nota
-    if (!dadosNota || Object.keys(dadosNota.disciplinas).length === 0) {
+    if (!dados) {
+      console.warn("❌ Sem nota:", aluno.nome);
       return;
     }
 
@@ -164,14 +193,14 @@ function montarBoletim(alunos, notas, salaSelecionada) {
     div.className = "aluno";
 
     div.innerHTML = `
-      <img src="${aluno.foto || 'https://via.placeholder.com/100'}" />
+      <img src="${aluno.foto || 'https://via.placeholder.com/100'}">
 
       <div class="info">
         <strong>${aluno.nome}</strong><br>
-        RA: ${aluno.ra || "-"}<br>
-        Nº: ${aluno.numero || "-"}<br>
+        RA: ${aluno.ra}<br>
+        Tutor: ${aluno.tutor || "-"}<br>
 
-        ${gerarTabela(dadosNota.disciplinas)}
+        ${gerarTabela(dados.disciplinas)}
       </div>
     `;
 
@@ -185,24 +214,25 @@ function gerarTabela(disciplinas) {
     <table>
       <tr>
         <th>Disciplina</th>
-        <th>Nota</th>
+        <th>1º</th>
+        <th>2º</th>
+        <th>3º</th>
+        <th>4º</th>
         <th>Faltas</th>
       </tr>
   `;
 
   for (let nome in disciplinas) {
-
     const d = disciplinas[nome];
-
-    // 🔥 pega apenas o bimestre atual (primeira posição com valor)
-    const nota = d.notas.find(n => n !== "-") || "-";
-    const falta = d.faltas.find(f => f !== "-") || "-";
 
     html += `
       <tr>
         <td>${nome}</td>
-        <td>${nota}</td>
-        <td>${falta}</td>
+        <td>${d.notas[0]}</td>
+        <td>${d.notas[1]}</td>
+        <td>${d.notas[2]}</td>
+        <td>${d.notas[3]}</td>
+        <td>${d.faltas_acumuladas}</td>
       </tr>
     `;
   }
@@ -212,6 +242,7 @@ function gerarTabela(disciplinas) {
   return html;
 }
 
+// 🚀 inicia
 carregarDados();
 
 </script>
