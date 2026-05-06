@@ -1,330 +1,319 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Consulta de Alunos</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boletim Escolar 1</title>
 
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Inter', sans-serif;
-}
-
 body {
-  background: linear-gradient(135deg, #eef2ff, #f8fafc);
-  padding: 30px;
-  color: #1f2937;
+    font-family: Arial;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 10px;
 }
 
 .container {
-  max-width: 1000px;
-  margin: auto;
+    max-width: 1200px;
+    margin: auto;
 }
 
-h2 {
-  text-align: center;
-  margin-bottom: 20px;
-  font-weight: 600;
-}
-
-.search-box {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-input {
-  flex: 1;
-  padding: 10px 12px;
-  border-radius: 10px;
-  border: 1px solid #e5e7eb;
-  transition: 0.2s;
-}
-
-input:focus {
-  outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 2px rgba(99,102,241,0.15);
-}
-
-button {
-  padding: 10px 16px;
-  border-radius: 10px;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.2s;
-}
-
-button:hover {
-  transform: translateY(-1px);
-}
-
-.search-btn {
-  background: #6366f1;
-  color: white;
-}
-
-.search-btn:hover {
-  background: #4f46e5;
+select {
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 16px;
 }
 
 .aluno {
-  background: white;
-  padding: 15px;
-  margin-bottom: 12px;
-  border-radius: 14px;
-  display: flex;
-  gap: 15px;
-  align-items: center;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-  transition: 0.2s;
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    align-items: flex-start;
 }
 
-.aluno:hover {
-  transform: translateY(-2px);
-}
-
-.foto {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-  border: 2px solid #e5e7eb;
+.aluno img {
+    width: 85px;
+    height: 85px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    cursor: pointer;
 }
 
 .sem-foto {
-  width: 65px;
-  height: 65px;
-  border-radius: 50%;
-  background: #f3f4f6;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  color: #ef4444;
-  font-weight: bold;
+    width: 85px;
+    height: 85px;
+    border-radius: 10px;
+    background: #f1f1f1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: #999;
 }
 
-.aluno strong {
-  font-size: 15px;
+.info {
+    flex: 1;
+    font-size: 14px;
 }
 
-.aluno div {
-  font-size: 13px;
-  line-height: 1.4;
+/* tabela responsiva */
+.table-wrapper {
+    overflow-x: auto;
+    margin-top: 8px;
 }
 
-.paginacao {
-  text-align: center;
-  margin-top: 20px;
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
 }
 
-.paginacao button {
-  background: #f3f4f6;
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+    font-size: 13px;
 }
 
-.paginacao button:hover {
-  background: #e5e7eb;
+th {
+    background: #0077cc;
+    color: white;
 }
 
-#pagina {
-  margin: 0 10px;
-  font-weight: 500;
+/* mobile */
+@media (max-width: 768px) {
+    .aluno {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    table {
+        min-width: 500px;
+    }
 }
 
-/* POPUP */
+/* POPUP FOTO */
 .popup {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
+    display: none;
+    position: fixed;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.85);
+    justify-content: center;
+    align-items: center;
 }
 
 .popup img {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  border-radius: 12px;
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 10px;
 }
 
 .fechar {
-  position: absolute;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
-  cursor: pointer;
-  opacity: 0.7;
-}
-
-.fechar:hover {
-  opacity: 1;
-}
-
-@media (max-width: 600px) {
-  .search-box {
-    flex-direction: column;
-  }
-
-  .aluno {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    color: white;
+    cursor: pointer;
 }
 </style>
+
 </head>
 
 <body>
+
 <div class="container">
-  <h2>🔍 Consulta de Alunos</h2>
+    <h2>Boletim Escolar</h2>
 
-  <div class="search-box">
-    <input type="text" id="busca" placeholder="Pesquisar qualquer campo">
-    <button class="search-btn" onclick="buscar()">Buscar</button>
-  </div>
+    <select id="salaSelect" onchange="carregarDados()">
+        <option value="6a">6º A</option>
+        <option value="6b">6º B</option>
+        <option value="6c">6º C</option>
+        <option value="7a">7º A</option>
+        <option value="7b">7º B</option>
+    </select>
 
-  <div id="resultado"></div>
-
-  <div class="paginacao">
-    <button onclick="anterior()">⬅</button>
-    <span id="pagina"></span>
-    <button onclick="proximo()">➡</button>
-  </div>
+    <div id="boletim"></div>
 </div>
 
 <!-- POPUP -->
 <div id="popup" class="popup" onclick="fecharPopup(event)">
-  <span class="fechar" onclick="fecharPopup(event)">×</span>
-  <img id="imgPopup">
+    <span class="fechar">×</span>
+    <img id="imgPopup">
 </div>
 
 <script>
-const url = "https://script.google.com/macros/s/AKfycbxxbE3LiV3p2hPIegaqyqadlOzUqCwWkJDRHbKhkcR7sTyWX6VqWZ-5m577AB1ictRYVg/exec";
 
-let dados = [];
-let filtrados = [];
-let paginaAtual = 1;
-const porPagina = 5;
+const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
+const SALAS = {
+    "6a": "6apb.json",
+    "6b": "6bpb.json",
+    "6c": "6cpb.json",
+    "7a": "7apb.json",
+    "7b": "7bpb.json"
+};
+
+// 🔥 normalizador
+function normalizar(texto) {
+    return (texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+/* =========================
+   📸 FOTO (NOVA ESTRATÉGIA)
+========================= */
 function montarFoto(id) {
-  if (!id) return null;
-  id = String(id).trim();
-  if (id.length < 10) return null;
-  return "https://lh3.googleusercontent.com/d/" + id;
+    if (!id) return null;
+
+    id = String(id).trim();
+
+    if (id.length < 10) return null;
+
+    return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-function formatarData(dataStr) {
-  if (!dataStr) return '-';
-  const d = new Date(dataStr);
-  if (isNaN(d)) return dataStr;
-  const dia = String(d.getDate()).padStart(2, '0');
-  const mes = String(d.getMonth() + 1).padStart(2, '0');
-  const ano = d.getFullYear();
-  return `${dia}/${mes}/${ano}`;
+function erroFoto(nome, url) {
+    console.error("❌ ERRO FOTO");
+    console.error("Aluno:", nome);
+    console.error("ID recebido:", url);
 }
 
-function carregar() {
-  fetch(url)
-    .then(r => r.json())
-    .then(data => {
-      dados = data;
-      filtrados = data;
-      renderizar();
+/* ========================= */
+
+async function carregarDados() {
+    const sala = document.getElementById("salaSelect").value;
+
+    try {
+        const resAlunos = await fetch(URL_ALUNOS);
+        const alunos = await resAlunos.json();
+
+        const resNotas = await fetch(SALAS[sala]);
+        const notas = await resNotas.json();
+
+        montarBoletim(alunos, notas, sala);
+
+    } catch (e) {
+        console.error("Erro geral:", e);
+    }
+}
+
+function montarBoletim(alunos, notas, salaSelecionada) {
+    const container = document.getElementById("boletim");
+    container.innerHTML = "";
+
+    const notasPorNome = {};
+
+    for (let key in notas) {
+        const a = notas[key];
+        if (!a?.nome) continue;
+
+        notasPorNome[normalizar(a.nome)] = a;
+    }
+
+    const alunosSala = alunos.filter(a =>
+        normalizar(a.sala) === normalizar(salaSelecionada)
+    );
+
+    alunosSala.forEach(aluno => {
+
+        const dados = notasPorNome[normalizar(aluno.nome)];
+        if (!dados) return;
+
+        const fotoFinal = montarFoto(aluno.foto);
+
+        if (!fotoFinal) {
+            erroFoto(aluno.nome, aluno.foto);
+        }
+
+        const fotoHTML = fotoFinal
+            ? `<img src="${fotoFinal}" onclick="abrirPopup('${fotoFinal}')">`
+            : `<div class="sem-foto">❌</div>`;
+
+        const div = document.createElement("div");
+        div.className = "aluno";
+
+        div.innerHTML = `
+            ${fotoHTML}
+
+            <div class="info">
+                <strong>${aluno.nome}</strong><br>
+                RA: ${aluno.ra || '-'}<br>
+                Tutor: ${aluno.tutor || '-'}
+
+                <div class="table-wrapper">
+                    ${gerarTabela(dados.disciplinas)}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(div);
     });
 }
 
-function buscar() {
-  const valor = document.getElementById("busca").value.toLowerCase().trim();
-  if (!valor) {
-    filtrados = dados;
-  } else {
-    filtrados = dados.filter(a => {
-      return Object.keys(a).some(k => {
-        return String(a[k] || "").toLowerCase().includes(valor);
-      });
-    });
-  }
-  paginaAtual = 1;
-  renderizar();
-}
+function gerarTabela(disciplinas) {
+    if (!disciplinas) return "<p style='color:red'>Sem disciplinas</p>";
 
-function renderizar() {
-  const inicio = (paginaAtual - 1) * porPagina;
-  const paginaDados = filtrados.slice(inicio, inicio + porPagina);
-
-  const div = document.getElementById("resultado");
-  div.innerHTML = "";
-
-  if (paginaDados.length === 0) {
-    div.innerHTML = "❌ Nenhum resultado encontrado";
-    return;
-  }
-
-  paginaDados.forEach(a => {
-    const foto = montarFoto(a.foto);
-    const fotoHTML = foto
-      ? `<img class="foto" src="${foto}" onclick="abrirPopup('${foto}')">`
-      : `<div class="sem-foto">❌</div>`;
-
-    div.innerHTML += `
-      <div class="aluno">
-        ${fotoHTML}
-        <div>
-          <strong>${a.nome}</strong><br>
-          RA: ${a.ra}<br>
-          Data: ${formatarData(a.data)}<br>
-          Nascimento: ${formatarData(a.nascimento)}<br>
-          Sala: ${a.sala}<br>
-          Tutor: ${a.tutor}<br>
-          Eletiva1: ${a.eletiva1 || '-'}<br>
-          Eletiva2: ${a.eletiva2 || '-'}
-        </div>
-      </div>
+    let html = `
+    <table>
+        <tr>
+            <th>Disciplina</th>
+            <th>Chamada</th>
+            <th>Média</th>
+            <th>Faltas</th>
+            <th>Acumulado</th>
+        </tr>
     `;
-  });
 
-  document.getElementById("pagina").innerText =
-    "Página " + paginaAtual + " de " + Math.ceil(filtrados.length / porPagina);
+    for (let nome in disciplinas) {
+        const d = disciplinas[nome];
+
+        html += `
+        <tr>
+            <td>${nome.replaceAll("_", " ")}</td>
+            <td>${d.numero ?? "-"}</td>
+            <td>${d.media ?? "-"}</td>
+            <td>${d.faltas ?? "-"}</td>
+            <td>${d.acumulado ?? "-"}</td>
+        </tr>
+        `;
+    }
+
+    html += "</table>";
+    return html;
 }
 
-function proximo() {
-  if (paginaAtual < Math.ceil(filtrados.length / porPagina)) {
-    paginaAtual++;
-    renderizar();
-  }
-}
-
-function anterior() {
-  if (paginaAtual > 1) {
-    paginaAtual--;
-    renderizar();
-  }
-}
-
+/* =========================
+   POPUP FOTO
+========================= */
 function abrirPopup(src) {
-  document.getElementById("popup").style.display = "flex";
-  document.getElementById("imgPopup").src = src;
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("imgPopup").src = src;
 }
 
 function fecharPopup(e) {
-  if (e.target.tagName === "IMG") return;
-  document.getElementById("popup").style.display = "none";
+    if (e.target.tagName === "IMG") return;
+    document.getElementById("popup").style.display = "none";
 }
 
-carregar();
+carregarDados();
+
 </script>
+
 </body>
 </html>
