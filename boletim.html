@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 7</title>
+<title>Boletim Escolar 8</title>
 
 <style>
 body {
@@ -40,6 +40,7 @@ select {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* FOTO */
 .foto {
     width: 90px;
     height: 90px;
@@ -59,14 +60,16 @@ select {
     border-radius: 10px;
 }
 
+/* INFO */
 .info {
     flex: 1;
     font-size: 14px;
 }
 
+/* DISCIPLINAS */
 .disciplina {
-    margin-top: 8px;
-    padding-bottom: 5px;
+    margin-top: 6px;
+    padding-bottom: 4px;
     border-bottom: 1px solid #eee;
 }
 </style>
@@ -93,38 +96,61 @@ select {
 
 <script>
 
+const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+
 let URL_NOTAS = "6apb.json";
+
+let alunos = [];
 let notas = {};
 
-// FOTO
+// 📸 FOTO
 function montarFoto(id) {
     if (!id) return null;
+    id = String(id).trim();
+    if (id.length < 10) return null;
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// VALOR
+// 🔢 VALOR
 function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// CARREGAR
+// 📥 CARREGAR DADOS
 async function carregar() {
-    const res = await fetch(URL_NOTAS);
-    notas = await res.json();
-    montar();
+    try {
+        const resAlunos = await fetch(URL_ALUNOS);
+        alunos = await resAlunos.json();
+
+        const resNotas = await fetch(URL_NOTAS);
+        notas = await resNotas.json();
+
+        montar();
+
+    } catch (e) {
+        console.error("❌ ERRO:", e);
+    }
 }
 
-// PRINCIPAL
+// 📊 MONTA BOLETIM (COM FOTO CORRETA)
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
-    const alunos = Object.values(notas);
-
+    // 🔥 MAPA DE ALUNOS (para foto + RA)
+    const mapaAlunos = {};
     alunos.forEach(a => {
+        mapaAlunos[a.nome] = a;
+    });
 
-        const foto = montarFoto(a.foto);
+    const lista = Object.values(notas);
+
+    lista.forEach(a => {
+
+        const alunoBase = mapaAlunos[a.nome];
+
+        const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
         const fotoHTML = foto
             ? `<img class="foto" src="${foto}">`
@@ -172,7 +198,7 @@ function montar() {
     });
 }
 
-// TROCA DE SALA
+// 🔁 TROCA DE SALA
 document.getElementById("salaSelect").addEventListener("change", e => {
     URL_NOTAS = e.target.value;
     carregar();
