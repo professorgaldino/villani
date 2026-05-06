@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Unificado Correto</title>
+<title>Boletim Escolar Completo</title>
 
 <style>
 body {
@@ -85,6 +85,7 @@ th {
     color: white;
 }
 
+/* vazio = roxo */
 .vazio {
     background: #e8ddff;
 }
@@ -97,7 +98,7 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim Unificado</h2>
+    <h2>📊 Boletim Completo</h2>
 
     <select id="salaSelect">
         <option value="6apb.json">6º Ano A</option>
@@ -117,7 +118,7 @@ const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyz
 let URL_NOTAS = "6apb.json";
 
 let alunos = [];
-let notasAtual = {};
+let notas = {};
 
 // 📸 FOTO
 function montarFoto(id) {
@@ -125,39 +126,49 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
-// 🔢 VALOR
+// 🔤 NORMALIZAR NOME (ESSENCIAL)
+function normalizar(t) {
+    return (t || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .trim();
+}
+
+// 🔢 VALOR SEGURO
 function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📥 CARREGAR
+// 📥 CARREGAR DADOS
 async function carregar() {
 
     const resAlunos = await fetch(URL_ALUNOS);
     alunos = await resAlunos.json();
 
     const resNotas = await fetch(URL_NOTAS);
-    notasAtual = await resNotas.json();
+    notas = await resNotas.json();
 
     montar();
 }
 
-// 📊 MERGE CORRETO (SEM QUEBRAR)
+// 📊 MONTA BOLETIM (CORRIGIDO DEFINITIVO)
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
+    // 📌 MAPA DE ALUNOS (RA + TUTOR + FOTO)
     const mapaAlunos = {};
     alunos.forEach(a => {
-        mapaAlunos[a.nome] = a;
+        mapaAlunos[normalizar(a.nome)] = a;
     });
 
-    const lista = Object.values(notasAtual);
+    const lista = Object.values(notas);
 
     lista.forEach(a => {
 
-        const alunoBase = mapaAlunos[a.nome];
+        const alunoBase = mapaAlunos[normalizar(a.nome)];
 
         const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
@@ -193,7 +204,9 @@ function montar() {
             <div class="info">
 
                 <strong>${a.nome}</strong><br>
-                RA: ${v(a.numero)}<br>
+
+                RA: ${alunoBase?.ra || '-'}<br>
+                Tutor: ${alunoBase?.tutor || '-'}<br>
                 Situação: ${v(a.situacao)}<br>
 
                 <table>
@@ -220,7 +233,7 @@ function montar() {
     });
 }
 
-// 🔁 SALA
+// 🔁 TROCA DE SALA
 document.getElementById("salaSelect").addEventListener("change", e => {
     URL_NOTAS = e.target.value;
     carregar();
