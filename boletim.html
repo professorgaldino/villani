@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 10</title>
+<title>DEBUG Boletim Escolar</title>
 
 <style>
 body {
@@ -29,7 +29,6 @@ select {
     border-radius: 6px;
 }
 
-/* CARD */
 .aluno {
     background: white;
     border-radius: 12px;
@@ -40,7 +39,6 @@ select {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* FOTO */
 .foto {
     width: 90px;
     height: 90px;
@@ -60,13 +58,11 @@ select {
     border-radius: 10px;
 }
 
-/* INFO */
 .info {
     flex: 1;
     font-size: 14px;
 }
 
-/* TABELA */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -89,12 +85,17 @@ th {
     background: #e8ddff;
 }
 
-/* ELETIVAS APPSCRIPT */
-.eletivas-box {
-    margin-top: 8px;
-    padding: 8px;
-    background: #f3e8ff;
+/* 🔥 JSON BRUTO VISUAL */
+#jsonDebug {
+    background: #111;
+    color: #00ff88;
+    padding: 10px;
+    font-size: 11px;
+    white-space: pre-wrap;
+    margin-bottom: 15px;
     border-radius: 8px;
+    max-height: 300px;
+    overflow: auto;
 }
 </style>
 
@@ -105,7 +106,7 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim Completo</h2>
+    <h2>🧪 DEBUG BOLETIM</h2>
 
     <select id="salaSelect">
         <option value="6apb.json">6º Ano A</option>
@@ -113,6 +114,9 @@ th {
         <option value="8apb.json">8º Ano A</option>
     </select>
 </div>
+
+<!-- 🔥 AQUI VAI O JSON BRUTO -->
+<div id="jsonDebug"></div>
 
 <div id="boletim"></div>
 
@@ -133,7 +137,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
-// 🔤 NORMALIZAR NOME
+// 🔤 NORMALIZAR
 function normalizar(t) {
     return (t || "")
         .toLowerCase()
@@ -142,20 +146,8 @@ function normalizar(t) {
         .trim();
 }
 
-// 🔢 VALOR SEGURO
 function v(x) {
     return (x === null || x === undefined) ? "-" : x;
-}
-
-// ✔ CORREÇÃO DEFINITIVA DAS ELETIVAS (MINÚSCULO + VARIAÇÕES)
-function isEletivaApp(nome) {
-    const n = (nome || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[_\s-]/g, "");
-
-    return n.includes("eletiva1") || n.includes("eletiva2");
 }
 
 // 📥 CARREGAR
@@ -166,6 +158,11 @@ async function carregar() {
 
     const resNotas = await fetch(URL_NOTAS);
     notas = await resNotas.json();
+
+    // 🔥 MOSTRA JSON BRUTO NA TELA
+    document.getElementById("jsonDebug").textContent =
+        "🧾 JSON BRUTO (APPSCRIPT)\n--------------------------------\n"
+        + JSON.stringify(notas, null, 2);
 
     montar();
 }
@@ -188,89 +185,50 @@ function montar() {
         const alunoBase = mapaAlunos[normalizar(a.nome)];
         const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
-        const fotoHTML = foto
-            ? `<img class="foto" src="${foto}">`
-            : `<div class="sem-foto">❌</div>`;
-
         let disciplinasHTML = "";
-        let eletivasAppHTML = "";
 
         for (let nome in a.disciplinas) {
 
             const d = a.disciplinas[nome];
 
-            const media = v(d.numero);
-            const faltas = v(d.media);
-            const acum = v(d.faltas);
-
-            const nomeFormatado = nome.replaceAll("_"," ");
-
-            // 📘 ELETIVAS DO APPSCRIPT (AGORA FUNCIONA MINÚSCULO)
-            if (isEletivaApp(nome)) {
-                eletivasAppHTML += `
-                    📘 ${nomeFormatado} →
-                    Média: ${media} | Faltas: ${faltas}<br>
-                `;
-                continue;
-            }
-
-            // 📊 DISCIPLINAS NORMAIS
             disciplinasHTML += `
             <tr>
-                <td>${nomeFormatado}</td>
-                <td class="${media==='-'?'vazio':''}">${media}</td>
-                <td class="${faltas==='-'?'vazio':''}">${faltas}</td>
-                <td>${acum}</td>
-            </tr>
-            `;
+                <td>${nome}</td>
+                <td>${v(d.numero)}</td>
+                <td>${v(d.media)}</td>
+                <td>${v(d.faltas)}</td>
+            </tr>`;
         }
 
         box.innerHTML += `
         <div class="aluno">
 
-            ${fotoHTML}
+            ${foto ? `<img class="foto" src="${foto}">` : `<div class="sem-foto">❌</div>`}
 
             <div class="info">
 
                 <strong>${a.nome}</strong><br>
-
                 RA: ${alunoBase?.ra || '-'}<br>
                 Tutor: ${alunoBase?.tutor || '-'}<br>
-
-                ${eletivasAppHTML ? `
-                <div class="eletivas-box">
-                    <strong>📘 Eletivas do Aluno</strong><br>
-                    ${eletivasAppHTML}
-                </div>
-                ` : ''}
-
-                Situação: ${v(a.situacao)}<br>
 
                 <table>
                     <tr>
                         <th>Disciplina</th>
+                        <th>Chamada</th>
                         <th>Média</th>
                         <th>Faltas</th>
-                        <th>Acum.</th>
                     </tr>
 
                     ${disciplinasHTML}
                 </table>
 
-                <br>
-
-                📌 Faltas acumuladas: ${v(a.totais?.faltas_acumuladas)}<br>
-                📊 Frequência: ${v(a.totais?.frequencia)}%<br>
-                📌 Faltas anual: ${v(a.totais?.faltas_anual)}<br>
-                📊 Frequência anual: ${v(a.totais?.frequencia_anual)}%
             </div>
-
         </div>
         `;
     });
 }
 
-// 🔁 TROCA DE SALA
+// 🔁 SALA
 document.getElementById("salaSelect").addEventListener("change", e => {
     URL_NOTAS = e.target.value;
     carregar();
