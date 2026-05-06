@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 15</title>
+<title>Boletim Escolar 16</title>
 
 <style>
 
@@ -1013,12 +1013,51 @@ function montarTabelaUnica(nomeAluno){
 }
 
 // MONTAR OCORRÊNCIAS
-function montarOcorrencias(nomeAluno){
+function montarOcorrencias(nomeAluno, raAluno){
+
+    const raLimpo = String(raAluno || "")
+        .replace(/\D/g,'');
 
     const lista = ocorrencias.filter(o => {
 
-        return normalizar(o.nome) ===
-               normalizar(nomeAluno);
+        // NOME
+        const nomeOK =
+            normalizar(
+                o.nome ||
+                o.Nome ||
+                ""
+            ) === normalizar(nomeAluno);
+
+        // RA DA OCORRÊNCIA
+        const raOcorrencia = String(
+
+            o.ra ||
+            o.RA ||
+            o.registro ||
+            o.raAluno ||
+            o["RA"] ||
+            ""
+
+        ).replace(/\D/g,'');
+
+        // REMOVE ZEROS
+        const raFinal =
+            raOcorrencia.replace(/^0+/,'');
+
+        const raAlunoFinal =
+            raLimpo.replace(/^0+/,'');
+
+        const raOK =
+            raFinal === raAlunoFinal;
+
+        // PRIORIDADE PARA RA
+        if(raAlunoFinal){
+
+            return raOK;
+        }
+
+        // FALLBACK PARA NOME
+        return nomeOK;
 
     });
 
@@ -1050,15 +1089,29 @@ function montarOcorrencias(nomeAluno){
 
             <div class="ocorrencia-data">
 
-                📅 ${o.dataRegistro || "-"}
+                📅 ${
+                    o.dataRegistro ||
+                    o.data ||
+                    "-"
+                }
+
                 |
-                ⏰ ${o.horaRegistro || "-"}
+
+                ⏰ ${
+                    o.horaRegistro ||
+                    o.hora ||
+                    "-"
+                }
 
             </div>
 
             <div class="ocorrencia-prof">
 
-                👨‍🏫 ${o.professor || "-"}
+                👨‍🏫 ${
+                    o.professor ||
+                    o.Professor ||
+                    "-"
+                }
 
             </div>
 
@@ -1068,7 +1121,12 @@ function montarOcorrencias(nomeAluno){
                 Descrição:
             </strong><br>
 
-            ${o.descricao || "-"}
+            ${
+                o.descricao ||
+                o.ocorrencia ||
+                o.relato ||
+                "-"
+            }
 
             <br><br>
 
@@ -1076,7 +1134,11 @@ function montarOcorrencias(nomeAluno){
                 Ação:
             </strong><br>
 
-            ${o.acao || "-"}
+            ${
+                o.acao ||
+                o.status ||
+                "-"
+            }
 
         </div>
         `;
@@ -1086,7 +1148,6 @@ function montarOcorrencias(nomeAluno){
 
     return html;
 }
-
 // NAVEGAÇÃO
 function montarNavegacao(){
 
@@ -1187,7 +1248,7 @@ function mostrarAluno(index){
 
             ${montarTabelaUnica(a.nome)}
 
-            ${montarOcorrencias(a.nome)}
+            ${montarOcorrencias(a.nome, alunoBase?.ra)}
 
         </div>
 
