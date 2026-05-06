@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar Final</title>
+<title>Boletim Escolar 11</title>
 
 <style>
 body {
@@ -91,7 +91,7 @@ th {
 
 .eletiva-box {
     margin-top: 6px;
-    padding: 6px;
+    padding: 8px;
     background: #f3e8ff;
     border-radius: 8px;
 }
@@ -202,13 +202,20 @@ function montar() {
             `;
         }
 
-        // 📌 eletivas apps script
+        // 📘 ELETIVAS APP SCRIPT (COM NOMES CORRIGIDOS)
         if (alunoBase?.eletiva1 || alunoBase?.eletiva2) {
+
             eletivasApp = `
             <div class="eletiva-box">
+
                 <strong>📘 Eletivas</strong><br>
-                E1: ${alunoBase?.eletiva1 || "-"}<br>
-                E2: ${alunoBase?.eletiva2 || "-"}
+
+                <span class="${!alunoBase?.eletiva1 ? 'vazio' : ''}">
+                Eletiva 1° Semestre: ${alunoBase?.eletiva1 || "-"}</span><br>
+
+                <span class="${!alunoBase?.eletiva2 ? 'vazio' : ''}">
+                Eletiva 2° Semestre: ${alunoBase?.eletiva2 || "-"}</span>
+
             </div>
             `;
         }
