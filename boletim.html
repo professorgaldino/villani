@@ -181,6 +181,449 @@ th{
 
 <!-- NAVEGAÇÃO -->
 <div id="navegacaoAlunos" class="navegacao-alunos"></div>
+<!-- ===================================================== -->
+<!-- COLE TUDO ISSO LOGO ABAIXO DA NAVEGAÇÃO DOS ALUNOS -->
+<!-- ABAIXO DE: -->
+<!-- <div id="navegacaoAlunos" class="navegacao-alunos"></div> -->
+<!-- ===================================================== -->
+
+<div style="margin-bottom:15px;">
+
+    <button onclick="abrirDashboard()" style="
+        padding:10px 18px;
+        border:none;
+        border-radius:8px;
+        background:#6f42c1;
+        color:white;
+        font-weight:bold;
+        cursor:pointer;
+    ">
+        📊 Dashboard da Sala
+    </button>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- CHART JS -->
+<!-- COLE ANTES DO <script> PRINCIPAL -->
+<!-- ===================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ===================================================== -->
+<!-- POPUP DASHBOARD -->
+<!-- COLE ACIMA DO </body> -->
+<!-- ===================================================== -->
+
+<div id="popupDashboard" style="
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    z-index:9999;
+    overflow:auto;
+">
+
+    <div style="
+        background:white;
+        width:95%;
+        max-width:1400px;
+        margin:30px auto;
+        border-radius:12px;
+        padding:20px;
+        position:relative;
+    ">
+
+        <button onclick="fecharDashboard()" style="
+            position:absolute;
+            top:15px;
+            right:15px;
+            border:none;
+            background:red;
+            color:white;
+            width:40px;
+            height:40px;
+            border-radius:50%;
+            font-size:18px;
+            cursor:pointer;
+        ">
+            X
+        </button>
+
+        <h2>📊 Dashboard da Sala</h2>
+
+        <div style="margin:15px 0;">
+
+            <label>
+                Bimestre:
+            </label>
+
+            <select id="dashboardBimestre"
+                onchange="gerarDashboard()">
+
+                <option value="1">
+                    1º Bimestre
+                </option>
+
+                <option value="2">
+                    2º Bimestre
+                </option>
+
+                <option value="3">
+                    3º Bimestre
+                </option>
+
+                <option value="4">
+                    4º Bimestre
+                </option>
+
+            </select>
+
+        </div>
+
+        <div id="dashboardConteudo"></div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- COLE ACIMA DA PARTE: -->
+<!-- // TROCAR SÉRIE -->
+<!-- ===================================================== -->
+
+<script>
+
+/* ========================= */
+/* DASHBOARD */
+/* ========================= */
+
+let graficoDashboard = null;
+
+// ABRIR
+function abrirDashboard(){
+
+    document.getElementById(
+        "popupDashboard"
+    ).style.display = "block";
+
+    gerarDashboard();
+}
+
+// FECHAR
+function fecharDashboard(){
+
+    document.getElementById(
+        "popupDashboard"
+    ).style.display = "none";
+}
+
+// GERAR DASHBOARD
+function gerarDashboard(){
+
+    const bimestre = Number(
+        document.getElementById(
+            "dashboardBimestre"
+        ).value
+    );
+
+    const dados = dadosBimestres[bimestre];
+
+    const box =
+        document.getElementById(
+            "dashboardConteudo"
+        );
+
+    if(!dados){
+
+        box.innerHTML = `
+        <div class="nao-lancado">
+            Bimestre não lançado
+        </div>
+        `;
+
+        return;
+    }
+
+    const disciplinas = {};
+
+    const alunosRisco = [];
+
+    const alunosSemNota = [];
+
+    Object.values(dados).forEach(aluno => {
+
+        let qtdNotasBaixas = 0;
+
+        for(let disc in aluno.disciplinas){
+
+            const d =
+                aluno.disciplinas[disc];
+
+            if(!disciplinas[disc]){
+
+                disciplinas[disc] = {
+                    boas:0,
+                    ruins:0,
+                    sem:0
+                };
+            }
+
+            const nota =
+                Number(d.numero);
+
+            if(
+                d.numero === "-" ||
+                d.numero === "" ||
+                d.numero === null ||
+                isNaN(nota)
+            ){
+
+                disciplinas[disc].sem++;
+
+                alunosSemNota.push(
+                    `${aluno.nome} - ${disc}`
+                );
+
+            }else if(nota < 5){
+
+                disciplinas[disc].ruins++;
+
+                qtdNotasBaixas++;
+
+            }else{
+
+                disciplinas[disc].boas++;
+            }
+        }
+
+        if(qtdNotasBaixas >= 4){
+
+            alunosRisco.push(
+                aluno.nome
+            );
+        }
+    });
+
+    // TABELA
+    let tabelaVermelhos = `
+    <h3>
+        🔴 Disciplinas com Notas Baixas
+    </h3>
+
+    <table>
+
+        <tr>
+            <th>Disciplina</th>
+            <th>Notas ≥ 5</th>
+            <th>Notas < 5</th>
+            <th>Sem Nota</th>
+        </tr>
+    `;
+
+    Object.keys(disciplinas).forEach(d => {
+
+        tabelaVermelhos += `
+        <tr>
+
+            <td>${d}</td>
+
+            <td>
+                ${disciplinas[d].boas}
+            </td>
+
+            <td class="baixa-nota">
+                ${disciplinas[d].ruins}
+            </td>
+
+            <td>
+                ${disciplinas[d].sem}
+            </td>
+
+        </tr>
+        `;
+    });
+
+    tabelaVermelhos += `</table>`;
+
+    // RISCO
+    let riscoHTML = `
+    <h3 style="margin-top:30px;">
+        ⚠ Alunos com Risco de Retenção
+    </h3>
+    `;
+
+    if(alunosRisco.length === 0){
+
+        riscoHTML += `
+        Nenhum aluno encontrado.
+        `;
+
+    }else{
+
+        riscoHTML += `
+        <table>
+
+            <tr>
+                <th>Aluno</th>
+            </tr>
+        `;
+
+        alunosRisco.forEach(a => {
+
+            riscoHTML += `
+            <tr>
+                <td class="baixa-nota">
+                    ${a}
+                </td>
+            </tr>
+            `;
+        });
+
+        riscoHTML += `</table>`;
+    }
+
+    // SEM NOTA
+    let semNotaHTML = `
+    <h3 style="margin-top:30px;">
+        📌 Alunos sem Nota
+    </h3>
+    `;
+
+    if(alunosSemNota.length === 0){
+
+        semNotaHTML += `
+        Nenhum aluno encontrado.
+        `;
+
+    }else{
+
+        semNotaHTML += `
+        <table>
+
+            <tr>
+                <th>Aluno / Disciplina</th>
+            </tr>
+        `;
+
+        alunosSemNota.forEach(a => {
+
+            semNotaHTML += `
+            <tr>
+                <td>
+                    ${a}
+                </td>
+            </tr>
+            `;
+        });
+
+        semNotaHTML += `</table>`;
+    }
+
+    // HTML
+    box.innerHTML = `
+
+        <div style="
+            background:white;
+            padding:15px;
+            border-radius:10px;
+        ">
+
+            <canvas id="graficoDashboard"></canvas>
+
+        </div>
+
+        ${tabelaVermelhos}
+
+        ${riscoHTML}
+
+        ${semNotaHTML}
+    `;
+
+    // GRAFICO
+    const labels =
+        Object.keys(disciplinas);
+
+    const boas =
+        labels.map(
+            d => disciplinas[d].boas
+        );
+
+    const ruins =
+        labels.map(
+            d => disciplinas[d].ruins
+        );
+
+    const sem =
+        labels.map(
+            d => disciplinas[d].sem
+        );
+
+    if(graficoDashboard){
+
+        graficoDashboard.destroy();
+    }
+
+    graficoDashboard = new Chart(
+
+        document.getElementById(
+            "graficoDashboard"
+        ),
+
+        {
+
+            type:"bar",
+
+            data:{
+
+                labels,
+
+                datasets:[
+
+                    {
+                        label:"Notas ≥ 5",
+                        data:boas,
+                        backgroundColor:"green"
+                    },
+
+                    {
+                        label:"Notas < 5",
+                        data:ruins,
+                        backgroundColor:"red"
+                    },
+
+                    {
+                        label:"Sem Nota",
+                        data:sem,
+                        backgroundColor:"gray"
+                    }
+                ]
+            },
+
+            options:{
+
+                responsive:true,
+
+                plugins:{
+                    title:{
+                        display:true,
+                        text:
+                        "Análise de Notas por Disciplina"
+                    }
+                },
+
+                scales:{
+                    y:{
+                        beginAtZero:true
+                    }
+                }
+            }
+        }
+    );
+}
+
+</script>
 
 <div id="boletim"></div>
 
