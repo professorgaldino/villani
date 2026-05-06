@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 13</title>
+<title>Boletim Escolar 14</title>
 
 <style>
 
@@ -23,6 +23,9 @@ body{
     display:flex;
     justify-content:space-between;
     margin-bottom:15px;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:10px;
 }
 
 select{
@@ -30,19 +33,19 @@ select{
     border-radius:6px;
 }
 
-/* PAINEL ALUNOS */
-.painel-alunos{
+/* NAVEGAÇÃO ALUNOS */
+.navegacao-alunos{
     display:flex;
     flex-wrap:wrap;
-    gap:8px;
+    gap:6px;
     margin-bottom:20px;
 }
 
 .btn-aluno{
-    width:45px;
-    height:45px;
+    width:42px;
+    height:42px;
     border:none;
-    border-radius:10px;
+    border-radius:8px;
     background:#0077cc;
     color:white;
     font-weight:bold;
@@ -51,8 +54,8 @@ select{
 }
 
 .btn-aluno:hover{
-    transform:scale(1.05);
     background:#005fa3;
+    transform:scale(1.05);
 }
 
 .btn-aluno.ativo{
@@ -139,6 +142,21 @@ th{
     background:#fff3cd;
     color:#856404;
     font-size:11px;
+    font-weight:bold;
+}
+
+/* NOTAS BAIXAS */
+.baixa-nota{
+    color:red;
+    font-weight:bold;
+}
+
+/* ALERTA */
+.alerta-frequencia{
+    color:red;
+    font-weight:bold;
+    margin-top:5px;
+    display:inline-block;
 }
 
 </style>
@@ -161,8 +179,8 @@ th{
 
 </div>
 
-<!-- PAINEL -->
-<div id="painelAlunos" class="painel-alunos"></div>
+<!-- NAVEGAÇÃO -->
+<div id="navegacaoAlunos" class="navegacao-alunos"></div>
 
 <div id="boletim"></div>
 
@@ -185,7 +203,7 @@ let serie = "6";
 let alunos = [];
 let dadosBimestres = {};
 
-let alunoSelecionado = null;
+let indiceAtual = 0;
 
 // FOTO
 function montarFoto(id){
@@ -213,6 +231,30 @@ function v(x){
         x === undefined ||
         x === ""
     ) ? "-" : x;
+}
+
+// NOTA BAIXA
+function classeNota(valor){
+
+    const n = Number(valor);
+
+    if(!isNaN(n) && n < 5){
+        return "baixa-nota";
+    }
+
+    return "";
+}
+
+// FREQUÊNCIA
+function classeFrequencia(valor){
+
+    const n = Number(valor);
+
+    if(!isNaN(n) && n < 75){
+        return "baixa-nota";
+    }
+
+    return "";
 }
 
 // CARREGAR ALUNOS
@@ -257,7 +299,9 @@ async function carregar(){
             await carregarBimestre(i);
     }
 
-    montar();
+    montarNavegacao();
+
+    mostrarAluno(0);
 }
 
 // ELETIVAS
@@ -281,7 +325,7 @@ function montarEletivas(alunoBase){
     `;
 }
 
-// PEGAR ALUNO BIMESTRE
+// PEGAR DADOS BIMESTRE
 function pegarAlunoBimestre(nomeAluno, n){
 
     const dados = dadosBimestres[n];
@@ -295,47 +339,10 @@ function pegarAlunoBimestre(nomeAluno, n){
         );
 }
 
-// PAINEL ALUNOS
-function montarPainelAlunos(listaBase){
-
-    const painel =
-        document.getElementById("painelAlunos");
-
-    painel.innerHTML = "";
-
-    listaBase.forEach((aluno, index) => {
-
-        const numero = index + 1;
-
-        const botao =
-            document.createElement("button");
-
-        botao.className = "btn-aluno";
-
-        if(alunoSelecionado === index){
-            botao.classList.add("ativo");
-        }
-
-        botao.innerText = numero;
-
-        botao.title = aluno.nome;
-
-        botao.addEventListener("click", () => {
-
-            alunoSelecionado = index;
-
-            montar();
-        });
-
-        painel.appendChild(botao);
-    });
-}
-
-// TABELA
+// TABELA ÚNICA
 function montarTabelaUnica(nomeAluno){
 
-    const alunoBase =
-        pegarAlunoBimestre(nomeAluno, 1);
+    const alunoBase = pegarAlunoBimestre(nomeAluno, 1);
 
     if(!alunoBase){
 
@@ -402,8 +409,7 @@ function montarTabelaUnica(nomeAluno){
 
         for(let b = 1; b <= 4; b++){
 
-            const aluno =
-                pegarAlunoBimestre(nomeAluno, b);
+            const aluno = pegarAlunoBimestre(nomeAluno, b);
 
             if(!dadosBimestres[b]){
 
@@ -446,7 +452,7 @@ function montarTabelaUnica(nomeAluno){
             const acum = v(d.faltas);
 
             html += `
-            <td class="${media==='-'?'vazio':''}">
+            <td class="${media==='-'?'vazio':''} ${classeNota(media)}">
                 ${media}
             </td>
 
@@ -465,18 +471,14 @@ function montarTabelaUnica(nomeAluno){
 
     html += `</table>`;
 
+    // RESUMOS
     for(let b = 1; b <= 4; b++){
 
-        const aluno =
-            pegarAlunoBimestre(nomeAluno, b);
+        const aluno = pegarAlunoBimestre(nomeAluno, b);
 
         html += `<br>`;
 
-        html += `
-        <strong>
-            📘 ${b}° Bimestre
-        </strong><br>
-        `;
+        html += `<strong>📘 ${b}° Bimestre</strong><br>`;
 
         if(!dadosBimestres[b]){
 
@@ -500,31 +502,85 @@ function montarTabelaUnica(nomeAluno){
             continue;
         }
 
+        const freq =
+            Number(aluno.totais?.frequencia);
+
         html += `
         📌 Faltas acumuladas:
         ${v(aluno.totais?.faltas_acumuladas)}<br>
 
+        <span class="${classeFrequencia(freq)}">
         📊 Frequência:
-        ${v(aluno.totais?.frequencia)}%<br>
+        ${v(aluno.totais?.frequencia)}%
+        </span><br>
 
         📌 Faltas anual:
         ${v(aluno.totais?.faltas_anual)}<br>
 
+        <span class="${classeFrequencia(freq)}">
         📊 Frequência anual:
         ${v(aluno.totais?.frequencia_anual)}%
+        </span>
         `;
+
+        if(freq < 75){
+
+            html += `
+            <br>
+            <span class="alerta-frequencia">
+                ⚠ Apresenta Muitas Faltas
+            </span>
+            `;
+        }
     }
 
     return html;
 }
 
-// MONTAR
-function montar(){
+// NAVEGAÇÃO
+function montarNavegacao(){
+
+    const nav =
+        document.getElementById(
+            "navegacaoAlunos"
+        );
+
+    nav.innerHTML = "";
+
+    const base = dadosBimestres[1];
+
+    if(!base) return;
+
+    Object.values(base).forEach((a, index) => {
+
+        nav.innerHTML += `
+        <button
+            class="btn-aluno ${index===0?'ativo':''}"
+            onclick="mostrarAluno(${index})">
+            ${index + 1}
+        </button>
+        `;
+    });
+}
+
+// MOSTRAR ALUNO
+function mostrarAluno(index){
+
+    indiceAtual = index;
+
+    const botoes =
+        document.querySelectorAll(".btn-aluno");
+
+    botoes.forEach((b,i)=>{
+
+        b.classList.toggle(
+            "ativo",
+            i===index
+        );
+    });
 
     const box =
         document.getElementById("boletim");
-
-    box.innerHTML = "";
 
     const mapaAlunos = {};
 
@@ -535,28 +591,12 @@ function montar(){
         ] = a;
     });
 
-    const base = dadosBimestres[1];
+    const base =
+        Object.values(
+            dadosBimestres[1] || {}
+        );
 
-    if(!base){
-
-        box.innerHTML = `
-        <div class="nao-lancado">
-            Nenhum boletim encontrado
-        </div>
-        `;
-
-        return;
-    }
-
-    const listaBase = Object.values(base);
-
-    montarPainelAlunos(listaBase);
-
-    if(alunoSelecionado === null){
-        alunoSelecionado = 0;
-    }
-
-    const a = listaBase[alunoSelecionado];
+    const a = base[index];
 
     if(!a) return;
 
@@ -586,6 +626,11 @@ function montar(){
             Tutor:
             ${alunoBase?.tutor || "-"}<br>
 
+            Situação:
+            <strong>
+            ${a.situacao || "Não informada"}
+            </strong><br>
+
             ${montarEletivas(alunoBase)}
 
             <br>
@@ -603,8 +648,6 @@ document.getElementById("salaSelect")
 .addEventListener("change", e => {
 
     serie = e.target.value;
-
-    alunoSelecionado = null;
 
     carregar();
 });
