@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim DEBUG Completo</title>
+<title>Boletim Escolar Completo</title>
 
 <style>
 body {
@@ -40,6 +40,7 @@ select {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
+/* FOTO */
 .foto {
     width: 90px;
     height: 90px;
@@ -59,15 +60,18 @@ select {
     border-radius:10px;
 }
 
+/* INFO */
 .info {
     flex: 1;
     font-size: 14px;
 }
 
+/* TABELA */
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    font-size: 13px;
 }
 
 th, td {
@@ -80,16 +84,6 @@ th {
     background: #0077cc;
     color: white;
 }
-
-/* DEBUG BOX */
-.debug {
-    background: #111;
-    color: #0f0;
-    padding: 10px;
-    font-size: 12px;
-    white-space: pre-wrap;
-    margin-top: 20px;
-}
 </style>
 
 </head>
@@ -99,7 +93,7 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 BOLETIM DEBUG</h2>
+    <h2>📊 Boletim Escolar Completo</h2>
 
     <select id="salaSelect">
         <option value="6apb.json">6º Ano</option>
@@ -109,12 +103,6 @@ th {
 </div>
 
 <div id="boletim"></div>
-
-<h3>🧪 DEBUG - JSON ALUNOS (AppsScript)</h3>
-<div id="debugAlunos" class="debug"></div>
-
-<h3>🧪 DEBUG - JSON NOTAS</h3>
-<div id="debugNotas" class="debug"></div>
 
 </div>
 
@@ -142,7 +130,7 @@ function normalizar(t) {
         .trim();
 }
 
-// 🔢 VALOR
+// 🔢 VALOR SEGURO
 function v(x) {
     return (x === null || x === undefined || x === "") ? "-" : x;
 }
@@ -155,13 +143,6 @@ async function carregar() {
 
     const resNotas = await fetch(URL_NOTAS);
     notas = await resNotas.json();
-
-    // 🧪 DEBUG NA TELA
-    document.getElementById("debugAlunos").textContent =
-        JSON.stringify(alunos, null, 2);
-
-    document.getElementById("debugNotas").textContent =
-        JSON.stringify(notas, null, 2);
 
     montar();
 }
@@ -189,7 +170,6 @@ function montar() {
             ? `<img class="foto" src="${foto}">`
             : `<div class="sem-foto">❌</div>`;
 
-        // 🔥 ELETIVAS DO APPSCRIPT (AGORA FUNCIONA)
         const eletiva1 = alunoBase?.eletiva1 || "-";
         const eletiva2 = alunoBase?.eletiva2 || "-";
 
