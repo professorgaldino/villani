@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>DEBUG COMPLETO BOLETIM 2</title>
+<title>Boletim DEBUG Completo</title>
 
 <style>
 body {
@@ -27,19 +27,6 @@ body {
 select {
     padding: 8px;
     border-radius: 6px;
-}
-
-/* DEBUG BOX */
-.debugBox {
-    background: #111;
-    color: #00ff88;
-    padding: 10px;
-    font-size: 11px;
-    white-space: pre-wrap;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    max-height: 250px;
-    overflow: auto;
 }
 
 /* CARD */
@@ -65,11 +52,11 @@ select {
     width: 90px;
     height: 90px;
     background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    border-radius: 10px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:red;
+    border-radius:10px;
 }
 
 .info {
@@ -80,7 +67,6 @@ select {
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 13px;
     margin-top: 10px;
 }
 
@@ -94,6 +80,16 @@ th {
     background: #0077cc;
     color: white;
 }
+
+/* DEBUG BOX */
+.debug {
+    background: #111;
+    color: #0f0;
+    padding: 10px;
+    font-size: 12px;
+    white-space: pre-wrap;
+    margin-top: 20px;
+}
 </style>
 
 </head>
@@ -103,24 +99,22 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>🧪 DEBUG COMPLETO</h2>
+    <h2>📊 BOLETIM DEBUG</h2>
 
     <select id="salaSelect">
-        <option value="6apb.json">6º Ano A</option>
-        <option value="7apb.json">7º Ano A</option>
-        <option value="8apb.json">8º Ano A</option>
+        <option value="6apb.json">6º Ano</option>
+        <option value="7apb.json">7º Ano</option>
+        <option value="8apb.json">8º Ano</option>
     </select>
 </div>
 
-<!-- 🔥 DEBUG ALUNOS (APPSCRIPT) -->
-<h3>🧾 JSON ALUNOS (APPSCRIPT)</h3>
-<div id="debugAlunos" class="debugBox"></div>
-
-<!-- 🔥 DEBUG NOTAS -->
-<h3>🧾 JSON NOTAS (SALA)</h3>
-<div id="debugNotas" class="debugBox"></div>
-
 <div id="boletim"></div>
+
+<h3>🧪 DEBUG - JSON ALUNOS (AppsScript)</h3>
+<div id="debugAlunos" class="debug"></div>
+
+<h3>🧪 DEBUG - JSON NOTAS</h3>
+<div id="debugNotas" class="debug"></div>
 
 </div>
 
@@ -139,6 +133,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
+// 🔤 NORMALIZAÇÃO
 function normalizar(t) {
     return (t || "")
         .toLowerCase()
@@ -147,22 +142,21 @@ function normalizar(t) {
         .trim();
 }
 
+// 🔢 VALOR
 function v(x) {
-    return (x === null || x === undefined) ? "-" : x;
+    return (x === null || x === undefined || x === "") ? "-" : x;
 }
 
 // 📥 CARREGAR
 async function carregar() {
 
-    console.log("📥 carregando ALUNOS...");
     const resAlunos = await fetch(URL_ALUNOS);
     alunos = await resAlunos.json();
 
-    console.log("📥 carregando NOTAS...");
     const resNotas = await fetch(URL_NOTAS);
     notas = await resNotas.json();
 
-    // 🔥 DEBUG VISUAL NA TELA
+    // 🧪 DEBUG NA TELA
     document.getElementById("debugAlunos").textContent =
         JSON.stringify(alunos, null, 2);
 
@@ -172,7 +166,7 @@ async function carregar() {
     montar();
 }
 
-// 📊 BOLETIM
+// 📊 MONTA BOLETIM
 function montar() {
 
     const box = document.getElementById("boletim");
@@ -188,7 +182,16 @@ function montar() {
     lista.forEach(a => {
 
         const alunoBase = mapaAlunos[normalizar(a.nome)];
+
         const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
+
+        const fotoHTML = foto
+            ? `<img class="foto" src="${foto}">`
+            : `<div class="sem-foto">❌</div>`;
+
+        // 🔥 ELETIVAS DO APPSCRIPT (AGORA FUNCIONA)
+        const eletiva1 = alunoBase?.eletiva1 || "-";
+        const eletiva2 = alunoBase?.eletiva2 || "-";
 
         let disciplinasHTML = "";
 
@@ -202,19 +205,26 @@ function montar() {
                 <td>${v(d.numero)}</td>
                 <td>${v(d.media)}</td>
                 <td>${v(d.faltas)}</td>
-            </tr>`;
+            </tr>
+            `;
         }
 
         box.innerHTML += `
         <div class="aluno">
 
-            ${foto ? `<img class="foto" src="${foto}">` : `<div class="sem-foto">❌</div>`}
+            ${fotoHTML}
 
             <div class="info">
 
                 <strong>${a.nome}</strong><br>
+
                 RA: ${alunoBase?.ra || '-'}<br>
                 Tutor: ${alunoBase?.tutor || '-'}<br>
+
+                📘 Eletiva 1: ${eletiva1}<br>
+                📘 Eletiva 2: ${eletiva2}<br>
+
+                Situação: ${v(a.situacao)}<br>
 
                 <table>
                     <tr>
@@ -228,12 +238,13 @@ function montar() {
                 </table>
 
             </div>
+
         </div>
         `;
     });
 }
 
-// 🔁 SALA
+// 🔁 TROCA DE SALA
 document.getElementById("salaSelect").addEventListener("change", e => {
     URL_NOTAS = e.target.value;
     carregar();
