@@ -3,28 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boletim Escolar</title>
+
+<title>Boletim Escolar 1</title>
 
 <style>
 body {
     font-family: Arial;
     background: #f4f6f8;
-    margin: 0;
-    padding: 10px;
+    padding: 15px;
 }
 
-/* CONTAINER */
 .container {
     max-width: 1200px;
     margin: auto;
-}
-
-/* SELECT */
-select {
-    padding: 10px;
-    margin-bottom: 15px;
-    width: 100%;
-    font-size: 16px;
 }
 
 /* CARD ALUNO */
@@ -34,18 +25,29 @@ select {
     padding: 12px;
     margin-bottom: 15px;
     display: flex;
-    gap: 12px;
+    gap: 15px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    align-items: flex-start;
 }
 
 /* FOTO */
-.aluno img {
+.foto {
     width: 90px;
     height: 90px;
-    object-fit: cover;
     border-radius: 10px;
-    background: #ddd;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.sem-foto {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    background: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: red;
 }
 
 /* INFO */
@@ -56,9 +58,8 @@ select {
 
 /* TABELA */
 .table-wrapper {
-    width: 100%;
     overflow-x: auto;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 table {
@@ -79,31 +80,18 @@ th {
     color: white;
 }
 
-/* ========================= */
-/* 📱 RESPONSIVO MOBILE */
-/* ========================= */
+/* MOBILE */
 @media (max-width: 768px) {
-
     .aluno {
         flex-direction: column;
         align-items: center;
         text-align: center;
     }
 
-    .aluno img {
-        width: 70px;
-        height: 70px;
-    }
-
-    .info {
-        font-size: 13px;
-    }
-
     table {
         min-width: 500px;
     }
 }
-
 </style>
 
 </head>
@@ -111,15 +99,7 @@ th {
 <body>
 
 <div class="container">
-    <h2>Boletim Escolar</h2>
-
-    <select id="salaSelect" onchange="carregarDados()">
-        <option value="6a">6º A</option>
-        <option value="6b">6º B</option>
-        <option value="6c">6º C</option>
-        <option value="7a">7º A</option>
-        <option value="7b">7º B</option>
-    </select>
+    <h2>📊 Boletim Escolar</h2>
 
     <div id="boletim"></div>
 </div>
@@ -127,76 +107,86 @@ th {
 <script>
 
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+const URL_NOTAS = "6apb.json"; // ajuste sua sala aqui
 
-const SALAS = {
-    "6a": "6apb.json",
-    "6b": "6bpb.json",
-    "6c": "6cpb.json",
-    "7a": "7apb.json",
-    "7b": "7bpb.json"
-};
+let alunos = [];
+let notas = {};
 
+// 🔥 FOTO (MESMA ESTRATÉGIA DO OUTRO SISTEMA)
+function montarFoto(id) {
+    if (!id) return null;
+
+    id = String(id).trim();
+
+    if (id.length < 10) return null;
+
+    return "https://lh3.googleusercontent.com/d/" + id;
+}
+
+// 📅 NORMALIZAR NOME
 function normalizar(texto) {
     return (texto || "")
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s+/g, " ")
         .trim();
 }
 
-async function carregarDados() {
-    const sala = document.getElementById("salaSelect").value;
-
+// 📥 CARREGAR DADOS
+async function carregar() {
     try {
         const resAlunos = await fetch(URL_ALUNOS);
-        const alunos = await resAlunos.json();
+        alunos = await resAlunos.json();
 
-        const resNotas = await fetch(SALAS[sala]);
-        const notas = await resNotas.json();
+        const resNotas = await fetch(URL_NOTAS);
+        notas = await resNotas.json();
 
-        montarBoletim(alunos, notas, sala);
+        montarBoletim();
 
     } catch (e) {
-        console.error(e);
+        console.error("❌ ERRO AO CARREGAR DADOS:", e);
     }
 }
 
-function montarBoletim(alunos, notas, salaSelecionada) {
+// 📊 MONTA BOLETIM
+function montarBoletim() {
+
     const container = document.getElementById("boletim");
     container.innerHTML = "";
 
-    const notasPorNome = {};
+    const mapaNotas = {};
 
     for (let key in notas) {
-        const alunoNota = notas[key];
-        if (!alunoNota?.nome) continue;
+        const aluno = notas[key];
+        if (!aluno?.nome) continue;
 
-        notasPorNome[normalizar(alunoNota.nome)] = alunoNota;
+        mapaNotas[normalizar(aluno.nome)] = aluno;
     }
 
-    const alunosSala = alunos.filter(a =>
-        normalizar(a.sala) === normalizar(salaSelecionada)
-    );
+    alunos.forEach(aluno => {
 
-    alunosSala.forEach(aluno => {
-        const dadosNota = notasPorNome[normalizar(aluno.nome)];
+        const dados = mapaNotas[normalizar(aluno.nome)];
+        if (!dados) return;
 
-        if (!dadosNota) return;
+        const fotoFinal = montarFoto(aluno.foto);
+
+        const fotoHTML = fotoFinal
+            ? `<img class="foto" src="${fotoFinal}" onerror="erroFoto('${aluno.nome}', '${aluno.foto}')">`
+            : `<div class="sem-foto">❌</div>`;
 
         const div = document.createElement("div");
         div.className = "aluno";
 
         div.innerHTML = `
-            <img src="${aluno.foto || ''}" />
+            ${fotoHTML}
 
             <div class="info">
                 <strong>${aluno.nome}</strong><br>
                 RA: ${aluno.ra || '-'}<br>
-                Tutor: ${aluno.tutor || '-'}<br>
+                Tutor: ${aluno.tutor || '-'}
 
                 <div class="table-wrapper">
-                    ${gerarTabela(dadosNota.disciplinas)}
+                    ${gerarTabela(dados.disciplinas)}
                 </div>
             </div>
         `;
@@ -205,14 +195,15 @@ function montarBoletim(alunos, notas, salaSelecionada) {
     });
 }
 
+// 📊 TABELA
 function gerarTabela(disciplinas) {
-    if (!disciplinas) return "<p style='color:red'>Sem disciplinas</p>";
+    if (!disciplinas) return "<p>Sem disciplinas</p>";
 
     let html = `
     <table>
         <tr>
             <th>Disciplina</th>
-            <th>Nº</th>
+            <th>Chamada</th>
             <th>Média</th>
             <th>Faltas</th>
             <th>Acumulado</th>
@@ -237,7 +228,15 @@ function gerarTabela(disciplinas) {
     return html;
 }
 
-carregarDados();
+// ❌ ERRO DE FOTO
+function erroFoto(nome, id) {
+    console.error("❌ ERRO FOTO:");
+    console.error("Aluno:", nome);
+    console.error("ID:", id);
+    console.error("Possível causa: ID inválido ou sem permissão no Google Drive");
+}
+
+carregar();
 
 </script>
 
