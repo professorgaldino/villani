@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Unificado</title>
+<title>Boletim Unificado Correto</title>
 
 <style>
 body {
@@ -18,7 +18,6 @@ body {
     margin: auto;
 }
 
-/* TOPO */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -35,36 +34,36 @@ select {
     background: white;
     border-radius: 12px;
     padding: 12px;
-    margin-bottom: 25px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-}
-
-/* HEADER */
-.header {
+    margin-bottom: 20px;
     display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 10px;
+    gap: 15px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* FOTO */
 .foto {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     border-radius: 10px;
     object-fit: cover;
     border: 2px solid #ddd;
 }
 
 .sem-foto {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     background: #eee;
     display: flex;
     align-items: center;
     justify-content: center;
     color: red;
     border-radius: 10px;
+}
+
+/* INFO */
+.info {
+    flex: 1;
+    font-size: 14px;
 }
 
 /* TABELA */
@@ -86,7 +85,6 @@ th {
     color: white;
 }
 
-/* 🔥 vazio = roxo */
 .vazio {
     background: #e8ddff;
 }
@@ -99,7 +97,7 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim 4 Bimestres</h2>
+    <h2>📊 Boletim Unificado</h2>
 
     <select id="salaSelect">
         <option value="6apb.json">6º Ano A</option>
@@ -114,19 +112,17 @@ th {
 
 <script>
 
-const BIMESTRES = [
-    "6apb.json",
-    "7apb.json",
-    "8apb.json",
-    "9apb.json"
-];
+const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
-let dados = [];
+let URL_NOTAS = "6apb.json";
+
+let alunos = [];
+let notasAtual = {};
 
 // 📸 FOTO
 function montarFoto(id) {
     if (!id) return null;
-    return "https://lh3.googleusercontent.com/d/" + id;
+    return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
 // 🔢 VALOR
@@ -134,91 +130,101 @@ function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📥 CARREGAR TODOS BIMESTRES
+// 📥 CARREGAR
 async function carregar() {
 
-    dados = await Promise.all(
-        BIMESTRES.map(url => fetch(url).then(r => r.json()))
-    );
+    const resAlunos = await fetch(URL_ALUNOS);
+    alunos = await resAlunos.json();
+
+    const resNotas = await fetch(URL_NOTAS);
+    notasAtual = await resNotas.json();
 
     montar();
 }
 
-// 📊 MONTA TABELA FINAL
+// 📊 MERGE CORRETO (SEM QUEBRAR)
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
-    const alunosBase = Object.values(dados[0]);
+    const mapaAlunos = {};
+    alunos.forEach(a => {
+        mapaAlunos[a.nome] = a;
+    });
 
-    alunosBase.forEach(alunoBase => {
+    const lista = Object.values(notasAtual);
 
-        const foto = montarFoto(alunoBase.foto);
+    lista.forEach(a => {
 
-        let html = `
-        <div class="aluno">
+        const alunoBase = mapaAlunos[a.nome];
 
-            <div class="header">
-                ${foto
-                    ? `<img class="foto" src="${foto}">`
-                    : `<div class="sem-foto">❌</div>`
-                }
+        const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
-                <div>
-                    <strong>${alunoBase.nome}</strong><br>
-                    RA: ${v(alunoBase.numero)}<br>
-                    Situação: ${v(alunoBase.situacao)}
-                </div>
-            </div>
+        const fotoHTML = foto
+            ? `<img class="foto" src="${foto}">`
+            : `<div class="sem-foto">❌</div>`;
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Disciplina</th>
-                        <th>1º Bim</th>
-                        <th>2º Bim</th>
-                        <th>3º Bim</th>
-                        <th>4º Bim</th>
-                    </tr>
-                </thead>
-                <tbody>
-        `;
+        let disciplinasHTML = "";
 
-        const disciplinas = alunoBase.disciplinas;
+        for (let nome in a.disciplinas) {
 
-        for (let nome in disciplinas) {
+            const d = a.disciplinas[nome];
 
-            html += `<tr><td>${nome}</td>`;
+            const media = v(d.numero);
+            const faltas = v(d.media);
+            const acum = v(d.faltas);
 
-            dados.forEach(bim => {
-
-                const aluno = Object.values(bim).find(a => a.nome === alunoBase.nome);
-
-                const d = aluno?.disciplinas?.[nome];
-
-                const valor = v(d?.numero);
-
-                html += `
-                    <td class="${valor === '-' ? 'vazio' : ''}">
-                        ${valor}
-                    </td>
-                `;
-            });
-
-            html += `</tr>`;
+            disciplinasHTML += `
+            <tr>
+                <td>${nome}</td>
+                <td class="${media==='-'?'vazio':''}">${media}</td>
+                <td class="${faltas==='-'?'vazio':''}">${faltas}</td>
+                <td>${acum}</td>
+            </tr>
+            `;
         }
 
-        html += `
-                </tbody>
-            </table>
+        box.innerHTML += `
+        <div class="aluno">
+
+            ${fotoHTML}
+
+            <div class="info">
+
+                <strong>${a.nome}</strong><br>
+                RA: ${v(a.numero)}<br>
+                Situação: ${v(a.situacao)}<br>
+
+                <table>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Média</th>
+                        <th>Faltas</th>
+                        <th>Acum.</th>
+                    </tr>
+
+                    ${disciplinasHTML}
+                </table>
+
+                <br>
+
+                📌 Faltas acumuladas: ${v(a.totais?.faltas_acumuladas)}<br>
+                📊 Frequência: ${v(a.totais?.frequencia)}%<br>
+                📌 Faltas anual: ${v(a.totais?.faltas_anual)}<br>
+                📊 Frequência anual: ${v(a.totais?.frequencia_anual)}%
+            </div>
 
         </div>
         `;
-
-        box.innerHTML += html;
     });
 }
+
+// 🔁 SALA
+document.getElementById("salaSelect").addEventListener("change", e => {
+    URL_NOTAS = e.target.value;
+    carregar();
+});
 
 carregar();
 
