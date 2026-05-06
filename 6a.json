@@ -1,0 +1,3082 @@
+{
+  "1": {
+    "numero": "1",
+    "nome": "ÁGATA SOPHIA CARVALHO DOS SANTOS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 1
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 1
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "HISTORIA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "LINGUA INGLESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 1
+      },
+      "MATEMATICA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 1
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 1
+      }
+    }
+  },
+  "2": {
+    "numero": "2",
+    "nome": "ALICIA DE SOUZA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 2
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 2
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 2
+      },
+      "HISTORIA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "LINGUA INGLESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 2
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 2
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 2
+      }
+    }
+  },
+  "3": {
+    "numero": "3",
+    "nome": "ANA BEATRIZ LIMA LEITE",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 3
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 3
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 3
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "LINGUA INGLESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 3
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 3
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 3
+      }
+    }
+  },
+  "4": {
+    "numero": "4",
+    "nome": "ANA JULIA CAMPOS DE OLIVEIRA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 4
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 4
+      },
+      "GEOGRAFIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "LINGUA INGLESA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 4
+      },
+      "MATEMATICA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 4
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 4
+      }
+    }
+  },
+  "5": {
+    "numero": "5",
+    "nome": "ANA LÍVIA MATIAS MARCOS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 5
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 5
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "HISTORIA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "LINGUA INGLESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 5
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 5
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 5
+      }
+    }
+  },
+  "6": {
+    "numero": "6",
+    "nome": "BRAYAN QUEIROZ DA SILVA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 6
+      },
+      "EDUCACAO FISICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 6
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 6
+      },
+      "HISTORIA": {
+        "nota": 12,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "LINGUA INGLESA": {
+        "nota": 10,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 6
+      },
+      "MATEMATICA": {
+        "nota": 14,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 16,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "PROJETO DE VIDA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 6
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 6
+      }
+    }
+  },
+  "7": {
+    "numero": "7",
+    "nome": "BRENDA MAYUMI OIKAWA LEITE DE OLIVEIRA",
+    "situacao": "Transferido",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 7
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 7
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 7
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "LINGUA INGLESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 7
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 7
+      },
+      "MATEMATICA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 7
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 7
+      }
+    }
+  },
+  "8": {
+    "numero": "8",
+    "nome": "DAVI HENRIQUE ORTEGA BIANCHI",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 8
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 8
+      },
+      "GEOGRAFIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "HISTORIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 8
+      },
+      "MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 8
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 8
+      }
+    }
+  },
+  "9": {
+    "numero": "9",
+    "nome": "DAVI MORAES GONÇALVES",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 9
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 9
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "LINGUA INGLESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 9
+      },
+      "MATEMATICA": {
+        "nota": 10,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 14,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 9
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 9
+      }
+    }
+  },
+  "10": {
+    "numero": "10",
+    "nome": "ENZO DA SILVA SANTOS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 10
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 10
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 10
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 10
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 10
+      }
+    }
+  },
+  "11": {
+    "numero": "11",
+    "nome": "ENZO GABRIEL FELICIANO",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 11
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 11
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "HISTORIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "LINGUA INGLESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 11
+      },
+      "MATEMATICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 11
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 11
+      }
+    }
+  },
+  "12": {
+    "numero": "12",
+    "nome": "FRANCINE GABRIELE CIPOLLINI",
+    "situacao": "Transferido",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 12
+      },
+      "EDUCACAO FISICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 12
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 12
+      },
+      "HISTORIA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "LINGUA INGLESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 12
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 12
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 12
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 12
+      }
+    }
+  },
+  "13": {
+    "numero": "13",
+    "nome": "ISABELLY HELENA JACOMUSSI",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 13
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 13
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 13
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "LINGUA INGLESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 13
+      },
+      "MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 13
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 13
+      }
+    }
+  },
+  "14": {
+    "numero": "14",
+    "nome": "JHENIFER COSTA DE ARAUJO",
+    "situacao": "Não Comparecimento",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 10,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 14
+      },
+      "EDUCACAO FISICA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 14
+      },
+      "GEOGRAFIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "HISTORIA": {
+        "nota": 11,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "LINGUA INGLESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 14
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 14
+      },
+      "MATEMATICA": {
+        "nota": 18,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 23,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "PROJETO DE VIDA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 14
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 14
+      }
+    }
+  },
+  "15": {
+    "numero": "15",
+    "nome": "JHONATAN MARTIN SANTANA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 15
+      },
+      "EDUCACAO FISICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 15
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "LINGUA INGLESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 15
+      },
+      "MATEMATICA": {
+        "nota": 10,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 12,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 15
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 15
+      }
+    }
+  },
+  "16": {
+    "numero": "16",
+    "nome": "JOAO LUCAS ROCHA GOMES DA SILVA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 16
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 16
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 16
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "LINGUA INGLESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 16
+      },
+      "MATEMATICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 16
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 16
+      }
+    }
+  },
+  "17": {
+    "numero": "17",
+    "nome": "JUAN MIGUEL DA SILVA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 17
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 17
+      },
+      "GEOGRAFIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "HISTORIA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "LINGUA INGLESA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 17
+      },
+      "MATEMATICA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 10,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 17
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 17
+      }
+    }
+  },
+  "18": {
+    "numero": "18",
+    "nome": "KEMY FRANCIELLE SILVA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 18
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 18
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 18
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 18
+      },
+      "MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 18
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 18
+      }
+    }
+  },
+  "19": {
+    "numero": "19",
+    "nome": "KEVYN ALVES DA SILVA",
+    "situacao": "Baixa - Transferência",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 19
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 19
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "HISTORIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "LINGUA INGLESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 19
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 19
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 19
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 19
+      }
+    }
+  },
+  "20": {
+    "numero": "20",
+    "nome": "KIMBERLLY CRISTINA PEREIRA MENDES",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 20
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 20
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "HISTORIA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "LINGUA INGLESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 20
+      },
+      "MATEMATICA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 20
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 20
+      }
+    }
+  },
+  "21": {
+    "numero": "21",
+    "nome": "LAURA CANDIDO CORDEIRO",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 21
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 21
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "LINGUA INGLESA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 21
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 21
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 21
+      }
+    }
+  },
+  "22": {
+    "numero": "22",
+    "nome": "MARIA CLARA VELASCO DE SOUZA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 22
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 22
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 22
+      },
+      "HISTORIA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 22
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 22
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 22
+      }
+    }
+  },
+  "23": {
+    "numero": "23",
+    "nome": "MARIA HELENA DE DEUS MOREIRA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 23
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 23
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "HISTORIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "LINGUA INGLESA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 23
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 23
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 23
+      }
+    }
+  },
+  "24": {
+    "numero": "24",
+    "nome": "MARIA VITORIA SANTOS FERREIRA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 24
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 24
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "HISTORIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 24
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 24
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 24
+      }
+    }
+  },
+  "25": {
+    "numero": "25",
+    "nome": "MIGUEL DE OLIVEIRA MACHADO",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 25
+      },
+      "EDUCACAO FISICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 25
+      },
+      "GEOGRAFIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "LINGUA INGLESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 25
+      },
+      "MATEMATICA": {
+        "nota": 12,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 25
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 25
+      }
+    }
+  },
+  "26": {
+    "numero": "26",
+    "nome": "MILTON LUIZ PULZ",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 26
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 26
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "HISTORIA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "LINGUA INGLESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 26
+      },
+      "MATEMATICA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 15,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "PROJETO DE VIDA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 26
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 26
+      }
+    }
+  },
+  "27": {
+    "numero": "27",
+    "nome": "NATHAN GABRIEL DA SILVA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 27
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 27
+      },
+      "GEOGRAFIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "HISTORIA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "LINGUA INGLESA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 27
+      },
+      "MATEMATICA": {
+        "nota": 11,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 12,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "PROJETO DE VIDA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 27
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 27
+      }
+    }
+  },
+  "28": {
+    "numero": "28",
+    "nome": "PALOMA SOFIA CASTRO DA SILVA",
+    "situacao": "Baixa - Transferência",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 28
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 28
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 28
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "LINGUA INGLESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 28
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 28
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 28
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 28
+      }
+    }
+  },
+  "29": {
+    "numero": "29",
+    "nome": "PEDRO HENRIQUE CRIMONÊS DE FREITAS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 29
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 29
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 29
+      },
+      "HISTORIA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 29
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 29
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 29
+      }
+    }
+  },
+  "30": {
+    "numero": "30",
+    "nome": "RAPHAEL DE PAULA ZACARIAS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 30
+      },
+      "EDUCACAO FISICA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 30
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 30
+      },
+      "HISTORIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "LINGUA INGLESA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 30
+      },
+      "MATEMATICA": {
+        "nota": 12,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 10,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "PROJETO DE VIDA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 30
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 30
+      }
+    }
+  },
+  "31": {
+    "numero": "31",
+    "nome": "SILVIO ARTHUR VIEIRA CAMPOS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 31
+      },
+      "EDUCACAO FISICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 31
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "HISTORIA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "LINGUA INGLESA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 31
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 9,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 31
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 31
+      }
+    }
+  },
+  "32": {
+    "numero": "32",
+    "nome": "SOPHIA VITORIA LUIS FERREIRA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 32
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 32
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "HISTORIA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "LINGUA INGLESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 32
+      },
+      "MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 32
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 32
+      }
+    }
+  },
+  "33": {
+    "numero": "33",
+    "nome": "STHEFANI VITÓRIA CASSIANO DE SOUZA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 33
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 33
+      },
+      "GEOGRAFIA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "HISTORIA": {
+        "nota": 9,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "LINGUA INGLESA": {
+        "nota": 12,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 33
+      },
+      "MATEMATICA": {
+        "nota": 14,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 14,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 33
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 33
+      }
+    }
+  },
+  "34": {
+    "numero": "34",
+    "nome": "VITOR HUGO SOUSA RIBAS CARDOSO",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 34
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 34
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 34
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 34
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 34
+      }
+    }
+  },
+  "35": {
+    "numero": "35",
+    "nome": "VITORIA PEREIRA BARROS",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 35
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 35
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 35
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "LINGUA INGLESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 35
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 35
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 35
+      }
+    }
+  },
+  "36": {
+    "numero": "36",
+    "nome": "YASMIM VICTORIA GONZAGA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 36
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 36
+      },
+      "GEOGRAFIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "HISTORIA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "LINGUA INGLESA": {
+        "nota": 8,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 36
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 7,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 36
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 36
+      }
+    }
+  },
+  "37": {
+    "numero": "37",
+    "nome": "YASMIN CERQUEIRA DE SOUZA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 37
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 37
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "HISTORIA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "LINGUA INGLESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 37
+      },
+      "MATEMATICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 37
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 37
+      }
+    }
+  },
+  "38": {
+    "numero": "38",
+    "nome": "YOHANA BARROS DE AGUIAR",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 4,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 38
+      },
+      "EDUCACAO FISICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 38
+      },
+      "GEOGRAFIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "HISTORIA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "LINGUA INGLESA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 38
+      },
+      "MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 38
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 38
+      }
+    }
+  },
+  "39": {
+    "numero": "39",
+    "nome": "JOÃO ADRYAN DA SILVA SOUSA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 39
+      },
+      "EDUCACAO FISICA": {
+        "nota": 2,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 39
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 39
+      },
+      "HISTORIA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "LINGUA INGLESA": {
+        "nota": 3,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 39
+      },
+      "MATEMATICA": {
+        "nota": 6,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 5,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "PROJETO DE VIDA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 1,
+        "faltas": 0,
+        "faltas_acumuladas": 39
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 39
+      }
+    }
+  },
+  "40": {
+    "numero": "40",
+    "nome": "MARIO NICOLAS DA SILVA MOTA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "CIENCIAS": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "EDUCAÇAO FINANCEIRA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 40
+      },
+      "EDUCACAO FISICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "ELETIVAS": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 40
+      },
+      "GEOGRAFIA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 40
+      },
+      "HISTORIA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "LINGUA INGLESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "LINGUA PORTUGUESA": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 40
+      },
+      "MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "ORIENTAÇAO DE ESTUDO - LINGUA PORTUGUESA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "ORIENTAÇAO DE ESTUDO - MATEMATICA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "PROJETO DE VIDA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "REDAÇAO E LEITURA": {
+        "nota": 0,
+        "faltas": 0,
+        "faltas_acumuladas": 40
+      },
+      "TECNOLOGIA E INOVACAO": {
+        "nota": null,
+        "faltas": null,
+        "faltas_acumuladas": 40
+      }
+    }
+  }
+}
