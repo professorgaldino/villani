@@ -32,7 +32,7 @@ select {
     border: 1px solid #ccc;
 }
 
-/* CARD */
+/* ALUNO */
 .aluno {
     background: white;
     border-radius: 12px;
@@ -120,7 +120,6 @@ const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyz
 
 let URL_NOTAS = "6apb.json";
 
-let alunos = [];
 let notas = {};
 
 // 📸 FOTO
@@ -128,22 +127,12 @@ function montarFoto(id) {
     if (!id) return null;
 
     id = String(id).trim();
-
     if (id.length < 10) return null;
 
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// 🔤 NORMALIZAÇÃO
-function normalizar(texto) {
-    return (texto || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
-}
-
-// 📌 VALOR SEM ALTERAÇÃO DE DADO
+// 🔢 VALOR SEGURO (mantém "-")
 function valorSeguro(v) {
     return (v === null || v === undefined) ? "-" : v;
 }
@@ -151,38 +140,27 @@ function valorSeguro(v) {
 // 📥 CARREGAR DADOS
 async function carregar() {
     try {
-        const resAlunos = await fetch(URL_ALUNOS);
-        alunos = await resAlunos.json();
-
-        const resNotas = await fetch(URL_NOTAS);
-        notas = await resNotas.json();
+        const res = await fetch(URL_NOTAS);
+        notas = await res.json();
 
         montarBoletim();
 
     } catch (e) {
-        console.error("❌ ERRO AO CARREGAR:", e);
+        console.error("❌ ERRO:", e);
     }
 }
 
-// 📊 BOLETIM
+// 📊 BOLETIM (CORRETO)
 function montarBoletim() {
 
     const container = document.getElementById("boletim");
     container.innerHTML = "";
 
-    const mapaNotas = {};
-
-    for (let key in notas) {
-        const aluno = notas[key];
-        if (!aluno?.nome) continue;
-
-        mapaNotas[normalizar(aluno.nome)] = aluno;
-    }
+    const alunos = Object.values(notas); // 👈 AQUI ESTÁ A CORREÇÃO PRINCIPAL
 
     alunos.forEach(aluno => {
 
-        const dados = mapaNotas[normalizar(aluno.nome)];
-        if (!dados) return;
+        if (!aluno || !aluno.disciplinas) return;
 
         const fotoFinal = montarFoto(aluno.foto);
 
@@ -198,12 +176,17 @@ function montarBoletim() {
 
             <div class="info">
                 <strong>${aluno.nome}</strong><br>
-                RA: ${aluno.ra || '-'}<br>
-                Tutor: ${aluno.tutor || '-'}
+                RA: ${aluno.numero || '-'}<br>
+                Situação: ${aluno.situacao || '-'}
 
                 <div class="table-wrapper">
-                    ${gerarTabela(dados.disciplinas)}
+                    ${gerarTabela(aluno.disciplinas)}
                 </div>
+
+                <small>
+                    Faltas acumuladas: ${aluno.totais?.faltas_acumuladas ?? '-'} |
+                    Frequência: ${aluno.totais?.frequencia ?? '-'}
+                </small>
             </div>
         `;
 
@@ -211,11 +194,9 @@ function montarBoletim() {
     });
 }
 
-// 📊 TABELA 100% FIEL AO JSON
+// 📊 TABELA FIEL AO JSON
 function gerarTabela(disciplinas) {
     if (!disciplinas) return "<p>Sem disciplinas</p>";
-
-    const chaves = Object.keys(disciplinas); // mantém estrutura do JSON
 
     let html = `
     <table>
@@ -231,7 +212,7 @@ function gerarTabela(disciplinas) {
         <tbody>
     `;
 
-    chaves.forEach(nome => {
+    Object.keys(disciplinas).forEach(nome => {
         const d = disciplinas[nome];
 
         html += `
