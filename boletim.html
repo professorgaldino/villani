@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar - 4 Bimestres</title>
+<title>Boletim Escolar Final</title>
 
 <style>
 body {
@@ -14,7 +14,7 @@ body {
 }
 
 .container {
-    max-width: 1400px;
+    max-width: 1200px;
     margin: auto;
 }
 
@@ -70,13 +70,13 @@ select {
 table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 10px;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 5px;
+    padding: 6px;
     text-align: center;
 }
 
@@ -85,21 +85,14 @@ th {
     color: white;
 }
 
-/* vazio */
 .vazio {
     background: #e8ddff;
 }
 
-/* bimestre não lançado */
-.nao-lancado {
-    background: #ffe6e6;
-    color: #b30000;
-    font-weight: bold;
-}
-
+/* eletivas */
 .eletiva-box {
     margin-top: 6px;
-    padding: 6px;
+    padding: 8px;
     background: #f3e8ff;
     border-radius: 8px;
 }
@@ -112,12 +105,12 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim 4 Bimestres</h2>
+    <h2>📊 Boletim Escolar</h2>
 
     <select id="salaSelect">
-        <option value="6a">6º Ano A</option>
-        <option value="7a">7º Ano A</option>
-        <option value="8a">8º Ano A</option>
+        <option value="6apb.json">6º Ano A</option>
+        <option value="7apb.json">7º Ano A</option>
+        <option value="8apb.json">8º Ano A</option>
     </select>
 </div>
 
@@ -130,9 +123,10 @@ th {
 const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
-let baseSala = "6a";
+let URL_NOTAS = "6apb.json";
+
 let alunos = [];
-let notas = [];
+let notas = {};
 
 // 📸 FOTO
 function montarFoto(id) {
@@ -140,7 +134,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
-// 🔤 normalizar
+// 🔤 NORMALIZAR
 function normalizar(t) {
     return (t || "")
         .toLowerCase()
@@ -149,113 +143,76 @@ function normalizar(t) {
         .trim();
 }
 
-// 🔢 valor seguro
+// 🔢 VALOR SEGURO
 function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📦 bimestres fixos
-const bimestres = [
-    {label:"1º Bim", suf:"pb"},
-    {label:"2º Bim", suf:"sb"},
-    {label:"3º Bim", suf:"tb"},
-    {label:"4º Bim", suf:"qb"}
-];
-
-// 📥 carregar todos bimestres
+// 📥 CARREGAR
 async function carregar() {
 
     const resAlunos = await fetch(URL_ALUNOS);
     alunos = await resAlunos.json();
 
-    const promessas = bimestres.map(async b => {
-        try {
-            const res = await fetch(`${baseSala}${b.suf}.json`);
-            return await res.json();
-        } catch {
-            return null;
-        }
-    });
-
-    notas = await Promise.all(promessas);
+    const resNotas = await fetch(URL_NOTAS);
+    notas = await resNotas.json();
 
     montar();
 }
 
-// 📊 montar boletim
+// 📊 MONTA BOLETIM
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
     const mapaAlunos = {};
-    alunos.forEach(a => mapaAlunos[normalizar(a.nome)] = a);
+    alunos.forEach(a => {
+        mapaAlunos[normalizar(a.nome)] = a;
+    });
 
-    const base = notas[0] || {};
-
-    Object.values(base).forEach(a => {
+    Object.values(notas).forEach(a => {
 
         const alunoBase = mapaAlunos[normalizar(a.nome)];
-
         const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
         const fotoHTML = foto
             ? `<img class="foto" src="${foto}">`
             : `<div class="sem-foto">❌</div>`;
 
-        // eletivas
-        let eletivas = "";
-        if (alunoBase?.eletiva1 || alunoBase?.eletiva2) {
-            eletivas = `
-            <div class="eletiva-box">
-                <strong>Eletivas</strong><br>
-                Eletiva 1º Semestre: ${alunoBase.eletiva1 || "Sem eletiva"}<br>
-                Eletiva 2º Semestre: ${alunoBase.eletiva2 || "Sem eletiva"}
-            </div>`;
-        } else {
-            eletivas = `
-            <div class="eletiva-box">
-                <strong>Sem eletiva</strong>
-            </div>`;
+        let disciplinasHTML = "";
+
+        for (let nome in a.disciplinas) {
+
+            const d = a.disciplinas[nome];
+
+            const media = v(d.numero);
+            const faltas = v(d.media);
+            const acum = v(d.faltas);
+
+            const nomeFmt = nome.replaceAll("_"," ");
+
+            disciplinasHTML += `
+            <tr>
+                <td>${nomeFmt}</td>
+                <td class="${media==='-'?'vazio':''}">${media}</td>
+                <td class="${faltas==='-'?'vazio':''}">${faltas}</td>
+                <td>${acum}</td>
+            </tr>
+            `;
         }
 
-        // disciplinas união
-        const disciplinas = Object.keys(a.disciplinas || {});
+        // ✔ ELETIVAS SEM SUMIR NUNCA
+        const eletivasApp = `
+        <div class="eletiva-box">
 
-        let tabela = `
-        <table>
-            <tr>
-                <th>Disciplina</th>`;
+            <strong>📘 Eletivas</strong><br>
 
-        bimestres.forEach(b => {
-            tabela += `<th>${b.label}</th>`;
-        });
+            Eletiva 1° Semestre: ${alunoBase?.eletiva1 || "Sem eletiva"}<br>
+            Eletiva 2° Semestre: ${alunoBase?.eletiva2 || "Sem eletiva"}
 
-        tabela += `</tr>`;
-
-        disciplinas.forEach(nome => {
-
-            tabela += `<tr><td>${nome.replaceAll("_"," ")}</td>`;
-
-            bimestres.forEach((b, i) => {
-
-                const dadosBim = notas[i]?.[Object.keys(notas[i] || {}).find(k =>
-                    normalizar(notas[i][k]?.nome) === normalizar(a.nome)
-                )];
-
-                const d = dadosBim?.disciplinas?.[nome];
-
-                if (!dadosBim || !d) {
-                    tabela += `<td class="nao-lancado">Bimestre não lançado</td>`;
-                } else {
-                    tabela += `<td>${v(d.numero)}</td>`;
-                }
-            });
-
-            tabela += `</tr>`;
-        });
-
-        tabela += `</table>`;
+        </div>
+        `;
 
         box.innerHTML += `
         <div class="aluno">
@@ -266,28 +223,40 @@ function montar() {
 
                 <strong>${a.nome}</strong><br>
 
-                RA: ${alunoBase?.ra || "-"}<br>
-                Tutor: ${alunoBase?.tutor || "-"}<br>
+                RA: ${alunoBase?.ra || '-'}<br>
+                Tutor: ${alunoBase?.tutor || '-'}<br>
 
-                ${eletivas}
+                ${eletivasApp}
 
-                <br>
+                Situação: ${v(a.situacao)}<br>
 
-                ${tabela}
+                <table>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>Média</th>
+                        <th>Faltas</th>
+                        <th>Faltas AC</th>
+                    </tr>
+
+                    ${disciplinasHTML}
+                </table>
 
                 <br>
 
                 📌 Faltas acumuladas: ${v(a.totais?.faltas_acumuladas)}<br>
-                📊 Frequência: ${v(a.totais?.frequencia)}%
+                📊 Frequência: ${v(a.totais?.frequencia)}%<br>
+                📌 Faltas anual: ${v(a.totais?.faltas_anual)}<br>
+                📊 Frequência anual: ${v(a.totais?.frequencia_anual)}%
             </div>
 
-        </div>`;
+        </div>
+        `;
     });
 }
 
-// 🔁 troca sala
+// 🔁 SALA
 document.getElementById("salaSelect").addEventListener("change", e => {
-    baseSala = e.target.value;
+    URL_NOTAS = e.target.value;
     carregar();
 });
 
