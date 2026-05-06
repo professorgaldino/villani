@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 4</title>
+<title>Boletim Escolar</title>
 
 <style>
 body {
@@ -32,7 +32,7 @@ select {
     border: 1px solid #ccc;
 }
 
-/* CARD ALUNO */
+/* CARD */
 .aluno {
     background: white;
     border-radius: 12px;
@@ -93,15 +93,6 @@ th {
     background: #0077cc;
     color: white;
 }
-
-/* MOBILE */
-@media (max-width: 768px) {
-    .aluno {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-}
 </style>
 
 </head>
@@ -113,7 +104,6 @@ th {
     <div class="topo">
         <h2>📊 Boletim Escolar</h2>
 
-        <!-- SELETOR DE SALA -->
         <select id="salaSelect">
             <option value="6apb.json">6º Ano A</option>
             <option value="7apb.json">7º Ano A</option>
@@ -153,7 +143,7 @@ function normalizar(texto) {
         .trim();
 }
 
-// 🔢 VALORES (CORRETO PARA BOLETIM ESCOLAR)
+// 📌 VALOR SEM ALTERAÇÃO DE DADO
 function valorSeguro(v) {
     return (v === null || v === undefined) ? "-" : v;
 }
@@ -221,22 +211,27 @@ function montarBoletim() {
     });
 }
 
-// 📊 TABELA FINAL
+// 📊 TABELA 100% FIEL AO JSON
 function gerarTabela(disciplinas) {
     if (!disciplinas) return "<p>Sem disciplinas</p>";
 
+    const chaves = Object.keys(disciplinas); // mantém estrutura do JSON
+
     let html = `
     <table>
-        <tr>
-            <th>Disciplina</th>
-            <th>Chamada</th>
-            <th>Média</th>
-            <th>Faltas</th>
-            <th>Acumulado</th>
-        </tr>
+        <thead>
+            <tr>
+                <th>Disciplina</th>
+                <th>Chamada</th>
+                <th>Média</th>
+                <th>Faltas</th>
+                <th>Acumulado</th>
+            </tr>
+        </thead>
+        <tbody>
     `;
 
-    for (let nome in disciplinas) {
+    chaves.forEach(nome => {
         const d = disciplinas[nome];
 
         html += `
@@ -248,9 +243,13 @@ function gerarTabela(disciplinas) {
             <td>${valorSeguro(d.acumulado)}</td>
         </tr>
         `;
-    }
+    });
 
-    html += "</table>";
+    html += `
+        </tbody>
+    </table>
+    `;
+
     return html;
 }
 
