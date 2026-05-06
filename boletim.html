@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 16</title>
+<title>Boletim Escolar 17</title>
 
 <style>
 
@@ -1015,50 +1015,84 @@ function montarTabelaUnica(nomeAluno){
 // MONTAR OCORRÊNCIAS
 function montarOcorrencias(nomeAluno, raAluno){
 
-    const raLimpo = String(raAluno || "")
-        .replace(/\D/g,'');
+    // LIMPA RA DO ALUNO
+    const raAlunoLimpo = String(raAluno || "")
+        .replace(/\D/g,'')
+        .replace(/^0+/,'')
+        .trim();
 
+    // FILTRA OCORRÊNCIAS
     const lista = ocorrencias.filter(o => {
 
-        // NOME
-        const nomeOK =
-            normalizar(
-                o.nome ||
-                o.Nome ||
-                ""
-            ) === normalizar(nomeAluno);
-
-        // RA DA OCORRÊNCIA
+        // POSSÍVEIS CAMPOS DE RA
         const raOcorrencia = String(
 
             o.ra ||
             o.RA ||
             o.registro ||
+            o.registroAluno ||
             o.raAluno ||
+            o.matricula ||
             o["RA"] ||
             ""
 
-        ).replace(/\D/g,'');
+        )
+        .replace(/\D/g,'')
+        .replace(/^0+/,'')
+        .trim();
 
-        // REMOVE ZEROS
-        const raFinal =
-            raOcorrencia.replace(/^0+/,'');
-
-        const raAlunoFinal =
-            raLimpo.replace(/^0+/,'');
-
-        const raOK =
-            raFinal === raAlunoFinal;
-
-        // PRIORIDADE PARA RA
-        if(raAlunoFinal){
-
-            return raOK;
+        // COMPARAÇÃO POR RA
+        if(
+            raAlunoLimpo &&
+            raOcorrencia &&
+            raAlunoLimpo === raOcorrencia
+        ){
+            return true;
         }
 
-        // FALLBACK PARA NOME
-        return nomeOK;
+        // FALLBACK POR NOME
+        const nomeSistema = String(
+            nomeAluno || ""
+        )
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g," ")
+        .replace(/[^a-z0-9 ]/g,"")
+        .trim();
 
+        const nomeOcorrencia = String(
+
+            o.nome ||
+            o.Nome ||
+            o.aluno ||
+            o.ALUNO ||
+            ""
+
+        )
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g," ")
+        .replace(/[^a-z0-9 ]/g,"")
+        .trim();
+
+        return nomeSistema === nomeOcorrencia;
+
+    });
+
+    // ORDENA MAIS RECENTE PRIMEIRO
+    lista.sort((a,b) => {
+
+        const da = new Date(
+            `${a.dataRegistro || ""} ${a.horaRegistro || ""}`
+        );
+
+        const db = new Date(
+            `${b.dataRegistro || ""} ${b.horaRegistro || ""}`
+        );
+
+        return db - da;
     });
 
     let html = `
@@ -1069,6 +1103,7 @@ function montarOcorrencias(nomeAluno, raAluno){
         </h3>
     `;
 
+    // SEM OCORRÊNCIA
     if(lista.length === 0){
 
         html += `
@@ -1082,7 +1117,8 @@ function montarOcorrencias(nomeAluno, raAluno){
         return html;
     }
 
-    lista.reverse().forEach(o => {
+    // LISTA OCORRÊNCIAS
+    lista.forEach(o => {
 
         html += `
         <div class="ocorrencia-item">
