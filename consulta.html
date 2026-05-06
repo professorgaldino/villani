@@ -1,319 +1,322 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boletim Escolar 1</title>
+<!DOCTYPE html> 
+<html lang="pt-br"> 
+<head> 
+<meta charset="UTF-8"> 
+<title>Consulta de Alunos</title> 
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"> 
+<style> 
+* { 
+margin: 0; 
+padding: 0; 
+box-sizing: border-box; 
+font-family: 'Inter', sans-serif; 
+} 
 
-<style>
-body {
-    font-family: Arial;
-    background: #f4f6f8;
-    margin: 0;
-    padding: 10px;
-}
+body { 
+background: linear-gradient(135deg, #eef2ff, #f8fafc); 
+padding: 30px; 
+color: #1f2937; 
+} 
 
-.container {
-    max-width: 1200px;
-    margin: auto;
-}
+.container { 
+max-width: 1000px; 
+margin: auto; 
+} 
 
-select {
-    padding: 10px;
-    margin-bottom: 15px;
-    width: 100%;
-    font-size: 16px;
-}
+h2 { 
+text-align: center; 
+margin-bottom: 20px; 
+font-weight: 600; 
+} 
 
-.aluno {
-    background: white;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 15px;
-    display: flex;
-    gap: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    align-items: flex-start;
-}
+.search-box { 
+display: flex; 
+gap: 10px; 
+margin-bottom: 20px; 
+} 
 
-.aluno img {
-    width: 85px;
-    height: 85px;
-    object-fit: cover;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    cursor: pointer;
-}
+input { 
+flex: 1; 
+padding: 10px 12px; 
+border-radius: 10px; 
+border: 1px solid #e5e7eb; 
+transition: 0.2s; 
+} 
 
-.sem-foto {
-    width: 85px;
-    height: 85px;
-    border-radius: 10px;
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-    color: #999;
-}
+input:focus { 
+outline: none; 
+border-color: #6366f1; 
+box-shadow: 0 0 0 2px rgba(99,102,241,0.15); 
+} 
 
-.info {
-    flex: 1;
-    font-size: 14px;
-}
+button { 
+padding: 10px 16px; 
+border-radius: 10px; 
+border: none; 
+cursor: pointer; 
+font-weight: 500; 
+transition: 0.2s; 
+} 
 
-/* tabela responsiva */
-.table-wrapper {
-    overflow-x: auto;
-    margin-top: 8px;
-}
+button:hover { 
+transform: translateY(-1px); 
+} 
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
-}
+.search-btn { 
+background: #6366f1; 
+color: white; 
+} 
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: center;
-    font-size: 13px;
-}
+.search-btn:hover { 
+background: #4f46e5; 
+} 
 
-th {
-    background: #0077cc;
-    color: white;
-}
+.aluno { 
+background: white; 
+padding: 15px; 
+margin-bottom: 12px; 
+border-radius: 14px; 
+display: flex; 
+gap: 15px; 
+align-items: center; 
+box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
+transition: 0.2s; 
+} 
 
-/* mobile */
-@media (max-width: 768px) {
-    .aluno {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+.aluno:hover { 
+transform: translateY(-2px); 
+} 
 
-    table {
-        min-width: 500px;
-    }
-}
+.foto { 
+width: 65px; 
+height: 65px; 
+border-radius: 50%; 
+object-fit: cover; 
+cursor: pointer; 
+border: 2px solid #e5e7eb; 
+} 
 
-/* POPUP FOTO */
-.popup {
-    display: none;
-    position: fixed;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    justify-content: center;
-    align-items: center;
-}
+.sem-foto { 
+width: 65px; 
+height: 65px; 
+border-radius: 50%; 
+background: #f3f4f6; 
+display: flex; 
+align-items: center; 
+justify-content: center; 
+font-size: 22px; 
+color: #ef4444; 
+font-weight: bold; 
+} 
 
-.popup img {
-    max-width: 90vw;
-    max-height: 90vh;
-    border-radius: 10px;
-}
+.aluno strong { 
+font-size: 15px; 
+} 
 
-.fechar {
-    position: absolute;
-    top: 20px;
-    right: 25px;
-    font-size: 30px;
-    color: white;
-    cursor: pointer;
-}
-</style>
+.aluno div { 
+font-size: 13px; 
+line-height: 1.4; 
+} 
 
-</head>
+.paginacao { 
+text-align: center; 
+margin-top: 20px; 
+} 
 
-<body>
+.paginacao button { 
+background: #f3f4f6; 
+} 
 
-<div class="container">
-    <h2>Boletim Escolar</h2>
+.paginacao button:hover { 
+background: #e5e7eb; 
+} 
 
-    <select id="salaSelect" onchange="carregarDados()">
-        <option value="6a">6º A</option>
-        <option value="6b">6º B</option>
-        <option value="6c">6º C</option>
-        <option value="7a">7º A</option>
-        <option value="7b">7º B</option>
-    </select>
+#pagina { 
+margin: 0 10px; 
+font-weight: 500; 
+} 
 
-    <div id="boletim"></div>
-</div>
+/* POPUP */ 
+.popup { 
+display: none; 
+position: fixed; 
+z-index: 999; 
+top: 0; 
+left: 0; 
+width: 100%; 
+height: 100%; 
+background: rgba(0,0,0,0.9); 
+justify-content: center; 
+align-items: center; 
+} 
 
-<!-- POPUP -->
-<div id="popup" class="popup" onclick="fecharPopup(event)">
-    <span class="fechar">×</span>
-    <img id="imgPopup">
-</div>
+.popup img { 
+max-width: 90vw; 
+max-height: 90vh; 
+object-fit: contain; 
+border-radius: 12px; 
+} 
 
-<script>
+.fechar { 
+position: absolute; 
+top: 20px; 
+right: 30px; 
+color: white; 
+font-size: 30px; 
+font-weight: bold; 
+cursor: pointer; 
+opacity: 0.7; 
+} 
 
-const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+.fechar:hover { 
+opacity: 1; 
+} 
 
-const SALAS = {
-    "6a": "6apb.json",
-    "6b": "6bpb.json",
-    "6c": "6cpb.json",
-    "7a": "7apb.json",
-    "7b": "7bpb.json"
-};
+@media (max-width: 600px) { 
+.search-box { 
+flex-direction: column; 
+} 
 
-// 🔥 normalizador
-function normalizar(texto) {
-    return (texto || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s+/g, " ")
-        .trim();
-}
+.aluno { 
+flex-direction: column; 
+align-items: flex-start; 
+} 
+} 
+</style> 
+</head> 
+<body> 
 
-/* =========================
-   📸 FOTO (NOVA ESTRATÉGIA)
-========================= */
-function montarFoto(id) {
-    if (!id) return null;
+<div class="container"> 
+<h2>🔍 Consulta de Alunos</h2> 
 
-    id = String(id).trim();
+<div class="search-box"> 
+<input type="text" id="busca" placeholder="Pesquisar qualquer campo"> 
+<button class="search-btn" onclick="buscar()">Buscar</button> 
+</div> 
 
-    if (id.length < 10) return null;
+<div id="resultado"></div> 
 
-    return "https://lh3.googleusercontent.com/d/" + id;
-}
+<div class="paginacao"> 
+<button onclick="anterior()">⬅</button> 
+<span id="pagina"></span> 
+<button onclick="proximo()">➡</button> 
+</div> 
+</div> 
 
-function erroFoto(nome, url) {
-    console.error("❌ ERRO FOTO");
-    console.error("Aluno:", nome);
-    console.error("ID recebido:", url);
-}
+<!-- POPUP --> 
+<div id="popup" class="popup" onclick="fecharPopup(event)"> 
+<span class="fechar" onclick="fecharPopup(event)">×</span> 
+<img id="imgPopup"> 
+</div> 
 
-/* ========================= */
+<script> 
+const url = "https://script.google.com/macros/s/AKfycbxxbE3LiV3p2hPIegaqyqadlOzUqCwWkJDRHbKhkcR7sTyWX6VqWZ-5m577AB1ictRYVg/exec"; 
+let dados = []; 
+let filtrados = []; 
+let paginaAtual = 1; 
+const porPagina = 5; 
 
-async function carregarDados() {
-    const sala = document.getElementById("salaSelect").value;
+function montarFoto(id) { 
+if (!id) return null; 
+id = String(id).trim(); 
+if (id.length < 10) return null; 
+return "https://lh3.googleusercontent.com/d/" + id; 
+} 
 
-    try {
-        const resAlunos = await fetch(URL_ALUNOS);
-        const alunos = await resAlunos.json();
+function formatarData(dataStr) { 
+if (!dataStr) return '-'; 
+const d = new Date(dataStr); 
+if (isNaN(d)) return dataStr; 
+const dia = String(d.getDate()).padStart(2, '0'); 
+const mes = String(d.getMonth() + 1).padStart(2, '0'); 
+const ano = d.getFullYear(); 
+return ${dia}/${mes}/${ano}; 
+} 
 
-        const resNotas = await fetch(SALAS[sala]);
-        const notas = await resNotas.json();
+function carregar() { 
+fetch(url) 
+.then(r => r.json()) 
+.then(data => { 
+dados = data; 
+filtrados = data; 
+renderizar(); 
+}); 
+} 
 
-        montarBoletim(alunos, notas, sala);
+function buscar() { 
+const valor = document.getElementById("busca").value.toLowerCase().trim(); 
+if (!valor) { 
+filtrados = dados; 
+} else { 
+filtrados = dados.filter(a => { 
+return Object.keys(a).some(k => { 
+return String(a[k] || "").toLowerCase().includes(valor); 
+}); 
+}); 
+} 
+paginaAtual = 1; 
+renderizar(); 
+} 
 
-    } catch (e) {
-        console.error("Erro geral:", e);
-    }
-}
+function renderizar() { 
+const inicio = (paginaAtual - 1) * porPagina; 
+const paginaDados = filtrados.slice(inicio, inicio + porPagina); 
+const div = document.getElementById("resultado"); 
+div.innerHTML = ""; 
 
-function montarBoletim(alunos, notas, salaSelecionada) {
-    const container = document.getElementById("boletim");
-    container.innerHTML = "";
+if (paginaDados.length === 0) { 
+div.innerHTML = "❌ Nenhum resultado encontrado"; 
+return; 
+} 
 
-    const notasPorNome = {};
+paginaDados.forEach(a => { 
+const foto = montarFoto(a.foto); 
+const fotoHTML = foto ? <img class="foto" src="${foto}" onclick="abrirPopup('${foto}')"> : <div class="sem-foto">❌</div>; 
 
-    for (let key in notas) {
-        const a = notas[key];
-        if (!a?.nome) continue;
+div.innerHTML += <div class="aluno"> 
+${fotoHTML} 
+<div> 
+<strong>${a.nome}</strong><br> 
+RA: ${a.ra}<br> 
+Data: ${formatarData(a.data)}<br> 
+Nascimento: ${formatarData(a.nascimento)}<br> 
+Sala: ${a.sala}<br> 
+Tutor: ${a.tutor}<br> 
+Eletiva1: ${a.eletiva1 || '-'}<br> 
+Eletiva2: ${a.eletiva2 || '-'} 
+</div> 
+</div>; 
+}); 
 
-        notasPorNome[normalizar(a.nome)] = a;
-    }
+document.getElementById("pagina").innerText = "Página " + paginaAtual + " de " + Math.ceil(filtrados.length / porPagina); 
+} 
 
-    const alunosSala = alunos.filter(a =>
-        normalizar(a.sala) === normalizar(salaSelecionada)
-    );
+function proximo() { 
+if (paginaAtual < Math.ceil(filtrados.length / porPagina)) { 
+paginaAtual++; 
+renderizar(); 
+} 
+} 
 
-    alunosSala.forEach(aluno => {
+function anterior() { 
+if (paginaAtual > 1) { 
+paginaAtual--; 
+renderizar(); 
+} 
+} 
 
-        const dados = notasPorNome[normalizar(aluno.nome)];
-        if (!dados) return;
+function abrirPopup(src) { 
+document.getElementById("popup").style.display = "flex"; 
+document.getElementById("imgPopup").src = src; 
+} 
 
-        const fotoFinal = montarFoto(aluno.foto);
+function fecharPopup(e) { 
+if (e.target.tagName === "IMG") return; 
+document.getElementById("popup").style.display = "none"; 
+} 
 
-        if (!fotoFinal) {
-            erroFoto(aluno.nome, aluno.foto);
-        }
+carregar(); 
+</script> 
 
-        const fotoHTML = fotoFinal
-            ? `<img src="${fotoFinal}" onclick="abrirPopup('${fotoFinal}')">`
-            : `<div class="sem-foto">❌</div>`;
-
-        const div = document.createElement("div");
-        div.className = "aluno";
-
-        div.innerHTML = `
-            ${fotoHTML}
-
-            <div class="info">
-                <strong>${aluno.nome}</strong><br>
-                RA: ${aluno.ra || '-'}<br>
-                Tutor: ${aluno.tutor || '-'}
-
-                <div class="table-wrapper">
-                    ${gerarTabela(dados.disciplinas)}
-                </div>
-            </div>
-        `;
-
-        container.appendChild(div);
-    });
-}
-
-function gerarTabela(disciplinas) {
-    if (!disciplinas) return "<p style='color:red'>Sem disciplinas</p>";
-
-    let html = `
-    <table>
-        <tr>
-            <th>Disciplina</th>
-            <th>Chamada</th>
-            <th>Média</th>
-            <th>Faltas</th>
-            <th>Acumulado</th>
-        </tr>
-    `;
-
-    for (let nome in disciplinas) {
-        const d = disciplinas[nome];
-
-        html += `
-        <tr>
-            <td>${nome.replaceAll("_", " ")}</td>
-            <td>${d.numero ?? "-"}</td>
-            <td>${d.media ?? "-"}</td>
-            <td>${d.faltas ?? "-"}</td>
-            <td>${d.acumulado ?? "-"}</td>
-        </tr>
-        `;
-    }
-
-    html += "</table>";
-    return html;
-}
-
-/* =========================
-   POPUP FOTO
-========================= */
-function abrirPopup(src) {
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("imgPopup").src = src;
-}
-
-function fecharPopup(e) {
-    if (e.target.tagName === "IMG") return;
-    document.getElementById("popup").style.display = "none";
-}
-
-carregarDados();
-
-</script>
-
-</body>
+</body> 
 </html>
