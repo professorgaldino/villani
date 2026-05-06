@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 8</title>
+<title>Boletim Bimestral</title>
 
 <style>
 body {
@@ -24,34 +24,27 @@ body {
     margin-bottom: 15px;
 }
 
-select {
-    padding: 8px;
-    border-radius: 6px;
-}
-
 /* CARD */
 .aluno {
     background: white;
     border-radius: 12px;
     padding: 12px;
-    margin-bottom: 15px;
-    display: flex;
-    gap: 15px;
+    margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
 /* FOTO */
 .foto {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     border-radius: 10px;
     object-fit: cover;
     border: 2px solid #ddd;
 }
 
 .sem-foto {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
     background: #eee;
     display: flex;
     align-items: center;
@@ -61,16 +54,35 @@ select {
 }
 
 /* INFO */
-.info {
-    flex: 1;
-    font-size: 14px;
+.header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
-/* DISCIPLINAS */
-.disciplina {
-    margin-top: 6px;
-    padding-bottom: 4px;
-    border-bottom: 1px solid #eee;
+/* TABELA */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+}
+
+th {
+    background: #0077cc;
+    color: white;
+}
+
+/* 🔥 destaque roxo */
+.vazio {
+    background: #e8ddff;
+    color: #555;
 }
 </style>
 
@@ -81,13 +93,7 @@ select {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim Escolar</h2>
-
-    <select id="salaSelect">
-        <option value="6apb.json">6º Ano A</option>
-        <option value="7apb.json">7º Ano A</option>
-        <option value="8apb.json">8º Ano A</option>
-    </select>
+    <h2>📊 Boletim Bimestral</h2>
 </div>
 
 <div id="boletim"></div>
@@ -96,18 +102,19 @@ select {
 
 <script>
 
-const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+// 📂 4 bimestres (JSONs)
+const BIMESTRES = [
+    "6apb.json", // 1º
+    "7apb.json", // 2º (exemplo)
+    "8apb.json", // 3º (exemplo)
+    "9apb.json"  // 4º (exemplo)
+];
 
-let URL_NOTAS = "6apb.json";
-
-let alunos = [];
-let notas = {};
+let dadosBimestres = [];
 
 // 📸 FOTO
 function montarFoto(id) {
     if (!id) return null;
-    id = String(id).trim();
-    if (id.length < 10) return null;
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
@@ -116,93 +123,91 @@ function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📥 CARREGAR DADOS
+// 📥 CARREGAR TODOS BIMESTRES
 async function carregar() {
-    try {
-        const resAlunos = await fetch(URL_ALUNOS);
-        alunos = await resAlunos.json();
 
-        const resNotas = await fetch(URL_NOTAS);
-        notas = await resNotas.json();
+    dadosBimestres = await Promise.all(
+        BIMESTRES.map(url => fetch(url).then(r => r.json()))
+    );
 
-        montar();
-
-    } catch (e) {
-        console.error("❌ ERRO:", e);
-    }
+    montar();
 }
 
-// 📊 MONTA BOLETIM (COM FOTO CORRETA)
+// 📊 MONTA BOLETIM BIMESTRAL
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
-    // 🔥 MAPA DE ALUNOS (para foto + RA)
-    const mapaAlunos = {};
-    alunos.forEach(a => {
-        mapaAlunos[a.nome] = a;
-    });
+    const alunos = Object.values(dadosBimestres[0]); // base alunos
 
-    const lista = Object.values(notas);
+    alunos.forEach(alunoBase => {
 
-    lista.forEach(a => {
+        const foto = montarFoto(alunoBase.foto);
 
-        const alunoBase = mapaAlunos[a.nome];
-
-        const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
-
-        const fotoHTML = foto
-            ? `<img class="foto" src="${foto}">`
-            : `<div class="sem-foto">❌</div>`;
-
-        let disciplinasHTML = "";
-
-        for (let nome in a.disciplinas) {
-            let d = a.disciplinas[nome];
-
-            disciplinasHTML += `
-                <div class="disciplina">
-                    <strong>${nome}</strong><br>
-                    Média: ${v(d.numero)} |
-                    Faltas: ${v(d.media)} |
-                    Faltas Acum.: ${v(d.faltas)}
-                </div>
-            `;
-        }
-
-        box.innerHTML += `
+        let html = `
         <div class="aluno">
 
-            ${fotoHTML}
+            <div class="header">
+                ${foto
+                    ? `<img class="foto" src="${foto}">`
+                    : `<div class="sem-foto">❌</div>`
+                }
 
-            <div class="info">
-
-                <strong>${a.nome}</strong><br>
-
-                RA (Chamada): ${v(a.numero)}<br>
-                Situação: ${v(a.situacao)}<br>
-
-                ${disciplinasHTML}
-
-                <hr>
-
-                📌 Faltas acumuladas: ${v(a.totais?.faltas_acumuladas)}<br>
-                📊 Frequência: ${v(a.totais?.frequencia)}%<br>
-                📌 Faltas anual: ${v(a.totais?.faltas_anual)}<br>
-                📊 Frequência anual: ${v(a.totais?.frequencia_anual)}%
+                <div>
+                    <strong>${alunoBase.nome}</strong><br>
+                    RA: ${v(alunoBase.numero)}<br>
+                    Situação: ${v(alunoBase.situacao)}
+                </div>
             </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Disciplina</th>
+                        <th>1º Bim</th>
+                        <th>2º Bim</th>
+                        <th>3º Bim</th>
+                        <th>4º Bim</th>
+                    </tr>
+                </thead>
+                <tbody>
+        `;
+
+        const disciplinas = alunoBase.disciplinas;
+
+        for (let nome in disciplinas) {
+
+            html += `<tr><td>${nome}</td>`;
+
+            dadosBimestres.forEach(bim => {
+
+                const aluno = Object.values(bim).find(a => a.nome === alunoBase.nome);
+
+                const d = aluno?.disciplinas?.[nome];
+
+                const media = v(d?.numero);
+
+                html += `
+                    <td class="${media === '-' ? 'vazio' : ''}">
+                        ${media}
+                    </td>
+                `;
+            });
+
+            html += `</tr>`;
+        }
+
+        html += `
+                </tbody>
+            </table>
 
         </div>
         `;
+
+        box.innerHTML += html;
     });
 }
-
-// 🔁 TROCA DE SALA
-document.getElementById("salaSelect").addEventListener("change", e => {
-    URL_NOTAS = e.target.value;
-    carregar();
-});
 
 carregar();
 
