@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 2</title>
+<title>Boletim Escolar 3</title>
 
 <style>
 body {
@@ -18,7 +18,7 @@ body {
     margin: auto;
 }
 
-/* SELECT SALA */
+/* TOPO */
 .topo {
     display: flex;
     justify-content: space-between;
@@ -113,7 +113,6 @@ th {
     <div class="topo">
         <h2>📊 Boletim Escolar</h2>
 
-        <!-- 🔽 SELETOR DE SALA -->
         <select id="salaSelect">
             <option value="6apb.json">6º Ano A</option>
             <option value="7apb.json">7º Ano A</option>
@@ -144,7 +143,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// 🔤 NORMALIZAR
+// 🔤 NORMALIZAR NOME (para comparação)
 function normalizar(texto) {
     return (texto || "")
         .toLowerCase()
@@ -216,7 +215,7 @@ function montarBoletim() {
     });
 }
 
-// 📊 TABELA
+// 📊 TABELA (SEM FORMATAR NOME)
 function gerarTabela(disciplinas) {
     if (!disciplinas) return "<p>Sem disciplinas</p>";
 
@@ -236,7 +235,7 @@ function gerarTabela(disciplinas) {
 
         html += `
         <tr>
-            <td>${nome.replaceAll("_", " ")}</td>
+            <td>${nome}</td>
             <td>${d.numero ?? "-"}</td>
             <td>${d.media ?? "-"}</td>
             <td>${d.faltas ?? "-"}</td>
