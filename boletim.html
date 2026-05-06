@@ -85,9 +85,16 @@ th {
     color: white;
 }
 
-/* vazio = roxo */
 .vazio {
     background: #e8ddff;
+}
+
+/* ELETIVAS APPSCRIPT */
+.eletivas-box {
+    margin-top: 8px;
+    padding: 8px;
+    background: #f3e8ff;
+    border-radius: 8px;
 }
 </style>
 
@@ -126,7 +133,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
-// 🔤 NORMALIZAR NOME (ESSENCIAL)
+// 🔤 NORMALIZAR
 function normalizar(t) {
     return (t || "")
         .toLowerCase()
@@ -135,12 +142,18 @@ function normalizar(t) {
         .trim();
 }
 
-// 🔢 VALOR SEGURO
+// 🔢 VALOR
 function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📥 CARREGAR DADOS
+// 📌 IDENTIFICAR ELETIVAS APPSCRIPT
+function isEletivaApp(nome) {
+    const n = nome.toUpperCase();
+    return n.includes("ELETIVA1") || n.includes("ELETIVA2");
+}
+
+// 📥 CARREGAR
 async function carregar() {
 
     const resAlunos = await fetch(URL_ALUNOS);
@@ -152,13 +165,12 @@ async function carregar() {
     montar();
 }
 
-// 📊 MONTA BOLETIM (CORRIGIDO DEFINITIVO)
+// 📊 MONTA
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
-    // 📌 MAPA DE ALUNOS (RA + TUTOR + FOTO)
     const mapaAlunos = {};
     alunos.forEach(a => {
         mapaAlunos[normalizar(a.nome)] = a;
@@ -177,6 +189,7 @@ function montar() {
             : `<div class="sem-foto">❌</div>`;
 
         let disciplinasHTML = "";
+        let eletivasAppHTML = "";
 
         for (let nome in a.disciplinas) {
 
@@ -186,9 +199,20 @@ function montar() {
             const faltas = v(d.media);
             const acum = v(d.faltas);
 
+            const nomeFormatado = nome.replaceAll("_", " ");
+
+            // 📌 ELETIVAS DO APPSCRIPT
+            if (isEletivaApp(nome)) {
+                eletivasAppHTML += `
+                    📘 ${nomeFormatado} → Média: ${media} | Faltas: ${faltas}<br>
+                `;
+                continue;
+            }
+
+            // 📌 DISCIPLINAS NORMAIS (INCLUINDO ELETIVAS DO JSON)
             disciplinasHTML += `
             <tr>
-                <td>${nome}</td>
+                <td>${nomeFormatado}</td>
                 <td class="${media==='-'?'vazio':''}">${media}</td>
                 <td class="${faltas==='-'?'vazio':''}">${faltas}</td>
                 <td>${acum}</td>
@@ -207,6 +231,14 @@ function montar() {
 
                 RA: ${alunoBase?.ra || '-'}<br>
                 Tutor: ${alunoBase?.tutor || '-'}<br>
+
+                ${eletivasAppHTML ? `
+                <div class="eletivas-box">
+                    <strong>📘 Eletivas do Aluno</strong><br>
+                    ${eletivasAppHTML}
+                </div>
+                ` : ''}
+
                 Situação: ${v(a.situacao)}<br>
 
                 <table>
