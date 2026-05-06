@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Boletim Escolar (DEBUG 2)</title>
+<title>Boletim Escolar DBG 3</title>
 
 <style>
 body {
@@ -19,18 +19,6 @@ body {
 select {
   padding: 8px;
   margin-bottom: 20px;
-}
-
-/* DEBUG */
-.debug {
-  background: #111;
-  color: #0f0;
-  padding: 10px;
-  font-size: 12px;
-  height: 200px;
-  overflow: auto;
-  margin-bottom: 20px;
-  border-radius: 8px;
 }
 
 .aluno {
@@ -77,15 +65,15 @@ th {
 
 <div class="container">
 
-<h2>Boletim Escolar (Modo Debug)</h2>
+<h2>Boletim Escolar</h2>
 
 <select id="salaSelect" onchange="carregarDados()">
-  <option value="7a">7º A</option>
+  <option value="6a">6º A</option>
   <option value="6b">6º B</option>
   <option value="6c">6º C</option>
+  <option value="7a">7º A</option>
+  <option value="7b">7º B</option>
 </select>
-
-<div class="debug" id="debug"></div>
 
 <div id="boletim"></div>
 
@@ -93,130 +81,83 @@ th {
 
 <script>
 
-// 🔗 SUA API
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
-// 📚 Bimestres
-const BIMESTRES = ["pb","sb","tb","qb"];
+const SALAS = {
+  "6a": "6apb.json",
+  "6b": "6bpb.json",
+  "6c": "6cpb.json",
+  "7a": "7apb.json",
+  "7b": "7bpb.json"
+};
 
-// 🧠 DEBUG
-function log(msg) {
-  console.log(msg);
-  document.getElementById("debug").innerHTML += msg + "<br>";
-}
-
-// 🔧 normalizar texto
-function normalizar(txt) {
-  return (txt || "")
-    .toString()
+// 🔥 normalizador de nome
+function normalizar(texto) {
+  return (texto || "")
     .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .replace(/º/g, "")
-    .replace(/\s+/g, "")
+    .replace(/\s+/g, " ")
     .trim();
 }
 
 async function carregarDados() {
-
-  const debugBox = document.getElementById("debug");
-  debugBox.innerHTML = "";
-
   const sala = document.getElementById("salaSelect").value;
-  const salaNorm = normalizar(sala);
 
-  log("📌 Sala selecionada: " + salaNorm);
+  console.clear();
+  console.log("📌 Sala selecionada:", sala);
 
   try {
-
-    // 🔹 alunos
     const resAlunos = await fetch(URL_ALUNOS);
     const alunos = await resAlunos.json();
 
-    log("👥 Total alunos carregados: " + alunos.length);
+    const resNotas = await fetch(SALAS[sala]);
+    const notas = await resNotas.json();
 
-    // 🔹 filtrar sala
-    const alunosSala = alunos.filter(a =>
-      normalizar(a.sala) === salaNorm
-    );
+    console.log("👥 Total alunos carregados:", alunos.length);
+    console.log("📦 JSON exemplo:", Object.values(notas)[0]);
 
-    log("🎯 Alunos na sala: " + alunosSala.length);
-
-    if (alunosSala.length === 0) {
-      log("❌ ERRO: Nenhum aluno encontrado para essa sala!");
-    }
-
-    // 🔹 carregar JSONs
-    const listaBimestres = [];
-
-    for (let b of BIMESTRES) {
-
-      const arquivo = `${salaNorm}${b}.json`;
-
-      try {
-        const res = await fetch(arquivo);
-
-        if (!res.ok) throw new Error();
-
-        const json = await res.json();
-
-        listaBimestres.push(json);
-
-        log("✅ JSON carregado: " + arquivo);
-
-      } catch {
-        log("⚠️ NÃO encontrado: " + arquivo);
-      }
-    }
-
-    if (listaBimestres.length === 0) {
-      log("❌ ERRO: Nenhum JSON carregado!");
-    }
-
-    montarBoletim(alunosSala, listaBimestres);
+    montarBoletim(alunos, notas, sala);
 
   } catch (e) {
-    log("🔥 ERRO GERAL: " + e.message);
+    console.error("🔥 ERRO GERAL:", e);
   }
 }
 
-function montarBoletim(alunos, listaBimestres) {
+function montarBoletim(alunos, notas, salaSelecionada) {
 
   const container = document.getElementById("boletim");
   container.innerHTML = "";
 
   const notasPorNome = {};
 
-  // 🔹 juntar JSONs
-  listaBimestres.forEach(json => {
-    for (let key in json) {
-      const aluno = json[key];
+  let totalNotas = 0;
 
-      if (!aluno.nome) continue;
+  for (let key in notas) {
+    const alunoNota = notas[key];
 
-      const nome = normalizar(aluno.nome);
+    if (!alunoNota || !alunoNota.nome) continue;
 
-      if (!notasPorNome[nome]) {
-        notasPorNome[nome] = aluno;
-      } else {
-        Object.assign(
-          notasPorNome[nome].disciplinas,
-          aluno.disciplinas
-        );
-      }
-    }
-  });
+    const nomeNorm = normalizar(alunoNota.nome);
+    notasPorNome[nomeNorm] = alunoNota;
+    totalNotas++;
+  }
 
-  log("📊 Total alunos com nota: " + Object.keys(notasPorNome).length);
+  console.log("📊 Total alunos com nota:", totalNotas);
 
-  // 🔹 cruzamento
-  alunos.forEach(aluno => {
+  const alunosSala = alunos.filter(a =>
+    normalizar(a.sala) === normalizar(salaSelecionada)
+  );
 
-    const nome = normalizar(aluno.nome);
-    const dados = notasPorNome[nome];
+  console.log("🎯 Alunos na sala:", alunosSala.length);
 
-    if (!dados) {
-      log("❌ SEM NOTA: " + aluno.nome);
+  alunosSala.forEach(aluno => {
+
+    const nomeNorm = normalizar(aluno.nome);
+    const dadosNota = notasPorNome[nomeNorm];
+
+    if (!dadosNota) {
+      console.warn("❌ SEM NOTA:", aluno.nome);
       return;
     }
 
@@ -224,14 +165,14 @@ function montarBoletim(alunos, listaBimestres) {
     div.className = "aluno";
 
     div.innerHTML = `
-      <img src="${aluno.foto || 'https://via.placeholder.com/100'}">
+      <img src="${aluno.foto || ''}" />
 
       <div class="info">
         <strong>${aluno.nome}</strong><br>
-        RA: ${aluno.ra}<br>
-        Tutor: ${aluno.tutor || "-"}<br>
+        RA: ${aluno.ra || '-'}<br>
+        Tutor: ${aluno.tutor || '-'}<br>
 
-        ${gerarTabela(dados.disciplinas)}
+        ${gerarTabela(dadosNota.disciplinas, aluno.nome)}
       </div>
     `;
 
@@ -239,7 +180,12 @@ function montarBoletim(alunos, listaBimestres) {
   });
 }
 
-function gerarTabela(disciplinas) {
+function gerarTabela(disciplinas, nomeAluno) {
+
+  if (!disciplinas) {
+    console.warn("⚠️ Sem disciplinas:", nomeAluno);
+    return "<p style='color:red'>Sem disciplinas</p>";
+  }
 
   let html = `
     <table>
@@ -254,16 +200,26 @@ function gerarTabela(disciplinas) {
   `;
 
   for (let nome in disciplinas) {
+
     const d = disciplinas[nome];
+
+    if (!d) {
+      console.warn("⚠️ disciplina inválida:", nome, nomeAluno);
+      continue;
+    }
+
+    const notas = Array.isArray(d.notas)
+      ? d.notas
+      : ["-", "-", "-", "-"];
 
     html += `
       <tr>
         <td>${nome}</td>
-        <td>${d.notas[0]}</td>
-        <td>${d.notas[1]}</td>
-        <td>${d.notas[2]}</td>
-        <td>${d.notas[3]}</td>
-        <td>${d.faltas_acumuladas}</td>
+        <td>${notas[0] ?? "-"}</td>
+        <td>${notas[1] ?? "-"}</td>
+        <td>${notas[2] ?? "-"}</td>
+        <td>${notas[3] ?? "-"}</td>
+        <td>${d.faltas_acumuladas ?? "-"}</td>
       </tr>
     `;
   }
@@ -273,7 +229,6 @@ function gerarTabela(disciplinas) {
   return html;
 }
 
-// 🚀 iniciar
 carregarDados();
 
 </script>
