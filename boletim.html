@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar Completo</title>
+<title>Boletim Escolar Final</title>
 
 <style>
 body {
@@ -53,11 +53,11 @@ select {
     width: 90px;
     height: 90px;
     background: #eee;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:red;
-    border-radius:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: red;
+    border-radius: 10px;
 }
 
 /* INFO */
@@ -84,6 +84,17 @@ th {
     background: #0077cc;
     color: white;
 }
+
+.vazio {
+    background: #e8ddff;
+}
+
+.eletiva-box {
+    margin-top: 6px;
+    padding: 6px;
+    background: #f3e8ff;
+    border-radius: 8px;
+}
 </style>
 
 </head>
@@ -93,7 +104,7 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim Escolar Completo</h2>
+    <h2>📊 Boletim Escolar</h2>
 
     <select id="salaSelect">
         <option value="6apb.json">6º Ano A</option>
@@ -108,7 +119,8 @@ th {
 
 <script>
 
-const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+const URL_ALUNOS =
+"https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
 let URL_NOTAS = "6apb.json";
 
@@ -121,7 +133,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
-// 🔤 NORMALIZAÇÃO
+// 🔤 NORMALIZAR
 function normalizar(t) {
     return (t || "")
         .toLowerCase()
@@ -130,9 +142,9 @@ function normalizar(t) {
         .trim();
 }
 
-// 🔢 VALOR SEGURO
+// 🔢 VALOR
 function v(x) {
-    return (x === null || x === undefined || x === "") ? "-" : x;
+    return (x === null || x === undefined) ? "-" : x;
 }
 
 // 📥 CARREGAR
@@ -158,35 +170,46 @@ function montar() {
         mapaAlunos[normalizar(a.nome)] = a;
     });
 
-    const lista = Object.values(notas);
+    Object.values(notas).forEach(a => {
 
-    lista.forEach(a => {
-
-        const alunoBase = mapaAlunos[normalizar(a.nome)] || {};
-
-        const foto = montarFoto(alunoBase.foto);
+        const alunoBase = mapaAlunos[normalizar(a.nome)];
+        const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
         const fotoHTML = foto
             ? `<img class="foto" src="${foto}">`
             : `<div class="sem-foto">❌</div>`;
 
-        // 📘 eletivas do AppsScript
-        const eletiva1 = alunoBase.eletiva1 || "-";
-        const eletiva2 = alunoBase.eletiva2 || "-";
-
         let disciplinasHTML = "";
+        let eletivasApp = "";
 
         for (let nome in a.disciplinas) {
 
             const d = a.disciplinas[nome];
 
+            const media = v(d.numero);
+            const faltas = v(d.media);
+            const acum = v(d.faltas);
+
+            const nomeFmt = nome.replaceAll("_"," ");
+
             disciplinasHTML += `
             <tr>
-                <td>${nome}</td>
-                <td>${v(d?.numero)}</td>
-                <td>${v(d?.media)}</td>
-                <td>${v(d?.faltas)}</td>
+                <td>${nomeFmt}</td>
+                <td class="${media==='-'?'vazio':''}">${media}</td>
+                <td class="${faltas==='-'?'vazio':''}">${faltas}</td>
+                <td>${acum}</td>
             </tr>
+            `;
+        }
+
+        // 📌 eletivas apps script
+        if (alunoBase?.eletiva1 || alunoBase?.eletiva2) {
+            eletivasApp = `
+            <div class="eletiva-box">
+                <strong>📘 Eletivas</strong><br>
+                E1: ${alunoBase?.eletiva1 || "-"}<br>
+                E2: ${alunoBase?.eletiva2 || "-"}
+            </div>
             `;
         }
 
@@ -199,25 +222,30 @@ function montar() {
 
                 <strong>${a.nome}</strong><br>
 
-                RA: ${alunoBase.ra || '-'}<br>
-                Tutor: ${alunoBase.tutor || '-'}<br>
+                RA: ${alunoBase?.ra || '-'}<br>
+                Tutor: ${alunoBase?.tutor || '-'}<br>
 
-                📘 Eletiva 1: ${eletiva1}<br>
-                📘 Eletiva 2: ${eletiva2}<br>
+                ${eletivasApp}
 
                 Situação: ${v(a.situacao)}<br>
 
                 <table>
                     <tr>
                         <th>Disciplina</th>
-                        <th>Chamada</th>
                         <th>Média</th>
                         <th>Faltas</th>
+                        <th>Faltas AC</th>
                     </tr>
 
                     ${disciplinasHTML}
                 </table>
 
+                <br>
+
+                📌 Faltas acumuladas: ${v(a.totais?.faltas_acumuladas)}<br>
+                📊 Frequência: ${v(a.totais?.frequencia)}%<br>
+                📌 Faltas anual: ${v(a.totais?.faltas_anual)}<br>
+                📊 Frequência anual: ${v(a.totais?.frequencia_anual)}%
             </div>
 
         </div>
@@ -225,7 +253,7 @@ function montar() {
     });
 }
 
-// 🔁 TROCA DE SALA
+// 🔁 SALA
 document.getElementById("salaSelect").addEventListener("change", e => {
     URL_NOTAS = e.target.value;
     carregar();
