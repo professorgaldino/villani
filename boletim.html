@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 5</title>
+<title>Boletim Escolar 6</title>
 
 <style>
 body {
@@ -32,7 +32,7 @@ select {
     border: 1px solid #ccc;
 }
 
-/* ALUNO */
+/* CARD */
 .aluno {
     background: white;
     border-radius: 12px;
@@ -70,28 +70,18 @@ select {
     font-size: 14px;
 }
 
-/* TABELA */
-.table-wrapper {
-    overflow-x: auto;
+/* DISCIPLINAS LISTA */
+.disciplina {
     margin-top: 10px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    min-width: 600px;
-}
-
-th, td {
-    border: 1px solid #ddd;
     padding: 6px;
-    text-align: center;
-    font-size: 13px;
+    border-bottom: 1px solid #eee;
 }
 
-th {
-    background: #0077cc;
-    color: white;
+.disciplina strong {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 4px;
+    color: #0077cc;
 }
 </style>
 
@@ -120,6 +110,7 @@ const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyz
 
 let URL_NOTAS = "6apb.json";
 
+let alunos = [];
 let notas = {};
 
 // 📸 FOTO
@@ -132,16 +123,19 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// 🔢 VALOR SEGURO (mantém "-")
+// 🔢 VALOR SEGURO
 function valorSeguro(v) {
     return (v === null || v === undefined) ? "-" : v;
 }
 
-// 📥 CARREGAR DADOS
+// 📥 CARREGAR
 async function carregar() {
     try {
-        const res = await fetch(URL_NOTAS);
-        notas = await res.json();
+        const resAlunos = await fetch(URL_ALUNOS);
+        alunos = await resAlunos.json();
+
+        const resNotas = await fetch(URL_NOTAS);
+        notas = await resNotas.json();
 
         montarBoletim();
 
@@ -150,23 +144,47 @@ async function carregar() {
     }
 }
 
-// 📊 BOLETIM (CORRETO)
+// 📊 BOLETIM LIMPO
 function montarBoletim() {
 
     const container = document.getElementById("boletim");
     container.innerHTML = "";
 
-    const alunos = Object.values(notas); // 👈 AQUI ESTÁ A CORREÇÃO PRINCIPAL
+    const mapaNotas = {};
+
+    for (let key in notas) {
+        const aluno = notas[key];
+        if (!aluno?.nome) continue;
+
+        mapaNotas[aluno.nome] = aluno;
+    }
 
     alunos.forEach(aluno => {
 
-        if (!aluno || !aluno.disciplinas) return;
+        const dados = mapaNotas[aluno.nome];
+        if (!dados) return;
 
         const fotoFinal = montarFoto(aluno.foto);
 
         const fotoHTML = fotoFinal
             ? `<img class="foto" src="${fotoFinal}">`
             : `<div class="sem-foto">❌</div>`;
+
+        const disciplinasHTML = Object.keys(dados.disciplinas)
+            .map(nome => {
+                const d = dados.disciplinas[nome];
+
+                return `
+                <div class="disciplina">
+                    <strong>${nome}</strong><br>
+                    Chamada: ${valorSeguro(d.numero)} |
+                    Média: ${valorSeguro(d.media)} |
+                    Faltas: ${valorSeguro(d.faltas)} |
+                    Acumulado: ${valorSeguro(d.acumulado)}
+                </div>
+                `;
+            })
+            .join("");
 
         const div = document.createElement("div");
         div.className = "aluno";
@@ -176,62 +194,15 @@ function montarBoletim() {
 
             <div class="info">
                 <strong>${aluno.nome}</strong><br>
-                RA: ${aluno.numero || '-'}<br>
-                Situação: ${aluno.situacao || '-'}
+                RA: ${aluno.ra || '-'}<br>
+                Tutor: ${aluno.tutor || '-'}
 
-                <div class="table-wrapper">
-                    ${gerarTabela(aluno.disciplinas)}
-                </div>
-
-                <small>
-                    Faltas acumuladas: ${aluno.totais?.faltas_acumuladas ?? '-'} |
-                    Frequência: ${aluno.totais?.frequencia ?? '-'}
-                </small>
+                ${disciplinasHTML}
             </div>
         `;
 
         container.appendChild(div);
     });
-}
-
-// 📊 TABELA FIEL AO JSON
-function gerarTabela(disciplinas) {
-    if (!disciplinas) return "<p>Sem disciplinas</p>";
-
-    let html = `
-    <table>
-        <thead>
-            <tr>
-                <th>Disciplina</th>
-                <th>Chamada</th>
-                <th>Média</th>
-                <th>Faltas</th>
-                <th>Acumulado</th>
-            </tr>
-        </thead>
-        <tbody>
-    `;
-
-    Object.keys(disciplinas).forEach(nome => {
-        const d = disciplinas[nome];
-
-        html += `
-        <tr>
-            <td>${nome}</td>
-            <td>${valorSeguro(d.numero)}</td>
-            <td>${valorSeguro(d.media)}</td>
-            <td>${valorSeguro(d.faltas)}</td>
-            <td>${valorSeguro(d.acumulado)}</td>
-        </tr>
-        `;
-    });
-
-    html += `
-        </tbody>
-    </table>
-    `;
-
-    return html;
 }
 
 // 🔁 TROCA DE SALA
