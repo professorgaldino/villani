@@ -1,150 +1,149 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Boletim Geral</title>
+  <meta charset="UTF-8">
+  <title>Boletim Escolar</title>
 
-<style>
-body {
-  font-family: Arial;
-  background: #f5f5f5;
-  padding: 20px;
-}
+  <style>
+    body {
+      font-family: Arial;
+      margin: 20px;
+      background: #f4f4f4;
+    }
 
-h1 {
-  text-align: center;
-}
+    h1 {
+      text-align: center;
+    }
 
-#lista {
-  max-height: 300px;
-  overflow-y: auto;
-  background: white;
-  padding: 10px;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
+    #container {
+      display: flex;
+      gap: 20px;
+    }
 
-.aluno {
-  padding: 8px;
-  border-bottom: 1px solid #ddd;
-  cursor: pointer;
-}
+    #lista {
+      width: 40%;
+      background: white;
+      padding: 10px;
+      border-radius: 8px;
+      height: 500px;
+      overflow-y: auto;
+    }
 
-.aluno:hover {
-  background: #eee;
-}
+    #lista li {
+      padding: 8px;
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
+    }
 
-#boletim {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-}
+    #lista li:hover {
+      background: #eee;
+    }
 
-img {
-  width: 120px;
-  border-radius: 10px;
-}
-</style>
-
+    #notas {
+      width: 60%;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+    }
+  </style>
 </head>
+
 <body>
 
 <h1>📋 Boletim Geral</h1>
 
-<div id="lista">Carregando alunos...</div>
+<div id="container">
+  <ul id="lista"></ul>
 
-<div id="boletim">
-Clique em um aluno
+  <div id="notas">
+    Clique em um aluno
+  </div>
 </div>
 
 <script>
 
-// 🔗 LINKS DOS APPS SCRIPT (SEUS)
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-const URL_NOTAS  = "https://script.google.com/macros/s/AKfycbx6ijQUGAagM-Jvfj07eD4I1eIquYvMeGCZhm26qp9KRAEWaYIYJeqvrZA3cHJcpmBT/exec";
+const URL_NOTAS = "https://script.google.com/macros/s/AKfycbx6ijQUGAagM-Jvfj07eD4I1eIquYvMeGCZhm26qp9KRAEWaYIYJeqvrZA3cHJcpmBT/exec";
 
-// normalizar texto (ESSENCIAL pra bater nome)
-function normalizar(txt) {
-  return txt
-    .toLowerCase()
+let alunos = [];
+let notas = [];
+
+async function carregarDados() {
+  try {
+    const resAlunos = await fetch(URL_ALUNOS);
+    alunos = await resAlunos.json();
+
+    const resNotas = await fetch(URL_NOTAS);
+    notas = await resNotas.json();
+
+    listarAlunos();
+  } catch (e) {
+    document.getElementById("lista").innerHTML = "❌ Erro ao carregar dados";
+    console.error(e);
+  }
+}
+
+function listarAlunos() {
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  alunos.forEach((aluno) => {
+    const li = document.createElement("li");
+    li.textContent = aluno.ALUNO;
+
+    li.onclick = () => mostrarNotas(aluno);
+
+    lista.appendChild(li);
+  });
+}
+
+function normalizar(texto) {
+  if (!texto) return "";
+
+  return texto
+    .toString()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
     .trim();
 }
 
-// carregar alunos
-async function carregarAlunos() {
+function mostrarNotas(aluno) {
+  const nomeAluno = normalizar(aluno.ALUNO);
 
-  try {
+  const notaAluno = notas.find(n =>
+    normalizar(n.ALUNO) === nomeAluno
+  );
 
-    const res = await fetch(URL_ALUNOS);
-    const alunos = await res.json();
+  const div = document.getElementById("notas");
 
-    const lista = document.getElementById("lista");
-    lista.innerHTML = "";
-
-    alunos.forEach((aluno, i) => {
-
-      const div = document.createElement("div");
-      div.className = "aluno";
-
-      div.innerText = `${i+1} - ${aluno.nome}`;
-
-      div.onclick = () => carregarBoletim(aluno);
-
-      lista.appendChild(div);
-    });
-
-  } catch (e) {
-    document.getElementById("lista").innerText = "Erro ao carregar alunos";
-  }
-}
-
-// carregar boletim
-async function carregarBoletim(aluno) {
-
-  document.getElementById("boletim").innerHTML = "Carregando...";
-
-  try {
-
-    const res = await fetch(URL_NOTAS);
-    const notas = await res.json();
-
-    // 🔥 RELAÇÃO POR NOME + SALA
-    const notaAluno = notas.find(n =>
-      normalizar(n.ALUNO) === normalizar(aluno.nome) &&
-      normalizar(n.sala) === normalizar(aluno.sala)
-    );
-
-    if (!notaAluno) {
-      document.getElementById("boletim").innerHTML = "Aluno não encontrado nas notas";
-      return;
-    }
-
-    document.getElementById("boletim").innerHTML = `
-      <h2>${aluno.nome}</h2>
-
-      <img src="https://drive.google.com/uc?export=view&id=${aluno.foto}">
-
-      <p><b>Sala:</b> ${aluno.sala}</p>
-      <p><b>Tutor:</b> ${aluno.tutor}</p>
-
-      <hr>
-
-      <h3>📊 Notas</h3>
-
-      <pre style="white-space: pre-wrap;">
-${JSON.stringify(notaAluno, null, 2)}
-      </pre>
+  if (!notaAluno) {
+    div.innerHTML = `
+      <h3>${aluno.ALUNO}</h3>
+      <p>❌ Notas não encontradas</p>
     `;
-
-  } catch (e) {
-    document.getElementById("boletim").innerHTML = "Erro ao carregar notas";
+    return;
   }
+
+  // tentativa de pegar campos simples
+  const mat = notaAluno["MATEMATICA"] || notaAluno["MATEMATICA 2700"] || "-";
+  const port = notaAluno["LINGUA PORTUGUESA"] || "-";
+  const hist = notaAluno["HISTORIA"] || "-";
+  const geo = notaAluno["GEOGRAFIA"] || "-";
+  const freq = notaAluno["Fre(%)"] || "-";
+
+  div.innerHTML = `
+    <h2>${notaAluno.ALUNO}</h2>
+
+    <p><b>Matemática:</b> ${mat}</p>
+    <p><b>Português:</b> ${port}</p>
+    <p><b>História:</b> ${hist}</p>
+    <p><b>Geografia:</b> ${geo}</p>
+    <p><b>Frequência:</b> ${freq}</p>
+  `;
 }
 
-// iniciar
-carregarAlunos();
+carregarDados();
 
 </script>
 
