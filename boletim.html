@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 9</title>
+<title>Boletim Escolar 10</title>
 
 <style>
 body {
@@ -133,7 +133,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
-// 🔤 NORMALIZAR
+// 🔤 NORMALIZAR NOME
 function normalizar(t) {
     return (t || "")
         .toLowerCase()
@@ -142,15 +142,20 @@ function normalizar(t) {
         .trim();
 }
 
-// 🔢 VALOR
+// 🔢 VALOR SEGURO
 function v(x) {
     return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📌 IDENTIFICAR ELETIVAS APPSCRIPT
+// ✔ CORREÇÃO DEFINITIVA DAS ELETIVAS (MINÚSCULO + VARIAÇÕES)
 function isEletivaApp(nome) {
-    const n = nome.toUpperCase();
-    return n.includes("ELETIVA1") || n.includes("ELETIVA2");
+    const n = (nome || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[_\s-]/g, "");
+
+    return n.includes("eletiva1") || n.includes("eletiva2");
 }
 
 // 📥 CARREGAR
@@ -165,7 +170,7 @@ async function carregar() {
     montar();
 }
 
-// 📊 MONTA
+// 📊 MONTA BOLETIM
 function montar() {
 
     const box = document.getElementById("boletim");
@@ -181,7 +186,6 @@ function montar() {
     lista.forEach(a => {
 
         const alunoBase = mapaAlunos[normalizar(a.nome)];
-
         const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
 
         const fotoHTML = foto
@@ -199,17 +203,18 @@ function montar() {
             const faltas = v(d.media);
             const acum = v(d.faltas);
 
-            const nomeFormatado = nome.replaceAll("_", " ");
+            const nomeFormatado = nome.replaceAll("_"," ");
 
-            // 📌 ELETIVAS DO APPSCRIPT
+            // 📘 ELETIVAS DO APPSCRIPT (AGORA FUNCIONA MINÚSCULO)
             if (isEletivaApp(nome)) {
                 eletivasAppHTML += `
-                    📘 ${nomeFormatado} → Média: ${media} | Faltas: ${faltas}<br>
+                    📘 ${nomeFormatado} →
+                    Média: ${media} | Faltas: ${faltas}<br>
                 `;
                 continue;
             }
 
-            // 📌 DISCIPLINAS NORMAIS (INCLUINDO ELETIVAS DO JSON)
+            // 📊 DISCIPLINAS NORMAIS
             disciplinasHTML += `
             <tr>
                 <td>${nomeFormatado}</td>
