@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Bimestral</title>
+<title>Boletim Unificado</title>
 
 <style>
 body {
@@ -18,10 +18,16 @@ body {
     margin: auto;
 }
 
+/* TOPO */
 .topo {
     display: flex;
     justify-content: space-between;
     margin-bottom: 15px;
+}
+
+select {
+    padding: 8px;
+    border-radius: 6px;
 }
 
 /* CARD */
@@ -29,8 +35,16 @@ body {
     background: white;
     border-radius: 12px;
     padding: 12px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 /* FOTO */
@@ -53,19 +67,12 @@ body {
     border-radius: 10px;
 }
 
-/* INFO */
-.header {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 /* TABELA */
 table {
     width: 100%;
     border-collapse: collapse;
     font-size: 13px;
+    margin-top: 10px;
 }
 
 th, td {
@@ -79,10 +86,9 @@ th {
     color: white;
 }
 
-/* 🔥 destaque roxo */
+/* 🔥 vazio = roxo */
 .vazio {
     background: #e8ddff;
-    color: #555;
 }
 </style>
 
@@ -93,7 +99,13 @@ th {
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim Bimestral</h2>
+    <h2>📊 Boletim 4 Bimestres</h2>
+
+    <select id="salaSelect">
+        <option value="6apb.json">6º Ano A</option>
+        <option value="7apb.json">7º Ano A</option>
+        <option value="8apb.json">8º Ano A</option>
+    </select>
 </div>
 
 <div id="boletim"></div>
@@ -102,15 +114,14 @@ th {
 
 <script>
 
-// 📂 4 bimestres (JSONs)
 const BIMESTRES = [
-    "6apb.json", // 1º
-    "7apb.json", // 2º (exemplo)
-    "8apb.json", // 3º (exemplo)
-    "9apb.json"  // 4º (exemplo)
+    "6apb.json",
+    "7apb.json",
+    "8apb.json",
+    "9apb.json"
 ];
 
-let dadosBimestres = [];
+let dados = [];
 
 // 📸 FOTO
 function montarFoto(id) {
@@ -126,22 +137,22 @@ function v(x) {
 // 📥 CARREGAR TODOS BIMESTRES
 async function carregar() {
 
-    dadosBimestres = await Promise.all(
+    dados = await Promise.all(
         BIMESTRES.map(url => fetch(url).then(r => r.json()))
     );
 
     montar();
 }
 
-// 📊 MONTA BOLETIM BIMESTRAL
+// 📊 MONTA TABELA FINAL
 function montar() {
 
     const box = document.getElementById("boletim");
     box.innerHTML = "";
 
-    const alunos = Object.values(dadosBimestres[0]); // base alunos
+    const alunosBase = Object.values(dados[0]);
 
-    alunos.forEach(alunoBase => {
+    alunosBase.forEach(alunoBase => {
 
         const foto = montarFoto(alunoBase.foto);
 
@@ -180,17 +191,17 @@ function montar() {
 
             html += `<tr><td>${nome}</td>`;
 
-            dadosBimestres.forEach(bim => {
+            dados.forEach(bim => {
 
                 const aluno = Object.values(bim).find(a => a.nome === alunoBase.nome);
 
                 const d = aluno?.disciplinas?.[nome];
 
-                const media = v(d?.numero);
+                const valor = v(d?.numero);
 
                 html += `
-                    <td class="${media === '-' ? 'vazio' : ''}">
-                        ${media}
+                    <td class="${valor === '-' ? 'vazio' : ''}">
+                        ${valor}
                     </td>
                 `;
             });
