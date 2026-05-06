@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar</title>
+<title>Boletim Escolar 15</title>
 
 <style>
 
@@ -159,6 +159,43 @@ th{
     display:inline-block;
 }
 
+/* OCORRÊNCIAS */
+
+.ocorrencias-box{
+    margin-top:20px;
+    background:white;
+    border:1px solid #ddd;
+    border-radius:10px;
+    padding:12px;
+}
+
+.ocorrencia-item{
+    border-left:5px solid #dc3545;
+    background:#fff5f5;
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:8px;
+}
+
+.ocorrencia-data{
+    font-size:12px;
+    color:#666;
+    margin-bottom:5px;
+}
+
+.ocorrencia-prof{
+    font-weight:bold;
+    color:#0077cc;
+}
+
+.sem-ocorrencia{
+    background:#d4edda;
+    color:#155724;
+    padding:10px;
+    border-radius:8px;
+    font-weight:bold;
+}
+
 </style>
 
 </head>
@@ -181,11 +218,6 @@ th{
 
 <!-- NAVEGAÇÃO -->
 <div id="navegacaoAlunos" class="navegacao-alunos"></div>
-<!-- ===================================================== -->
-<!-- COLE TUDO ISSO LOGO ABAIXO DA NAVEGAÇÃO DOS ALUNOS -->
-<!-- ABAIXO DE: -->
-<!-- <div id="navegacaoAlunos" class="navegacao-alunos"></div> -->
-<!-- ===================================================== -->
 
 <div style="margin-bottom:15px;">
 
@@ -203,17 +235,7 @@ th{
 
 </div>
 
-<!-- ===================================================== -->
-<!-- CHART JS -->
-<!-- COLE ANTES DO <script> PRINCIPAL -->
-<!-- ===================================================== -->
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- ===================================================== -->
-<!-- POPUP DASHBOARD -->
-<!-- COLE ACIMA DO </body> -->
-<!-- ===================================================== -->
 
 <div id="popupDashboard" style="
     display:none;
@@ -286,12 +308,6 @@ th{
     </div>
 
 </div>
-
-<!-- ===================================================== -->
-<!-- JAVASCRIPT -->
-<!-- COLE ACIMA DA PARTE: -->
-<!-- // TROCAR SÉRIE -->
-<!-- ===================================================== -->
 
 <script>
 
@@ -406,7 +422,6 @@ function gerarDashboard(){
         }
     });
 
-    // TABELA
     let tabelaVermelhos = `
     <h3>
         🔴 Disciplinas com Notas Baixas
@@ -447,7 +462,6 @@ function gerarDashboard(){
 
     tabelaVermelhos += `</table>`;
 
-    // RISCO
     let riscoHTML = `
     <h3 style="margin-top:30px;">
         ⚠ Alunos com Risco de Retenção
@@ -484,7 +498,6 @@ function gerarDashboard(){
         riscoHTML += `</table>`;
     }
 
-    // SEM NOTA
     let semNotaHTML = `
     <h3 style="margin-top:30px;">
         📌 Alunos sem Nota
@@ -521,7 +534,6 @@ function gerarDashboard(){
         semNotaHTML += `</table>`;
     }
 
-    // HTML
     box.innerHTML = `
 
         <div style="
@@ -541,7 +553,6 @@ function gerarDashboard(){
         ${semNotaHTML}
     `;
 
-    // GRAFICO
     const labels =
         Object.keys(disciplinas);
 
@@ -634,6 +645,9 @@ function gerarDashboard(){
 const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
+const URL_OCORRENCIAS =
+"https://script.google.com/macros/s/AKfycbxumXT10my5xZQL0_BeeC3NRtDCFSK1-dWYMk3qLQEuPDqDkAoGvLZjvZ4S7t6r9trj/exec";
+
 const BIMESTRES = {
     1: "apb",
     2: "asb",
@@ -645,6 +659,7 @@ let serie = "6";
 
 let alunos = [];
 let dadosBimestres = {};
+let ocorrencias = [];
 
 let indiceAtual = 0;
 
@@ -708,6 +723,22 @@ async function carregarAlunos(){
     alunos = await res.json();
 }
 
+// CARREGAR OCORRÊNCIAS
+async function carregarOcorrencias(){
+
+    try{
+
+        const res =
+            await fetch(URL_OCORRENCIAS);
+
+        ocorrencias = await res.json();
+
+    }catch(e){
+
+        ocorrencias = [];
+    }
+}
+
 // CARREGAR BIMESTRE
 async function carregarBimestre(n){
 
@@ -733,6 +764,8 @@ async function carregarBimestre(n){
 async function carregar(){
 
     await carregarAlunos();
+
+    await carregarOcorrencias();
 
     dadosBimestres = {};
 
@@ -914,7 +947,6 @@ function montarTabelaUnica(nomeAluno){
 
     html += `</table>`;
 
-    // RESUMOS
     for(let b = 1; b <= 4; b++){
 
         const aluno = pegarAlunoBimestre(nomeAluno, b);
@@ -976,6 +1008,81 @@ function montarTabelaUnica(nomeAluno){
             `;
         }
     }
+
+    return html;
+}
+
+// MONTAR OCORRÊNCIAS
+function montarOcorrencias(nomeAluno){
+
+    const lista = ocorrencias.filter(o => {
+
+        return normalizar(o.nome) ===
+               normalizar(nomeAluno);
+
+    });
+
+    let html = `
+    <div class="ocorrencias-box">
+
+        <h3>
+            📋 Ficha de Ocorrências
+        </h3>
+    `;
+
+    if(lista.length === 0){
+
+        html += `
+        <div class="sem-ocorrencia">
+            ✅ Nenhuma ocorrência registrada
+        </div>
+        `;
+
+        html += `</div>`;
+
+        return html;
+    }
+
+    lista.reverse().forEach(o => {
+
+        html += `
+        <div class="ocorrencia-item">
+
+            <div class="ocorrencia-data">
+
+                📅 ${o.dataRegistro || "-"}
+                |
+                ⏰ ${o.horaRegistro || "-"}
+
+            </div>
+
+            <div class="ocorrencia-prof">
+
+                👨‍🏫 ${o.professor || "-"}
+
+            </div>
+
+            <br>
+
+            <strong>
+                Descrição:
+            </strong><br>
+
+            ${o.descricao || "-"}
+
+            <br><br>
+
+            <strong>
+                Ação:
+            </strong><br>
+
+            ${o.acao || "-"}
+
+        </div>
+        `;
+    });
+
+    html += `</div>`;
 
     return html;
 }
@@ -1079,6 +1186,8 @@ function mostrarAluno(index){
             <br>
 
             ${montarTabelaUnica(a.nome)}
+
+            ${montarOcorrencias(a.nome)}
 
         </div>
 
