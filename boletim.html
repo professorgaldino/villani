@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 3</title>
+<title>Boletim Escolar 4</title>
 
 <style>
 body {
@@ -113,6 +113,7 @@ th {
     <div class="topo">
         <h2>📊 Boletim Escolar</h2>
 
+        <!-- SELETOR DE SALA -->
         <select id="salaSelect">
             <option value="6apb.json">6º Ano A</option>
             <option value="7apb.json">7º Ano A</option>
@@ -143,13 +144,18 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// 🔤 NORMALIZAR NOME (para comparação)
+// 🔤 NORMALIZAÇÃO
 function normalizar(texto) {
     return (texto || "")
         .toLowerCase()
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
         .trim();
+}
+
+// 🔢 VALORES (CORRETO PARA BOLETIM ESCOLAR)
+function valorSeguro(v) {
+    return (v === null || v === undefined) ? "-" : v;
 }
 
 // 📥 CARREGAR DADOS
@@ -215,7 +221,7 @@ function montarBoletim() {
     });
 }
 
-// 📊 TABELA (SEM FORMATAR NOME)
+// 📊 TABELA FINAL
 function gerarTabela(disciplinas) {
     if (!disciplinas) return "<p>Sem disciplinas</p>";
 
@@ -236,10 +242,10 @@ function gerarTabela(disciplinas) {
         html += `
         <tr>
             <td>${nome}</td>
-            <td>${d.numero ?? "-"}</td>
-            <td>${d.media ?? "-"}</td>
-            <td>${d.faltas ?? "-"}</td>
-            <td>${d.acumulado ?? "-"}</td>
+            <td>${valorSeguro(d.numero)}</td>
+            <td>${valorSeguro(d.media)}</td>
+            <td>${valorSeguro(d.faltas)}</td>
+            <td>${valorSeguro(d.acumulado)}</td>
         </tr>
         `;
     }
