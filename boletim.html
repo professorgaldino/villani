@@ -1,146 +1,215 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Boletim Escolar</title>
+<meta charset="UTF-8">
+<title>Boletim Escolar</title>
 
-  <style>
-    body {
-      font-family: Arial;
-      margin: 20px;
-      background: #f4f4f4;
-    }
+<style>
+body {
+  font-family: Arial;
+  background: #f4f6f8;
+  padding: 20px;
+}
 
-    h1 {
-      text-align: center;
-    }
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
 
-    #container {
-      display: flex;
-      gap: 20px;
-    }
+select {
+  padding: 8px;
+  margin: 5px;
+}
 
-    #lista {
-      width: 40%;
-      background: white;
-      padding: 10px;
-      border-radius: 8px;
-      height: 500px;
-      overflow-y: auto;
-    }
+.aluno {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
 
-    #lista li {
-      padding: 8px;
-      cursor: pointer;
-      border-bottom: 1px solid #ddd;
-    }
+.aluno img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+}
 
-    #lista li:hover {
-      background: #eee;
-    }
+.info {
+  flex: 1;
+}
 
-    #notas {
-      width: 60%;
-      background: white;
-      padding: 20px;
-      border-radius: 8px;
-    }
-  </style>
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 6px;
+  text-align: center;
+}
+
+th {
+  background: #0077cc;
+  color: white;
+}
+</style>
 </head>
 
 <body>
 
-<h1>📋 Boletim Geral</h1>
+<div class="container">
 
-<div id="container">
-  <ul id="lista"></ul>
+<h2>Boletim Escolar</h2>
 
-  <div id="notas">
-    Clique em um aluno
-  </div>
+<!-- SALA -->
+<select id="salaSelect" onchange="carregarDados()">
+  <option value="6a">6º A</option>
+  <option value="6b">6º B</option>
+</select>
+
+<!-- BIMESTRE -->
+<select id="bimestreSelect" onchange="carregarDados()">
+  <option value="pb">1º Bimestre</option>
+  <option value="sb">2º Bimestre</option>
+  <option value="tb">3º Bimestre</option>
+  <option value="qb">4º Bimestre</option>
+</select>
+
+<div id="boletim"></div>
+
 </div>
 
 <script>
 
+// 🔗 APP SCRIPT
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-const URL_NOTAS = "https://script.google.com/macros/s/AKfycbx6ijQUGAagM-Jvfj07eD4I1eIquYvMeGCZhm26qp9KRAEWaYIYJeqvrZA3cHJcpmBT/exec";
 
-let alunos = [];
-let notas = [];
-
-async function carregarDados() {
-  try {
-    const resAlunos = await fetch(URL_ALUNOS);
-    alunos = await resAlunos.json();
-
-    const resNotas = await fetch(URL_NOTAS);
-    notas = await resNotas.json();
-
-    listarAlunos();
-  } catch (e) {
-    document.getElementById("lista").innerHTML = "❌ Erro ao carregar dados";
-    console.error(e);
-  }
-}
-
-function listarAlunos() {
-  const lista = document.getElementById("lista");
-  lista.innerHTML = "";
-
-  alunos.forEach((aluno) => {
-    const li = document.createElement("li");
-    li.textContent = aluno.ALUNO;
-
-    li.onclick = () => mostrarNotas(aluno);
-
-    lista.appendChild(li);
-  });
-}
-
+// 🔥 NORMALIZADOR
 function normalizar(texto) {
-  if (!texto) return "";
-
-  return texto
-    .toString()
+  return (texto || "")
+    .toLowerCase()
     .normalize("NFD")
     .replace(/[\u0300-\u036f]/g, "")
-    .toUpperCase()
+    .replace(/\s+/g, " ")
     .trim();
 }
 
-function mostrarNotas(aluno) {
-  const nomeAluno = normalizar(aluno.ALUNO);
+async function carregarDados() {
 
-  const notaAluno = notas.find(n =>
-    normalizar(n.ALUNO) === nomeAluno
-  );
+  const sala = document.getElementById("salaSelect").value;
+  const bimestre = document.getElementById("bimestreSelect").value;
 
-  const div = document.getElementById("notas");
+  // 🔥 monta nome do arquivo automaticamente
+  const arquivo = `${sala}${bimestre}.json`;
 
-  if (!notaAluno) {
-    div.innerHTML = `
-      <h3>${aluno.ALUNO}</h3>
-      <p>❌ Notas não encontradas</p>
-    `;
-    return;
+  try {
+
+    const resAlunos = await fetch(URL_ALUNOS);
+    const alunos = await resAlunos.json();
+
+    let notas = {};
+
+    try {
+      const resNotas = await fetch(arquivo);
+      notas = await resNotas.json();
+    } catch {
+      console.warn("Arquivo não encontrado:", arquivo);
+    }
+
+    montarBoletim(alunos, notas, sala);
+
+  } catch (erro) {
+    console.error("Erro geral:", erro);
+  }
+}
+
+function montarBoletim(alunos, notas, salaSelecionada) {
+
+  const container = document.getElementById("boletim");
+  container.innerHTML = "";
+
+  // 🔥 mapa de notas por nome
+  const mapaNotas = {};
+
+  for (let key in notas) {
+    const alunoNota = notas[key];
+
+    if (!alunoNota.nome || !alunoNota.disciplinas) continue;
+
+    const nome = normalizar(alunoNota.nome);
+    mapaNotas[nome] = alunoNota;
   }
 
-  // tentativa de pegar campos simples
-  const mat = notaAluno["MATEMATICA"] || notaAluno["MATEMATICA 2700"] || "-";
-  const port = notaAluno["LINGUA PORTUGUESA"] || "-";
-  const hist = notaAluno["HISTORIA"] || "-";
-  const geo = notaAluno["GEOGRAFIA"] || "-";
-  const freq = notaAluno["Fre(%)"] || "-";
+  const alunosSala = alunos.filter(a =>
+    normalizar(a.sala) === normalizar(salaSelecionada)
+  );
 
-  div.innerHTML = `
-    <h2>${notaAluno.ALUNO}</h2>
+  alunosSala.forEach(aluno => {
 
-    <p><b>Matemática:</b> ${mat}</p>
-    <p><b>Português:</b> ${port}</p>
-    <p><b>História:</b> ${hist}</p>
-    <p><b>Geografia:</b> ${geo}</p>
-    <p><b>Frequência:</b> ${freq}</p>
+    const nome = normalizar(aluno.nome);
+    const dadosNota = mapaNotas[nome];
+
+    // 🔥 só mostra se tiver nota
+    if (!dadosNota || Object.keys(dadosNota.disciplinas).length === 0) {
+      return;
+    }
+
+    const div = document.createElement("div");
+    div.className = "aluno";
+
+    div.innerHTML = `
+      <img src="${aluno.foto || 'https://via.placeholder.com/100'}" />
+
+      <div class="info">
+        <strong>${aluno.nome}</strong><br>
+        RA: ${aluno.ra || "-"}<br>
+        Nº: ${aluno.numero || "-"}<br>
+
+        ${gerarTabela(dadosNota.disciplinas)}
+      </div>
+    `;
+
+    container.appendChild(div);
+  });
+}
+
+function gerarTabela(disciplinas) {
+
+  let html = `
+    <table>
+      <tr>
+        <th>Disciplina</th>
+        <th>Nota</th>
+        <th>Faltas</th>
+      </tr>
   `;
+
+  for (let nome in disciplinas) {
+
+    const d = disciplinas[nome];
+
+    // 🔥 pega apenas o bimestre atual (primeira posição com valor)
+    const nota = d.notas.find(n => n !== "-") || "-";
+    const falta = d.faltas.find(f => f !== "-") || "-";
+
+    html += `
+      <tr>
+        <td>${nome}</td>
+        <td>${nota}</td>
+        <td>${falta}</td>
+      </tr>
+    `;
+  }
+
+  html += "</table>";
+
+  return html;
 }
 
 carregarDados();
