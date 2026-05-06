@@ -2,81 +2,126 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Boletim Escolar DBG 3</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boletim Escolar</title>
 
 <style>
 body {
-  font-family: Arial;
-  background: #f4f6f8;
-  padding: 20px;
+    font-family: Arial;
+    background: #f4f6f8;
+    margin: 0;
+    padding: 10px;
 }
 
+/* CONTAINER */
 .container {
-  max-width: 1200px;
-  margin: auto;
+    max-width: 1200px;
+    margin: auto;
 }
 
+/* SELECT */
 select {
-  padding: 8px;
-  margin-bottom: 20px;
+    padding: 10px;
+    margin-bottom: 15px;
+    width: 100%;
+    font-size: 16px;
 }
 
+/* CARD ALUNO */
 .aluno {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  margin-bottom: 20px;
-  display: flex;
-  gap: 15px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 12px;
+    padding: 12px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    align-items: flex-start;
 }
 
+/* FOTO */
 .aluno img {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 10px;
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 10px;
+    background: #ddd;
 }
 
+/* INFO */
 .info {
-  flex: 1;
+    flex: 1;
+    font-size: 14px;
+}
+
+/* TABELA */
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-top: 8px;
 }
 
 table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 600px;
 }
 
 th, td {
-  border: 1px solid #ddd;
-  padding: 6px;
-  text-align: center;
+    border: 1px solid #ddd;
+    padding: 6px;
+    text-align: center;
+    font-size: 13px;
 }
 
 th {
-  background: #0077cc;
-  color: white;
+    background: #0077cc;
+    color: white;
 }
+
+/* ========================= */
+/* 📱 RESPONSIVO MOBILE */
+/* ========================= */
+@media (max-width: 768px) {
+
+    .aluno {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .aluno img {
+        width: 70px;
+        height: 70px;
+    }
+
+    .info {
+        font-size: 13px;
+    }
+
+    table {
+        min-width: 500px;
+    }
+}
+
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
+    <h2>Boletim Escolar</h2>
 
-<h2>Boletim Escolar</h2>
+    <select id="salaSelect" onchange="carregarDados()">
+        <option value="6a">6º A</option>
+        <option value="6b">6º B</option>
+        <option value="6c">6º C</option>
+        <option value="7a">7º A</option>
+        <option value="7b">7º B</option>
+    </select>
 
-<select id="salaSelect" onchange="carregarDados()">
-  <option value="6a">6º A</option>
-  <option value="6b">6º B</option>
-  <option value="6c">6º C</option>
-  <option value="7a">7º A</option>
-  <option value="7b">7º B</option>
-</select>
-
-<div id="boletim"></div>
-
+    <div id="boletim"></div>
 </div>
 
 <script>
@@ -84,149 +129,112 @@ th {
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
 const SALAS = {
-  "6a": "6apb.json",
-  "6b": "6bpb.json",
-  "6c": "6cpb.json",
-  "7a": "7apb.json",
-  "7b": "7bpb.json"
+    "6a": "6apb.json",
+    "6b": "6bpb.json",
+    "6c": "6cpb.json",
+    "7a": "7apb.json",
+    "7b": "7bpb.json"
 };
 
-// 🔥 normalizador de nome
 function normalizar(texto) {
-  return (texto || "")
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
+    return (texto || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
 }
 
 async function carregarDados() {
-  const sala = document.getElementById("salaSelect").value;
+    const sala = document.getElementById("salaSelect").value;
 
-  console.clear();
-  console.log("📌 Sala selecionada:", sala);
+    try {
+        const resAlunos = await fetch(URL_ALUNOS);
+        const alunos = await resAlunos.json();
 
-  try {
-    const resAlunos = await fetch(URL_ALUNOS);
-    const alunos = await resAlunos.json();
+        const resNotas = await fetch(SALAS[sala]);
+        const notas = await resNotas.json();
 
-    const resNotas = await fetch(SALAS[sala]);
-    const notas = await resNotas.json();
+        montarBoletim(alunos, notas, sala);
 
-    console.log("👥 Total alunos carregados:", alunos.length);
-    console.log("📦 JSON exemplo:", Object.values(notas)[0]);
-
-    montarBoletim(alunos, notas, sala);
-
-  } catch (e) {
-    console.error("🔥 ERRO GERAL:", e);
-  }
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 function montarBoletim(alunos, notas, salaSelecionada) {
+    const container = document.getElementById("boletim");
+    container.innerHTML = "";
 
-  const container = document.getElementById("boletim");
-  container.innerHTML = "";
+    const notasPorNome = {};
 
-  const notasPorNome = {};
+    for (let key in notas) {
+        const alunoNota = notas[key];
+        if (!alunoNota?.nome) continue;
 
-  let totalNotas = 0;
-
-  for (let key in notas) {
-    const alunoNota = notas[key];
-
-    if (!alunoNota || !alunoNota.nome) continue;
-
-    const nomeNorm = normalizar(alunoNota.nome);
-    notasPorNome[nomeNorm] = alunoNota;
-    totalNotas++;
-  }
-
-  console.log("📊 Total alunos com nota:", totalNotas);
-
-  const alunosSala = alunos.filter(a =>
-    normalizar(a.sala) === normalizar(salaSelecionada)
-  );
-
-  console.log("🎯 Alunos na sala:", alunosSala.length);
-
-  alunosSala.forEach(aluno => {
-
-    const nomeNorm = normalizar(aluno.nome);
-    const dadosNota = notasPorNome[nomeNorm];
-
-    if (!dadosNota) {
-      console.warn("❌ SEM NOTA:", aluno.nome);
-      return;
+        notasPorNome[normalizar(alunoNota.nome)] = alunoNota;
     }
 
-    const div = document.createElement("div");
-    div.className = "aluno";
+    const alunosSala = alunos.filter(a =>
+        normalizar(a.sala) === normalizar(salaSelecionada)
+    );
 
-    div.innerHTML = `
-      <img src="${aluno.foto || ''}" />
+    alunosSala.forEach(aluno => {
+        const dadosNota = notasPorNome[normalizar(aluno.nome)];
 
-      <div class="info">
-        <strong>${aluno.nome}</strong><br>
-        RA: ${aluno.ra || '-'}<br>
-        Tutor: ${aluno.tutor || '-'}<br>
+        if (!dadosNota) return;
 
-        ${gerarTabela(dadosNota.disciplinas, aluno.nome)}
-      </div>
-    `;
+        const div = document.createElement("div");
+        div.className = "aluno";
 
-    container.appendChild(div);
-  });
+        div.innerHTML = `
+            <img src="${aluno.foto || ''}" />
+
+            <div class="info">
+                <strong>${aluno.nome}</strong><br>
+                RA: ${aluno.ra || '-'}<br>
+                Tutor: ${aluno.tutor || '-'}<br>
+
+                <div class="table-wrapper">
+                    ${gerarTabela(dadosNota.disciplinas)}
+                </div>
+            </div>
+        `;
+
+        container.appendChild(div);
+    });
 }
 
-function gerarTabela(disciplinas, nomeAluno) {
+function gerarTabela(disciplinas) {
+    if (!disciplinas) return "<p style='color:red'>Sem disciplinas</p>";
 
-  if (!disciplinas) {
-    console.warn("⚠️ Sem disciplinas:", nomeAluno);
-    return "<p style='color:red'>Sem disciplinas</p>";
-  }
-
-  let html = `
+    let html = `
     <table>
-      <tr>
-        <th>Disciplina</th>
-        <th>1º</th>
-        <th>2º</th>
-        <th>3º</th>
-        <th>4º</th>
-        <th>Faltas</th>
-      </tr>
-  `;
+        <tr>
+            <th>Disciplina</th>
+            <th>Nº</th>
+            <th>Média</th>
+            <th>Faltas</th>
+            <th>Acumulado</th>
+        </tr>
+    `;
 
-  for (let nome in disciplinas) {
+    for (let nome in disciplinas) {
+        const d = disciplinas[nome];
 
-    const d = disciplinas[nome];
-
-    if (!d) {
-      console.warn("⚠️ disciplina inválida:", nome, nomeAluno);
-      continue;
+        html += `
+        <tr>
+            <td>${nome.replaceAll("_", " ")}</td>
+            <td>${d.numero ?? "-"}</td>
+            <td>${d.media ?? "-"}</td>
+            <td>${d.faltas ?? "-"}</td>
+            <td>${d.acumulado ?? "-"}</td>
+        </tr>
+        `;
     }
 
-    const notas = Array.isArray(d.notas)
-      ? d.notas
-      : ["-", "-", "-", "-"];
-
-    html += `
-      <tr>
-        <td>${nome}</td>
-        <td>${notas[0] ?? "-"}</td>
-        <td>${notas[1] ?? "-"}</td>
-        <td>${notas[2] ?? "-"}</td>
-        <td>${notas[3] ?? "-"}</td>
-        <td>${d.faltas_acumuladas ?? "-"}</td>
-      </tr>
-    `;
-  }
-
-  html += "</table>";
-
-  return html;
+    html += "</table>";
+    return html;
 }
 
 carregarDados();
