@@ -30,6 +30,35 @@ select{
     border-radius:6px;
 }
 
+/* PAINEL ALUNOS */
+.painel-alunos{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:20px;
+}
+
+.btn-aluno{
+    width:45px;
+    height:45px;
+    border:none;
+    border-radius:10px;
+    background:#0077cc;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.btn-aluno:hover{
+    transform:scale(1.05);
+    background:#005fa3;
+}
+
+.btn-aluno.ativo{
+    background:#28a745;
+}
+
 /* CARD */
 .aluno{
     background:white;
@@ -132,6 +161,9 @@ th{
 
 </div>
 
+<!-- PAINEL -->
+<div id="painelAlunos" class="painel-alunos"></div>
+
 <div id="boletim"></div>
 
 </div>
@@ -152,6 +184,8 @@ let serie = "6";
 
 let alunos = [];
 let dadosBimestres = {};
+
+let alunoSelecionado = null;
 
 // FOTO
 function montarFoto(id){
@@ -247,7 +281,7 @@ function montarEletivas(alunoBase){
     `;
 }
 
-// PEGAR DADOS BIMESTRE
+// PEGAR ALUNO BIMESTRE
 function pegarAlunoBimestre(nomeAluno, n){
 
     const dados = dadosBimestres[n];
@@ -261,11 +295,47 @@ function pegarAlunoBimestre(nomeAluno, n){
         );
 }
 
-// MONTAR TABELA ÚNICA
+// PAINEL ALUNOS
+function montarPainelAlunos(listaBase){
+
+    const painel =
+        document.getElementById("painelAlunos");
+
+    painel.innerHTML = "";
+
+    listaBase.forEach((aluno, index) => {
+
+        const numero = index + 1;
+
+        const botao =
+            document.createElement("button");
+
+        botao.className = "btn-aluno";
+
+        if(alunoSelecionado === index){
+            botao.classList.add("ativo");
+        }
+
+        botao.innerText = numero;
+
+        botao.title = aluno.nome;
+
+        botao.addEventListener("click", () => {
+
+            alunoSelecionado = index;
+
+            montar();
+        });
+
+        painel.appendChild(botao);
+    });
+}
+
+// TABELA
 function montarTabelaUnica(nomeAluno){
 
-    // DISCIPLINAS BASE
-    const alunoBase = pegarAlunoBimestre(nomeAluno, 1);
+    const alunoBase =
+        pegarAlunoBimestre(nomeAluno, 1);
 
     if(!alunoBase){
 
@@ -324,19 +394,17 @@ function montarTabelaUnica(nomeAluno){
         </tr>
     `;
 
-    // PEGA DISCIPLINAS FIXAS
     for(let disciplina in alunoBase.disciplinas){
 
         html += `<tr>`;
 
         html += `<td>${disciplina}</td>`;
 
-        // 4 BIMESTRES
         for(let b = 1; b <= 4; b++){
 
-            const aluno = pegarAlunoBimestre(nomeAluno, b);
+            const aluno =
+                pegarAlunoBimestre(nomeAluno, b);
 
-            // BIMESTRE NÃO LANÇADO
             if(!dadosBimestres[b]){
 
                 html += `
@@ -348,7 +416,6 @@ function montarTabelaUnica(nomeAluno){
                 continue;
             }
 
-            // ALUNO NÃO EXISTE
             if(!aluno){
 
                 html += `
@@ -398,14 +465,18 @@ function montarTabelaUnica(nomeAluno){
 
     html += `</table>`;
 
-    // RESUMOS DOS BIMESTRES
     for(let b = 1; b <= 4; b++){
 
-        const aluno = pegarAlunoBimestre(nomeAluno, b);
+        const aluno =
+            pegarAlunoBimestre(nomeAluno, b);
 
         html += `<br>`;
 
-        html += `<strong>📘 ${b}° Bimestre</strong><br>`;
+        html += `
+        <strong>
+            📘 ${b}° Bimestre
+        </strong><br>
+        `;
 
         if(!dadosBimestres[b]){
 
@@ -464,7 +535,6 @@ function montar(){
         ] = a;
     });
 
-    // BASE
     const base = dadosBimestres[1];
 
     if(!base){
@@ -478,45 +548,54 @@ function montar(){
         return;
     }
 
-    Object.values(base).forEach(a => {
+    const listaBase = Object.values(base);
 
-        const alunoBase =
-            mapaAlunos[normalizar(a.nome)];
+    montarPainelAlunos(listaBase);
 
-        const foto = alunoBase
-            ? montarFoto(alunoBase.foto)
-            : null;
+    if(alunoSelecionado === null){
+        alunoSelecionado = 0;
+    }
 
-        const fotoHTML = foto
-            ? `<img class="foto" src="${foto}">`
-            : `<div class="sem-foto">❌</div>`;
+    const a = listaBase[alunoSelecionado];
 
-        box.innerHTML += `
-        <div class="aluno">
+    if(!a) return;
 
-            ${fotoHTML}
+    const alunoBase =
+        mapaAlunos[normalizar(a.nome)];
 
-            <div class="info">
+    const foto = alunoBase
+        ? montarFoto(alunoBase.foto)
+        : null;
 
-                <strong>${a.nome}</strong><br>
+    const fotoHTML = foto
+        ? `<img class="foto" src="${foto}">`
+        : `<div class="sem-foto">❌</div>`;
 
-                RA:
-                ${alunoBase?.ra || "-"}<br>
+    box.innerHTML = `
+    <div class="aluno">
 
-                Tutor:
-                ${alunoBase?.tutor || "-"}<br>
+        ${fotoHTML}
 
-                ${montarEletivas(alunoBase)}
+        <div class="info">
 
-                <br>
+            <strong>${a.nome}</strong><br>
 
-                ${montarTabelaUnica(a.nome)}
+            RA:
+            ${alunoBase?.ra || "-"}<br>
 
-            </div>
+            Tutor:
+            ${alunoBase?.tutor || "-"}<br>
+
+            ${montarEletivas(alunoBase)}
+
+            <br>
+
+            ${montarTabelaUnica(a.nome)}
 
         </div>
-        `;
-    });
+
+    </div>
+    `;
 }
 
 // TROCAR SÉRIE
@@ -524,6 +603,8 @@ document.getElementById("salaSelect")
 .addEventListener("change", e => {
 
     serie = e.target.value;
+
+    alunoSelecionado = null;
 
     carregar();
 });
