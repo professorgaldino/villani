@@ -70,8 +70,8 @@ select {
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 10px;
     font-size: 13px;
+    margin-top: 10px;
 }
 
 th, td {
@@ -96,9 +96,9 @@ th {
     <h2>📊 Boletim Escolar Completo</h2>
 
     <select id="salaSelect">
-        <option value="6apb.json">6º Ano</option>
-        <option value="7apb.json">7º Ano</option>
-        <option value="8apb.json">8º Ano</option>
+        <option value="6apb.json">6º Ano A</option>
+        <option value="7apb.json">7º Ano A</option>
+        <option value="8apb.json">8º Ano A</option>
     </select>
 </div>
 
@@ -162,16 +162,17 @@ function montar() {
 
     lista.forEach(a => {
 
-        const alunoBase = mapaAlunos[normalizar(a.nome)];
+        const alunoBase = mapaAlunos[normalizar(a.nome)] || {};
 
-        const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
+        const foto = montarFoto(alunoBase.foto);
 
         const fotoHTML = foto
             ? `<img class="foto" src="${foto}">`
             : `<div class="sem-foto">❌</div>`;
 
-        const eletiva1 = alunoBase?.eletiva1 || "-";
-        const eletiva2 = alunoBase?.eletiva2 || "-";
+        // 📘 eletivas do AppsScript
+        const eletiva1 = alunoBase.eletiva1 || "-";
+        const eletiva2 = alunoBase.eletiva2 || "-";
 
         let disciplinasHTML = "";
 
@@ -182,9 +183,9 @@ function montar() {
             disciplinasHTML += `
             <tr>
                 <td>${nome}</td>
-                <td>${v(d.numero)}</td>
-                <td>${v(d.media)}</td>
-                <td>${v(d.faltas)}</td>
+                <td>${v(d?.numero)}</td>
+                <td>${v(d?.media)}</td>
+                <td>${v(d?.faltas)}</td>
             </tr>
             `;
         }
@@ -198,8 +199,8 @@ function montar() {
 
                 <strong>${a.nome}</strong><br>
 
-                RA: ${alunoBase?.ra || '-'}<br>
-                Tutor: ${alunoBase?.tutor || '-'}<br>
+                RA: ${alunoBase.ra || '-'}<br>
+                Tutor: ${alunoBase.tutor || '-'}<br>
 
                 📘 Eletiva 1: ${eletiva1}<br>
                 📘 Eletiva 2: ${eletiva2}<br>
