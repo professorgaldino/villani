@@ -4,113 +4,117 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar</title>
+<title>Boletim Escolar 12</title>
 
 <style>
-body {
+
+body{
     font-family: Arial;
-    background: #f4f6f8;
-    padding: 15px;
+    background:#f4f6f8;
+    padding:15px;
 }
 
-.container {
-    max-width: 1200px;
-    margin: auto;
+.container{
+    max-width:1400px;
+    margin:auto;
 }
 
-.topo {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    align-items: center;
+.topo{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:15px;
 }
 
-select {
-    padding: 8px;
-    border-radius: 6px;
+select{
+    padding:8px;
+    border-radius:6px;
 }
 
 /* CARD */
-.aluno {
-    background: white;
-    border-radius: 12px;
-    padding: 12px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 15px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+.aluno{
+    background:white;
+    border-radius:12px;
+    padding:12px;
+    margin-bottom:20px;
+    display:flex;
+    gap:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
-.foto {
-    width: 90px;
-    height: 90px;
-    border-radius: 10px;
-    object-fit: cover;
-    border: 2px solid #ddd;
+/* FOTO */
+.foto{
+    width:90px;
+    height:90px;
+    border-radius:10px;
+    object-fit:cover;
+    border:2px solid #ddd;
 }
 
-.sem-foto {
-    width: 90px;
-    height: 90px;
-    background: #eee;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: red;
-    border-radius: 10px;
+.sem-foto{
+    width:90px;
+    height:90px;
+    background:#eee;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:red;
+    border-radius:10px;
 }
 
-.info {
-    flex: 1;
-    font-size: 14px;
+/* INFO */
+.info{
+    flex:1;
+    font-size:14px;
 }
 
 /* TABELA */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 13px;
-    margin-top: 10px;
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:13px;
+    margin-top:10px;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 6px;
-    text-align: center;
+th, td{
+    border:1px solid #ddd;
+    padding:6px;
+    text-align:center;
 }
 
-th {
-    background: #0077cc;
-    color: white;
+th{
+    background:#0077cc;
+    color:white;
 }
 
-.vazio {
-    background: #e8ddff;
+.vazio{
+    background:#e8ddff;
 }
 
 /* ELETIVAS */
-.eletiva-box {
-    margin-top: 6px;
-    padding: 8px;
-    border-radius: 8px;
-    background: white;
-    border: 1px solid #ddd;
+.eletiva-box{
+    margin-top:6px;
+    padding:8px;
+    border-radius:8px;
+    background:white;
+    border:1px solid #ddd;
 }
 
 /* BIMESTRE */
-.bimestre-box {
-    margin-top: 12px;
-    padding: 8px;
-    border-radius: 8px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+.titulo-bimestre{
+    margin-top:14px;
+    font-weight:bold;
+    font-size:15px;
 }
 
-.bimestre-titulo {
-    font-weight: bold;
-    margin-bottom: 5px;
-    color: #0077cc;
+.nao-lancado{
+    background:#fff3cd;
+    color:#856404;
+    padding:8px;
+    border-radius:8px;
+    margin-top:6px;
+    border:1px solid #ffeeba;
 }
+
 </style>
 
 </head>
@@ -153,16 +157,14 @@ let alunos = [];
 let dadosBimestres = {};
 
 // FOTO
-function montarFoto(id) {
-
-    if (!id) return null;
+function montarFoto(id){
+    if(!id) return null;
 
     return "https://lh3.googleusercontent.com/d/" + String(id).trim();
 }
 
 // NORMALIZAR
-function normalizar(t) {
-
+function normalizar(t){
     return (t || "")
         .toLowerCase()
         .normalize("NFD")
@@ -171,48 +173,48 @@ function normalizar(t) {
 }
 
 // VALOR
-function v(x) {
-
-    return (
-        x === null ||
-        x === undefined ||
-        x === ""
-    ) ? "-" : x;
+function v(x){
+    return (x === null || x === undefined || x === "")
+        ? "-"
+        : x;
 }
 
 // CARREGAR ALUNOS
-async function carregarAlunos() {
+async function carregarAlunos(){
 
     const res = await fetch(URL_ALUNOS);
-
     alunos = await res.json();
 }
 
 // CARREGAR BIMESTRE
-async function carregarBimestre(n) {
+async function carregarBimestre(n){
 
-    try {
+    try{
 
-        const res = await fetch(`${serie}${BIMESTRES[n]}.json`);
+        const arquivo = `${serie}${BIMESTRES[n]}.json`;
 
-        if (!res.ok) throw new Error();
+        const res = await fetch(arquivo);
+
+        if(!res.ok){
+            throw new Error();
+        }
 
         return await res.json();
 
-    } catch {
+    }catch(e){
 
         return null;
     }
 }
 
 // CARREGAR TUDO
-async function carregar() {
+async function carregar(){
 
     await carregarAlunos();
 
     dadosBimestres = {};
 
-    for (let i = 1; i <= 4; i++) {
+    for(let i = 1; i <= 4; i++){
 
         dadosBimestres[i] = await carregarBimestre(i);
     }
@@ -221,15 +223,15 @@ async function carregar() {
 }
 
 // ELETIVAS
-function montarEletivas(alunoBase) {
+function montarEletivas(alunoBase){
 
-    const e1 = alunoBase?.eletiva1;
-    const e2 = alunoBase?.eletiva2;
+    const e1 = alunoBase?.eletiva1 || "";
+    const e2 = alunoBase?.eletiva2 || "";
 
     return `
     <div class="eletiva-box">
 
-        <strong>📘 Eletivas</strong><br>
+        <strong>📘 Eletivas</strong><br><br>
 
         Eletiva 1° Semestre:
         ${e1 ? e1 : "Sem eletiva"}<br>
@@ -241,30 +243,69 @@ function montarEletivas(alunoBase) {
     `;
 }
 
-// MONTAR BIMESTRE
-function montarBimestre(alunoNome, bimestreData, titulo) {
+// TABELA BIMESTRE
+function montarTabelaBimestre(nomeAluno, dados, titulo){
 
-    if (!bimestreData) {
-        return "";
-    }
+    if(!dados){
 
-    const aluno = Object.values(bimestreData)
-        .find(a => normalizar(a.nome) === normalizar(alunoNome));
+        return `
+        <div class="titulo-bimestre">📘 ${titulo}</div>
 
-    if (!aluno) {
-        return "";
-    }
-
-    let temDados = false;
-
-    let html = `
-    <div class="bimestre-box">
-
-        <div class="bimestre-titulo">
-            ${titulo}
+        <div class="nao-lancado">
+            Bimestre não lançado
         </div>
+        `;
+    }
 
-        <table>
+    const aluno = Object.values(dados)
+        .find(a => normalizar(a.nome) === normalizar(nomeAluno));
+
+    if(!aluno){
+
+        return `
+        <div class="titulo-bimestre">📘 ${titulo}</div>
+
+        <div class="nao-lancado">
+            Bimestre não lançado
+        </div>
+        `;
+    }
+
+    let linhas = "";
+
+    for(let nome in aluno.disciplinas){
+
+        const d = aluno.disciplinas[nome];
+
+        const media = v(d.numero);
+        const faltas = v(d.media);
+        const acum = v(d.faltas);
+
+        linhas += `
+        <tr>
+            <td>${nome}</td>
+
+            <td class="${media==='-' ? 'vazio' : ''}">
+                ${media}
+            </td>
+
+            <td class="${faltas==='-' ? 'vazio' : ''}">
+                ${faltas}
+            </td>
+
+            <td>
+                ${acum}
+            </td>
+        </tr>
+        `;
+    }
+
+    return `
+    <div class="titulo-bimestre">
+        📘 ${titulo}
+    </div>
+
+    <table>
 
         <tr>
             <th>Disciplina</th>
@@ -272,55 +313,29 @@ function montarBimestre(alunoNome, bimestreData, titulo) {
             <th>Faltas</th>
             <th>Faltas AC</th>
         </tr>
+
+        ${linhas}
+
+    </table>
+
+    <br>
+
+    📌 Faltas acumuladas:
+    ${v(aluno.totais?.faltas_acumuladas)}<br>
+
+    📊 Frequência:
+    ${v(aluno.totais?.frequencia)}%<br>
+
+    📌 Faltas anual:
+    ${v(aluno.totais?.faltas_anual)}<br>
+
+    📊 Frequência anual:
+    ${v(aluno.totais?.frequencia_anual)}%
     `;
-
-    for (let d in aluno.disciplinas) {
-
-        const x = aluno.disciplinas[d];
-
-        const media = v(x.numero);
-        const faltas = v(x.media);
-        const acum = v(x.faltas);
-
-        if (
-            media !== "-" ||
-            faltas !== "-" ||
-            acum !== "-"
-        ) {
-            temDados = true;
-        }
-
-        html += `
-        <tr>
-
-            <td>${d}</td>
-
-            <td class="${media === '-' ? 'vazio' : ''}">
-                ${media}
-            </td>
-
-            <td class="${faltas === '-' ? 'vazio' : ''}">
-                ${faltas}
-            </td>
-
-            <td class="${acum === '-' ? 'vazio' : ''}">
-                ${acum}
-            </td>
-
-        </tr>
-        `;
-    }
-
-    html += `
-        </table>
-    </div>
-    `;
-
-    return temDados ? html : "";
 }
 
 // MONTAR
-function montar() {
+function montar(){
 
     const box = document.getElementById("boletim");
 
@@ -333,19 +348,27 @@ function montar() {
         mapaAlunos[normalizar(a.nome)] = a;
     });
 
-    const baseLista = dadosBimestres[1]
-        ? Object.values(dadosBimestres[1])
-        : [];
+    // BASE = 1º BIMESTRE
+    const base = dadosBimestres[1];
 
-    baseLista.forEach(a => {
+    if(!base){
 
-        const alunoBase =
-            mapaAlunos[normalizar(a.nome)];
+        box.innerHTML = `
+        <div class="nao-lancado">
+            Nenhum boletim encontrado.
+        </div>
+        `;
 
-        const foto =
-            alunoBase
-                ? montarFoto(alunoBase.foto)
-                : null;
+        return;
+    }
+
+    Object.values(base).forEach(a => {
+
+        const alunoBase = mapaAlunos[normalizar(a.nome)];
+
+        const foto = alunoBase
+            ? montarFoto(alunoBase.foto)
+            : null;
 
         const fotoHTML = foto
             ? `<img class="foto" src="${foto}">`
@@ -368,45 +391,31 @@ function montar() {
 
                 ${montarEletivas(alunoBase)}
 
-                <hr>
-
-                ${montarBimestre(
-                    a.nome,
-                    dadosBimestres[1],
-                    "📘 1º Bimestre"
-                )}
-
-                ${montarBimestre(
-                    a.nome,
-                    dadosBimestres[2],
-                    "📘 2º Bimestre"
-                )}
-
-                ${montarBimestre(
-                    a.nome,
-                    dadosBimestres[3],
-                    "📘 3º Bimestre"
-                )}
-
-                ${montarBimestre(
-                    a.nome,
-                    dadosBimestres[4],
-                    "📘 4º Bimestre"
-                )}
-
                 <br>
 
-                📌 Faltas acumuladas:
-                ${v(a.totais?.faltas_acumuladas)}<br>
+                ${montarTabelaBimestre(
+                    a.nome,
+                    dadosBimestres[1],
+                    "1º Bimestre"
+                )}
 
-                📊 Frequência:
-                ${v(a.totais?.frequencia)}%<br>
+                ${montarTabelaBimestre(
+                    a.nome,
+                    dadosBimestres[2],
+                    "2º Bimestre"
+                )}
 
-                📌 Faltas anual:
-                ${v(a.totais?.faltas_anual)}<br>
+                ${montarTabelaBimestre(
+                    a.nome,
+                    dadosBimestres[3],
+                    "3º Bimestre"
+                )}
 
-                📊 Frequência anual:
-                ${v(a.totais?.frequencia_anual)}%
+                ${montarTabelaBimestre(
+                    a.nome,
+                    dadosBimestres[4],
+                    "4º Bimestre"
+                )}
 
             </div>
 
@@ -415,9 +424,8 @@ function montar() {
     });
 }
 
-// TROCA SÉRIE
-document
-.getElementById("salaSelect")
+// TROCA SALA
+document.getElementById("salaSelect")
 .addEventListener("change", e => {
 
     serie = e.target.value;
@@ -425,6 +433,7 @@ document
     carregar();
 });
 
+// INICIAR
 carregar();
 
 </script>
