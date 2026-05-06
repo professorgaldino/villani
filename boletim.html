@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 6</title>
+<title>Boletim Escolar 7</title>
 
 <style>
 body {
@@ -18,18 +18,15 @@ body {
     margin: auto;
 }
 
-/* TOPO */
 .topo {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 15px;
 }
 
 select {
     padding: 8px;
     border-radius: 6px;
-    border: 1px solid #ccc;
 }
 
 /* CARD */
@@ -43,7 +40,6 @@ select {
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* FOTO */
 .foto {
     width: 90px;
     height: 90px;
@@ -55,33 +51,23 @@ select {
 .sem-foto {
     width: 90px;
     height: 90px;
-    border-radius: 10px;
     background: #eee;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-weight: bold;
     color: red;
+    border-radius: 10px;
 }
 
-/* INFO */
 .info {
     flex: 1;
     font-size: 14px;
 }
 
-/* DISCIPLINAS LISTA */
 .disciplina {
-    margin-top: 10px;
-    padding: 6px;
+    margin-top: 8px;
+    padding-bottom: 5px;
     border-bottom: 1px solid #eee;
-}
-
-.disciplina strong {
-    display: inline-block;
-    width: 100%;
-    margin-bottom: 4px;
-    color: #0077cc;
 }
 </style>
 
@@ -91,122 +77,103 @@ select {
 
 <div class="container">
 
-    <div class="topo">
-        <h2>📊 Boletim Escolar</h2>
+<div class="topo">
+    <h2>📊 Boletim Escolar</h2>
 
-        <select id="salaSelect">
-            <option value="6apb.json">6º Ano A</option>
-            <option value="7apb.json">7º Ano A</option>
-            <option value="8apb.json">8º Ano A</option>
-        </select>
-    </div>
+    <select id="salaSelect">
+        <option value="6apb.json">6º Ano A</option>
+        <option value="7apb.json">7º Ano A</option>
+        <option value="8apb.json">8º Ano A</option>
+    </select>
+</div>
 
-    <div id="boletim"></div>
+<div id="boletim"></div>
+
 </div>
 
 <script>
 
-const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-
 let URL_NOTAS = "6apb.json";
-
-let alunos = [];
 let notas = {};
 
-// 📸 FOTO
+// FOTO
 function montarFoto(id) {
     if (!id) return null;
-
-    id = String(id).trim();
-    if (id.length < 10) return null;
-
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// 🔢 VALOR SEGURO
-function valorSeguro(v) {
-    return (v === null || v === undefined) ? "-" : v;
+// VALOR
+function v(x) {
+    return (x === null || x === undefined) ? "-" : x;
 }
 
-// 📥 CARREGAR
+// CARREGAR
 async function carregar() {
-    try {
-        const resAlunos = await fetch(URL_ALUNOS);
-        alunos = await resAlunos.json();
-
-        const resNotas = await fetch(URL_NOTAS);
-        notas = await resNotas.json();
-
-        montarBoletim();
-
-    } catch (e) {
-        console.error("❌ ERRO:", e);
-    }
+    const res = await fetch(URL_NOTAS);
+    notas = await res.json();
+    montar();
 }
 
-// 📊 BOLETIM LIMPO
-function montarBoletim() {
+// PRINCIPAL
+function montar() {
 
-    const container = document.getElementById("boletim");
-    container.innerHTML = "";
+    const box = document.getElementById("boletim");
+    box.innerHTML = "";
 
-    const mapaNotas = {};
+    const alunos = Object.values(notas);
 
-    for (let key in notas) {
-        const aluno = notas[key];
-        if (!aluno?.nome) continue;
+    alunos.forEach(a => {
 
-        mapaNotas[aluno.nome] = aluno;
-    }
+        const foto = montarFoto(a.foto);
 
-    alunos.forEach(aluno => {
-
-        const dados = mapaNotas[aluno.nome];
-        if (!dados) return;
-
-        const fotoFinal = montarFoto(aluno.foto);
-
-        const fotoHTML = fotoFinal
-            ? `<img class="foto" src="${fotoFinal}">`
+        const fotoHTML = foto
+            ? `<img class="foto" src="${foto}">`
             : `<div class="sem-foto">❌</div>`;
 
-        const disciplinasHTML = Object.keys(dados.disciplinas)
-            .map(nome => {
-                const d = dados.disciplinas[nome];
+        let disciplinasHTML = "";
 
-                return `
+        for (let nome in a.disciplinas) {
+            let d = a.disciplinas[nome];
+
+            disciplinasHTML += `
                 <div class="disciplina">
                     <strong>${nome}</strong><br>
-                    Chamada: ${valorSeguro(d.numero)} |
-                    Média: ${valorSeguro(d.media)} |
-                    Faltas: ${valorSeguro(d.faltas)} |
-                    Acumulado: ${valorSeguro(d.acumulado)}
+                    Média: ${v(d.numero)} |
+                    Faltas: ${v(d.media)} |
+                    Faltas Acum.: ${v(d.faltas)}
                 </div>
-                `;
-            })
-            .join("");
+            `;
+        }
 
-        const div = document.createElement("div");
-        div.className = "aluno";
+        box.innerHTML += `
+        <div class="aluno">
 
-        div.innerHTML = `
             ${fotoHTML}
 
             <div class="info">
-                <strong>${aluno.nome}</strong><br>
-                RA: ${aluno.ra || '-'}<br>
-                Tutor: ${aluno.tutor || '-'}
+
+                <strong>${a.nome}</strong><br>
+
+                RA (Chamada): ${v(a.numero)}<br>
+                Situação: ${v(a.situacao)}<br>
 
                 ${disciplinasHTML}
-            </div>
-        `;
 
-        container.appendChild(div);
+                <hr>
+
+                📌 Faltas acumuladas: ${v(a.totais?.faltas_acumuladas)}<br>
+                📊 Frequência: ${v(a.totais?.frequencia)}%<br>
+                📌 Faltas anual: ${v(a.totais?.faltas_anual)}<br>
+                📊 Frequência anual: ${v(a.totais?.frequencia_anual)}%
+            </div>
+
+        </div>
+        `;
     });
 }
 
-// 🔁 TROCA DE SALA
-document.getElementById("salaSelect").addEventListener("change", (e) => {
+// TROCA DE SALA
+document.getElementById("salaSelect").addEventListener("change", e => {
     URL_NOTAS = e.target.value;
     carregar();
 });
