@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 1</title>
+<title>Boletim Escolar 2</title>
 
 <style>
 body {
@@ -16,6 +16,20 @@ body {
 .container {
     max-width: 1200px;
     margin: auto;
+}
+
+/* SELECT SALA */
+.topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
 }
 
 /* CARD ALUNO */
@@ -87,10 +101,6 @@ th {
         align-items: center;
         text-align: center;
     }
-
-    table {
-        min-width: 500px;
-    }
 }
 </style>
 
@@ -99,7 +109,17 @@ th {
 <body>
 
 <div class="container">
-    <h2>📊 Boletim Escolar</h2>
+
+    <div class="topo">
+        <h2>📊 Boletim Escolar</h2>
+
+        <!-- 🔽 SELETOR DE SALA -->
+        <select id="salaSelect">
+            <option value="6apb.json">6º Ano A</option>
+            <option value="7apb.json">7º Ano A</option>
+            <option value="8apb.json">8º Ano A</option>
+        </select>
+    </div>
 
     <div id="boletim"></div>
 </div>
@@ -107,12 +127,13 @@ th {
 <script>
 
 const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-const URL_NOTAS = "6apb.json"; // ajuste sua sala aqui
+
+let URL_NOTAS = "6apb.json";
 
 let alunos = [];
 let notas = {};
 
-// 🔥 FOTO (MESMA ESTRATÉGIA DO OUTRO SISTEMA)
+// 📸 FOTO
 function montarFoto(id) {
     if (!id) return null;
 
@@ -123,7 +144,7 @@ function montarFoto(id) {
     return "https://lh3.googleusercontent.com/d/" + id;
 }
 
-// 📅 NORMALIZAR NOME
+// 🔤 NORMALIZAR
 function normalizar(texto) {
     return (texto || "")
         .toLowerCase()
@@ -144,11 +165,11 @@ async function carregar() {
         montarBoletim();
 
     } catch (e) {
-        console.error("❌ ERRO AO CARREGAR DADOS:", e);
+        console.error("❌ ERRO AO CARREGAR:", e);
     }
 }
 
-// 📊 MONTA BOLETIM
+// 📊 BOLETIM
 function montarBoletim() {
 
     const container = document.getElementById("boletim");
@@ -171,7 +192,7 @@ function montarBoletim() {
         const fotoFinal = montarFoto(aluno.foto);
 
         const fotoHTML = fotoFinal
-            ? `<img class="foto" src="${fotoFinal}" onerror="erroFoto('${aluno.nome}', '${aluno.foto}')">`
+            ? `<img class="foto" src="${fotoFinal}">`
             : `<div class="sem-foto">❌</div>`;
 
         const div = document.createElement("div");
@@ -228,13 +249,11 @@ function gerarTabela(disciplinas) {
     return html;
 }
 
-// ❌ ERRO DE FOTO
-function erroFoto(nome, id) {
-    console.error("❌ ERRO FOTO:");
-    console.error("Aluno:", nome);
-    console.error("ID:", id);
-    console.error("Possível causa: ID inválido ou sem permissão no Google Drive");
-}
+// 🔁 TROCA DE SALA
+document.getElementById("salaSelect").addEventListener("change", (e) => {
+    URL_NOTAS = e.target.value;
+    carregar();
+});
 
 carregar();
 
