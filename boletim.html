@@ -635,13 +635,13 @@ const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
 const BIMESTRES = {
-    1: "apb",
-    2: "asb",
-    3: "atb",
-    4: "aqb"
+    1: "1",
+    2: "2",
+    3: "3",
+    4: "4"
 };
 
-let serie = "6";
+let serie = "6a";
 
 let alunos = [];
 let dadosBimestres = {};
@@ -713,7 +713,7 @@ async function carregarBimestre(n){
 
     try{
 
-        const arquivo = `${serie}${BIMESTRES[n]}.json`;
+        const arquivo = `${serie}/${BIMESTRES[n]}.json`;
 
         const res = await fetch(arquivo);
 
