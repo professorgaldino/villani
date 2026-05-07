@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 4</title>
+<title>Boletim Escolar 5</title>
 
 <style>
 body{
@@ -292,6 +292,7 @@ const BIMESTRES = {
 let serie = "6";
 let alunos = [];
 let ocorrencias = [];
+let ocorrenciasCarregadas = false;
 let dadosBimestres = {};
 let indiceAtual = 0;
 let graficoDashboard = null;
@@ -358,8 +359,19 @@ function classeFrequencia(valor){
 }
 
 async function carregarAlunos(){
-    const res = await fetch(URL_ALUNOS);
-    alunos = await res.json();
+    try{
+        const res = await fetch(URL_ALUNOS);
+
+        if(!res.ok){
+            throw new Error("Erro ao carregar alunos: " + res.status);
+        }
+
+        alunos = await res.json();
+
+    }catch(e){
+        console.error("Erro ao carregar alunos:", e);
+        alunos = [];
+    }
 }
 
 function extrairListaOcorrencias(json){
@@ -398,6 +410,7 @@ function extrairListaOcorrencias(json){
 
 async function carregarOcorrencias(){
     ocorrencias = [];
+    ocorrenciasCarregadas = false;
 
     try{
         const res = await fetch(URL_OCORRENCIAS);
@@ -417,6 +430,8 @@ async function carregarOcorrencias(){
     }catch(e){
         console.error("Erro nas ocorrências:", e);
         ocorrencias = [];
+    }finally{
+        ocorrenciasCarregadas = true;
     }
 }
 
@@ -426,28 +441,108 @@ async function carregarBimestre(n){
         const res = await fetch(arquivo);
 
         if(!res.ok){
-            throw new Error();
+            throw new Error("Arquivo não encontrado: " + arquivo);
         }
 
         return await res.json();
 
     }catch(e){
+        console.warn("Bimestre não carregado:", e.message);
         return null;
     }
 }
 
-async function carregar(){
-    await carregarAlunos();
-    await carregarOcorrencias();
+function pegarBaseAlunos(){
+    for(let b = 1; b <= 4; b++){
+        if(dadosBimestres[b]){
+            return Object.values(dadosBimestres[b]);
+        }
+    }
 
+    return [];
+}
+
+function pegarAlunoBimestre(nomeAluno, n){
+    const dados = dadosBimestres[n];
+
+    if(!dados) return null;
+
+    return Object.values(dados)
+        .find(a =>
+            normalizar(a.nome) === normalizar(nomeAluno)
+        );
+}
+
+function pegarAlunoQualquerBimestre(nomeAluno){
+    for(let b = 1; b <= 4; b++){
+        const aluno = pegarAlunoBimestre(nomeAluno, b);
+
+        if(aluno){
+            return aluno;
+        }
+    }
+
+    return null;
+}
+
+function pegarDisciplinasAluno(nomeAluno){
+    const disciplinas = [];
+
+    for(let b = 1; b <= 4; b++){
+        const aluno = pegarAlunoBimestre(nomeAluno, b);
+
+        if(!aluno || !aluno.disciplinas) continue;
+
+        Object.keys(aluno.disciplinas).forEach(disciplina => {
+            if(!disciplinas.includes(disciplina)){
+                disciplinas.push(disciplina);
+            }
+        });
+    }
+
+    return disciplinas;
+}
+
+async function carregar(){
+    const box = document.getElementById("boletim");
+    const nav = document.getElementById("navegacaoAlunos");
+
+    box.innerHTML = `
+    <div class="nao-lancado">
+        Carregando dados...
+    </div>
+    `;
+
+    nav.innerHTML = "";
     dadosBimestres = {};
+    ocorrencias = [];
+    ocorrenciasCarregadas = false;
+
+    await carregarAlunos();
 
     for(let i = 1; i <= 4; i++){
         dadosBimestres[i] = await carregarBimestre(i);
     }
 
     montarNavegacao();
+
+    const base = pegarBaseAlunos();
+
+    if(base.length === 0){
+        box.innerHTML = `
+        <div class="nao-lancado">
+            Nenhum dado encontrado para esta sala.
+            Verifique se existem arquivos como ${serie}apb.json, ${serie}asb.json, ${serie}atb.json ou ${serie}aqb.json.
+        </div>
+        `;
+        return;
+    }
+
     mostrarAluno(0);
+
+    carregarOcorrencias().then(() => {
+        mostrarAluno(indiceAtual);
+    });
 }
 
 function montarEletivas(alunoBase){
@@ -465,17 +560,6 @@ function montarEletivas(alunoBase){
         ${escaparHTML(e2 ? e2 : "Sem eletiva")}
     </div>
     `;
-}
-
-function pegarAlunoBimestre(nomeAluno, n){
-    const dados = dadosBimestres[n];
-
-    if(!dados) return null;
-
-    return Object.values(dados)
-        .find(a =>
-            normalizar(a.nome) === normalizar(nomeAluno)
-        );
 }
 
 function pegarOcorrenciasAluno(nomeAluno, raAluno){
@@ -501,12 +585,23 @@ function pegarOcorrenciasAluno(nomeAluno, raAluno){
 }
 
 function montarOcorrencias(nomeAluno, raAluno){
-    const lista = pegarOcorrenciasAluno(nomeAluno, raAluno);
-
     let html = `
     <div class="ocorrencias-box">
         <h3>📌 Ocorrências</h3>
     `;
+
+    if(!ocorrenciasCarregadas){
+        html += `
+        <span class="nao-lancado">
+            Carregando ocorrências...
+        </span>
+        </div>
+        `;
+
+        return html;
+    }
+
+    const lista = pegarOcorrenciasAluno(nomeAluno, raAluno);
 
     if(lista.length === 0){
         html += `
@@ -566,9 +661,10 @@ function montarOcorrencias(nomeAluno, raAluno){
 }
 
 function montarTabelaUnica(nomeAluno){
-    const alunoBase = pegarAlunoBimestre(nomeAluno, 1);
+    const alunoReferencia = pegarAlunoQualquerBimestre(nomeAluno);
+    const disciplinas = pegarDisciplinasAluno(nomeAluno);
 
-    if(!alunoBase){
+    if(!alunoReferencia || disciplinas.length === 0){
         return `
         <div class="nao-lancado">
             Nenhum boletim encontrado
@@ -605,7 +701,7 @@ function montarTabelaUnica(nomeAluno){
         </tr>
     `;
 
-    for(let disciplina in alunoBase.disciplinas){
+    disciplinas.forEach(disciplina => {
         html += `<tr>`;
         html += `<td>${escaparHTML(disciplina)}</td>`;
 
@@ -630,7 +726,7 @@ function montarTabelaUnica(nomeAluno){
                 continue;
             }
 
-            const d = aluno.disciplinas[disciplina];
+            const d = aluno.disciplinas?.[disciplina];
 
             if(!d){
                 html += `
@@ -661,7 +757,7 @@ function montarTabelaUnica(nomeAluno){
         }
 
         html += `</tr>`;
-    }
+    });
 
     html += `</table>`;
 
@@ -728,11 +824,11 @@ function montarNavegacao(){
 
     nav.innerHTML = "";
 
-    const base = dadosBimestres[1];
+    const base = pegarBaseAlunos();
 
-    if(!base) return;
+    if(base.length === 0) return;
 
-    Object.values(base).forEach((a, index) => {
+    base.forEach((a, index) => {
         nav.innerHTML += `
         <button
             class="btn-aluno ${index === 0 ? "ativo" : ""}"
@@ -760,10 +856,17 @@ function mostrarAluno(index){
         mapaAlunos[normalizar(a.nome)] = a;
     });
 
-    const base = Object.values(dadosBimestres[1] || {});
+    const base = pegarBaseAlunos();
     const a = base[index];
 
-    if(!a) return;
+    if(!a){
+        box.innerHTML = `
+        <div class="nao-lancado">
+            Aluno não encontrado.
+        </div>
+        `;
+        return;
+    }
 
     const alunoBase = mapaAlunos[normalizar(a.nome)];
 
@@ -775,6 +878,9 @@ function mostrarAluno(index){
         ? `<img class="foto" src="${foto}">`
         : `<div class="sem-foto">❌</div>`;
 
+    const raAluno = alunoBase?.ra || a.ra || "";
+    const tutorAluno = alunoBase?.tutor || a.tutor || "-";
+
     box.innerHTML = `
     <div class="aluno">
         ${fotoHTML}
@@ -783,10 +889,10 @@ function mostrarAluno(index){
             <strong>${escaparHTML(a.nome)}</strong><br>
 
             RA:
-            ${escaparHTML(alunoBase?.ra || "-")}<br>
+            ${escaparHTML(raAluno || "-")}<br>
 
             Tutor:
-            ${escaparHTML(alunoBase?.tutor || "-")}<br>
+            ${escaparHTML(tutorAluno)}<br>
 
             Situação:
             <strong>
@@ -795,7 +901,7 @@ function mostrarAluno(index){
 
             ${montarEletivas(alunoBase)}
 
-            ${montarOcorrencias(a.nome, alunoBase?.ra)}
+            ${montarOcorrencias(a.nome, raAluno)}
 
             <br>
 
@@ -968,4 +1074,64 @@ function gerarDashboard(){
     `;
 
     const labels = Object.keys(disciplinas);
-    const boas = labels
+    const boas = labels.map(d => disciplinas[d].boas);
+    const ruins = labels.map(d => disciplinas[d].ruins);
+    const sem = labels.map(d => disciplinas[d].sem);
+
+    if(graficoDashboard){
+        graficoDashboard.destroy();
+    }
+
+    graficoDashboard = new Chart(
+        document.getElementById("graficoDashboard"),
+        {
+            type:"bar",
+            data:{
+                labels,
+                datasets:[
+                    {
+                        label:"Notas ≥ 5",
+                        data:boas,
+                        backgroundColor:"green"
+                    },
+                    {
+                        label:"Notas < 5",
+                        data:ruins,
+                        backgroundColor:"red"
+                    },
+                    {
+                        label:"Sem Nota",
+                        data:sem,
+                        backgroundColor:"gray"
+                    }
+                ]
+            },
+            options:{
+                responsive:true,
+                plugins:{
+                    title:{
+                        display:true,
+                        text:"Análise de Notas por Disciplina"
+                    }
+                },
+                scales:{
+                    y:{
+                        beginAtZero:true
+                    }
+                }
+            }
+        }
+    );
+}
+
+document.getElementById("salaSelect")
+.addEventListener("change", e => {
+    serie = e.target.value;
+    carregar();
+});
+
+carregar();
+</script>
+
+</body>
+</html>
