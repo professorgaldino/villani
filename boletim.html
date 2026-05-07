@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 22</title>
+<title>Boletim Escolar 23</title>
 
 <style>
 
@@ -784,6 +784,12 @@ if(
     dadosBimestres[1] &&
     Object.keys(dadosBimestres[1]).length > 0
 ){
+
+    // LIMPA A MENSAGEM
+    document.getElementById(
+        "boletim"
+    ).innerHTML = "";
+
     mostrarAluno(0);
 }
 
