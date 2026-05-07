@@ -728,38 +728,33 @@ async function carregarOcorrencias(){
 
     try{
 
+        console.log("=================================");
+        console.log("CARREGANDO OCORRÊNCIAS");
+
         const res =
             await fetch(URL_OCORRENCIAS);
 
+        console.log("STATUS:");
+        console.log(res.status);
+
         ocorrencias = await res.json();
 
+        console.log("OCORRÊNCIAS RECEBIDAS:");
+        console.log(ocorrencias);
+
+        console.log("TOTAL:");
+        console.log(ocorrencias.length);
+
+        console.log("=================================");
+
     }catch(e){
+
+        console.log("ERRO OCORRÊNCIAS:");
+        console.log(e);
 
         ocorrencias = [];
     }
 }
-
-// CARREGAR BIMESTRE
-async function carregarBimestre(n){
-
-    try{
-
-        const arquivo = `${serie}${BIMESTRES[n]}.json`;
-
-        const res = await fetch(arquivo);
-
-        if(!res.ok){
-            throw new Error();
-        }
-
-        return await res.json();
-
-    }catch(e){
-
-        return null;
-    }
-}
-
 // CARREGAR
 async function carregar(){
 
@@ -1012,19 +1007,34 @@ function montarTabelaUnica(nomeAluno){
     return html;
 }
 
-// MONTAR OCORRÊNCIAS
+// MONTAR OCORRÊNCIAS COM DEBUG
 function montarOcorrencias(nomeAluno, raAluno){
 
-    // LIMPA RA DO ALUNO
-    const raAlunoLimpo = String(raAluno || "")
-        .replace(/\D/g,'')
-        .replace(/^0+/,'')
-        .trim();
+    console.log("=================================");
+    console.log("INICIANDO MONTAGEM DE OCORRÊNCIAS");
 
-    // FILTRA OCORRÊNCIAS
+    console.log("NOME ALUNO:");
+    console.log(nomeAluno);
+
+    console.log("RA ORIGINAL:");
+    console.log(raAluno);
+
+    const raAlunoLimpo = String(
+        raAluno || ""
+    )
+    .replace(/\D/g,'')
+    .replace(/^0+/,'')
+    .trim();
+
+    console.log("RA LIMPO:");
+    console.log(raAlunoLimpo);
+
     const lista = ocorrencias.filter(o => {
 
-        // POSSÍVEIS CAMPOS DE RA
+        console.log("---------------------------------");
+        console.log("OCORRÊNCIA ANALISADA:");
+        console.log(o);
+
         const raOcorrencia = String(
 
             o.ra ||
@@ -1033,7 +1043,6 @@ function montarOcorrencias(nomeAluno, raAluno){
             o.registroAluno ||
             o.raAluno ||
             o.matricula ||
-            o["RA"] ||
             ""
 
         )
@@ -1041,59 +1050,23 @@ function montarOcorrencias(nomeAluno, raAluno){
         .replace(/^0+/,'')
         .trim();
 
-        // COMPARAÇÃO POR RA
-        if(
+        console.log("RA OCORRÊNCIA:");
+        console.log(raOcorrencia);
+
+        const raOK =
             raAlunoLimpo &&
             raOcorrencia &&
-            raAlunoLimpo === raOcorrencia
-        ){
-            return true;
-        }
+            raAlunoLimpo === raOcorrencia;
 
-        // FALLBACK POR NOME
-        const nomeSistema = String(
-            nomeAluno || ""
-        )
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s+/g," ")
-        .replace(/[^a-z0-9 ]/g,"")
-        .trim();
+        console.log("RA OK?");
+        console.log(raOK);
 
-        const nomeOcorrencia = String(
-
-            o.nome ||
-            o.Nome ||
-            o.aluno ||
-            o.ALUNO ||
-            ""
-
-        )
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/\s+/g," ")
-        .replace(/[^a-z0-9 ]/g,"")
-        .trim();
-
-        return nomeSistema === nomeOcorrencia;
+        return raOK;
 
     });
 
-    // ORDENA MAIS RECENTE PRIMEIRO
-    lista.sort((a,b) => {
-
-        const da = new Date(
-            `${a.dataRegistro || ""} ${a.horaRegistro || ""}`
-        );
-
-        const db = new Date(
-            `${b.dataRegistro || ""} ${b.horaRegistro || ""}`
-        );
-
-        return db - da;
-    });
+    console.log("TOTAL ENCONTRADO:");
+    console.log(lista.length);
 
     let html = `
     <div class="ocorrencias-box">
@@ -1103,7 +1076,6 @@ function montarOcorrencias(nomeAluno, raAluno){
         </h3>
     `;
 
-    // SEM OCORRÊNCIA
     if(lista.length === 0){
 
         html += `
@@ -1117,7 +1089,6 @@ function montarOcorrencias(nomeAluno, raAluno){
         return html;
     }
 
-    // LISTA OCORRÊNCIAS
     lista.forEach(o => {
 
         html += `
@@ -1125,29 +1096,17 @@ function montarOcorrencias(nomeAluno, raAluno){
 
             <div class="ocorrencia-data">
 
-                📅 ${
-                    o.dataRegistro ||
-                    o.data ||
-                    "-"
-                }
+                📅 ${o.dataRegistro || "-"}
 
                 |
 
-                ⏰ ${
-                    o.horaRegistro ||
-                    o.hora ||
-                    "-"
-                }
+                ⏰ ${o.horaRegistro || "-"}
 
             </div>
 
             <div class="ocorrencia-prof">
 
-                👨‍🏫 ${
-                    o.professor ||
-                    o.Professor ||
-                    "-"
-                }
+                👨‍🏫 ${o.professor || "-"}
 
             </div>
 
@@ -1157,12 +1116,7 @@ function montarOcorrencias(nomeAluno, raAluno){
                 Descrição:
             </strong><br>
 
-            ${
-                o.descricao ||
-                o.ocorrencia ||
-                o.relato ||
-                "-"
-            }
+            ${o.descricao || "-"}
 
             <br><br>
 
@@ -1170,17 +1124,15 @@ function montarOcorrencias(nomeAluno, raAluno){
                 Ação:
             </strong><br>
 
-            ${
-                o.acao ||
-                o.status ||
-                "-"
-            }
+            ${o.acao || "-"}
 
         </div>
         `;
     });
 
     html += `</div>`;
+
+    console.log("=================================");
 
     return html;
 }
