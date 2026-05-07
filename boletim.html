@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 3</title>
+<title>Boletim Escolar 4</title>
 
 <style>
 body{
@@ -177,10 +177,14 @@ th{
     font-size:12px;
     color:#555;
     margin-bottom:4px;
+    line-height:1.5;
 }
 
 .ocorrencia-descricao{
     font-size:13px;
+    margin-top:6px;
+    margin-bottom:6px;
+    line-height:1.5;
 }
 </style>
 </head>
@@ -275,24 +279,6 @@ th{
 const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
-/*
-    TROQUE ESTA URL PELA URL DO APPS SCRIPT DAS OCORRÊNCIAS.
-    O Apps Script pode devolver:
-    1. Um array:
-       [
-         { "nome": "Maria", "data": "01/04/2026", "tipo": "Advertência", "descricao": "..." }
-       ]
-
-    2. Um objeto com a chave ocorrencias:
-       { "ocorrencias": [ ... ] }
-
-    3. Um objeto separado por nome:
-       {
-         "Maria": [
-           { "data": "01/04/2026", "descricao": "..." }
-         ]
-       }
-*/
 const URL_OCORRENCIAS =
 "https://script.google.com/macros/s/AKfycbxumXT10my5xZQL0_BeeC3NRtDCFSK1-dWYMk3qLQEuPDqDkAoGvLZjvZ4S7t6r9trj/exec";
 
@@ -324,6 +310,12 @@ function normalizar(t){
         .trim();
 }
 
+function normalizarRA(ra){
+    return String(ra || "")
+        .replace(/\D/g, "")
+        .replace(/^0+/, "");
+}
+
 function escaparHTML(valor){
     return String(valor ?? "")
         .replace(/&/g, "&amp;")
@@ -341,8 +333,12 @@ function v(x){
     ) ? "-" : x;
 }
 
+function numero(valor){
+    return Number(String(valor).replace(",", "."));
+}
+
 function classeNota(valor){
-    const n = Number(String(valor).replace(",", "."));
+    const n = numero(valor);
 
     if(!isNaN(n) && n < 5){
         return "baixa-nota";
@@ -352,34 +348,10 @@ function classeNota(valor){
 }
 
 function classeFrequencia(valor){
-    const n = Number(String(valor).replace(",", "."));
+    const n = numero(valor);
 
     if(!isNaN(n) && n < 75){
         return "baixa-nota";
-    }
-
-    return "";
-}
-
-function valorPorPossiveisNomes(obj, nomes){
-    if(!obj) return "";
-
-    const mapa = {};
-
-    Object.keys(obj).forEach(chave => {
-        mapa[normalizar(chave)] = obj[chave];
-    });
-
-    for(const nome of nomes){
-        const valor = mapa[normalizar(nome)];
-
-        if(
-            valor !== undefined &&
-            valor !== null &&
-            valor !== ""
-        ){
-            return valor;
-        }
     }
 
     return "";
@@ -390,66 +362,62 @@ async function carregarAlunos(){
     alunos = await res.json();
 }
 
-async function carregarOcorrencias(){
-    ocorrencias = [];
-
-    if(
-        !URL_OCORRENCIAS ||
-        URL_OCORRENCIAS === "COLE_AQUI_A_URL_DO_APPSCRIPT_DAS_OCORRENCIAS"
-    ){
-        return;
-    }
-
-    try{
-        const separador = URL_OCORRENCIAS.includes("?") ? "&" : "?";
-        const url = `${URL_OCORRENCIAS}${separador}serie=${encodeURIComponent(serie)}`;
-
-        const res = await fetch(url);
-
-        if(!res.ok){
-            throw new Error("Erro ao carregar ocorrências");
-        }
-
-        const json = await res.json();
-
-        ocorrencias = normalizarRetornoOcorrencias(json);
-
-    }catch(e){
-        console.error("Erro nas ocorrências:", e);
-        ocorrencias = [];
-    }
-}
-
-function normalizarRetornoOcorrencias(json){
+function extrairListaOcorrencias(json){
     if(!json) return [];
 
     if(Array.isArray(json)){
         return json;
     }
 
-    if(Array.isArray(json.ocorrencias)){
-        return json.ocorrencias;
+    const chavesPossiveis = [
+        "ocorrencias",
+        "ocorrências",
+        "dados",
+        "data",
+        "registros",
+        "lista",
+        "items",
+        "result",
+        "results"
+    ];
+
+    for(const chave of chavesPossiveis){
+        if(Array.isArray(json[chave])){
+            return json[chave];
+        }
     }
 
-    const lista = [];
-
-    Object.entries(json).forEach(([nomeAluno, valor]) => {
-        if(Array.isArray(valor)){
-            valor.forEach(item => {
-                lista.push({
-                    ...item,
-                    nome: item.nome || item.aluno || nomeAluno
-                });
-            });
-        }else if(valor && typeof valor === "object"){
-            lista.push({
-                ...valor,
-                nome: valor.nome || valor.aluno || nomeAluno
-            });
+    for(const chave in json){
+        if(Array.isArray(json[chave])){
+            return json[chave];
         }
-    });
+    }
 
-    return lista;
+    return [];
+}
+
+async function carregarOcorrencias(){
+    ocorrencias = [];
+
+    try{
+        const res = await fetch(URL_OCORRENCIAS);
+
+        if(!res.ok){
+            throw new Error("Erro HTTP ao carregar ocorrências: " + res.status);
+        }
+
+        const json = await res.json();
+
+        console.log("JSON bruto das ocorrências:", json);
+
+        ocorrencias = extrairListaOcorrencias(json);
+
+        console.log("Lista final de ocorrências:", ocorrencias);
+
+    }catch(e){
+        console.error("Erro nas ocorrências:", e);
+        ocorrencias = [];
+    }
 }
 
 async function carregarBimestre(n){
@@ -510,44 +478,35 @@ function pegarAlunoBimestre(nomeAluno, n){
         );
 }
 
-function pegarOcorrenciasAluno(nomeAluno){
-    const nomeNormalizado = normalizar(nomeAluno);
+function pegarOcorrenciasAluno(nomeAluno, raAluno){
+    const nomeBoletim = normalizar(nomeAluno);
+    const raBoletim = normalizarRA(raAluno);
 
     return ocorrencias.filter(item => {
-        const nomeOcorrencia = valorPorPossiveisNomes(item, [
-            "nome",
-            "aluno",
-            "estudante",
-            "nome_aluno",
-            "nome do aluno",
-            "discente"
-        ]);
+        const nomeOcorrencia = normalizar(item.nome);
+        const raOcorrencia = normalizarRA(item.ra);
 
-        return normalizar(nomeOcorrencia) === nomeNormalizado;
+        const bateRA =
+            raBoletim &&
+            raOcorrencia &&
+            raBoletim === raOcorrencia;
+
+        const bateNome =
+            nomeBoletim &&
+            nomeOcorrencia &&
+            nomeBoletim === nomeOcorrencia;
+
+        return bateRA || bateNome;
     });
 }
 
-function montarOcorrencias(nomeAluno){
-    const lista = pegarOcorrenciasAluno(nomeAluno);
+function montarOcorrencias(nomeAluno, raAluno){
+    const lista = pegarOcorrenciasAluno(nomeAluno, raAluno);
 
     let html = `
     <div class="ocorrencias-box">
         <h3>📌 Ocorrências</h3>
     `;
-
-    if(
-        !URL_OCORRENCIAS ||
-        URL_OCORRENCIAS === "COLE_AQUI_A_URL_DO_APPSCRIPT_DAS_OCORRENCIAS"
-    ){
-        html += `
-        <span class="nao-lancado">
-            URL do Apps Script das ocorrências não configurada
-        </span>
-        </div>
-        `;
-
-        return html;
-    }
 
     if(lista.length === 0){
         html += `
@@ -561,63 +520,42 @@ function montarOcorrencias(nomeAluno){
     }
 
     lista.forEach(item => {
-        const data = valorPorPossiveisNomes(item, [
-            "data",
-            "data_ocorrencia",
-            "data da ocorrência",
-            "data da ocorrencia"
-        ]);
-
-        const tipo = valorPorPossiveisNomes(item, [
-            "tipo",
-            "categoria",
-            "ocorrencia",
-            "ocorrência"
-        ]);
-
-        const descricao = valorPorPossiveisNomes(item, [
-            "descricao",
-            "descrição",
-            "observacao",
-            "observação",
-            "relato",
-            "detalhes"
-        ]);
-
-        const providencia = valorPorPossiveisNomes(item, [
-            "providencia",
-            "providência",
-            "encaminhamento",
-            "acao",
-            "ação"
-        ]);
-
-        const responsavel = valorPorPossiveisNomes(item, [
-            "responsavel",
-            "responsável",
-            "professor",
-            "registrado_por"
-        ]);
-
         html += `
         <div class="ocorrencia-item">
+
             <div class="ocorrencia-meta">
-                <strong>${escaparHTML(v(data))}</strong>
-                ${tipo ? " | " + escaparHTML(tipo) : ""}
-                ${responsavel ? " | " + escaparHTML(responsavel) : ""}
+                <strong>Registro:</strong>
+                ${escaparHTML(v(item.dataRegistro))}
+                ${item.horaRegistro ? " - " + escaparHTML(item.horaRegistro) : ""}
+                <br>
+
+                <strong>Data do fato:</strong>
+                ${escaparHTML(v(item.dataFato))}
+                <br>
+
+                <strong>RA:</strong>
+                ${escaparHTML(v(item.ra))}
+                |
+                <strong>Sala:</strong>
+                ${escaparHTML(v(item.sala))}
+                |
+                <strong>Tutor:</strong>
+                ${escaparHTML(v(item.tutor))}
+                |
+                <strong>Professor:</strong>
+                ${escaparHTML(v(item.professor))}
             </div>
 
             <div class="ocorrencia-descricao">
-                ${escaparHTML(v(descricao))}
+                <strong>Descrição:</strong>
+                ${escaparHTML(v(item.descricao))}
             </div>
 
-            ${
-                providencia
-                ? `<div class="ocorrencia-meta">
-                    Providência: ${escaparHTML(providencia)}
-                   </div>`
-                : ""
-            }
+            <div class="ocorrencia-meta">
+                <strong>Ação:</strong>
+                ${escaparHTML(v(item.acao))}
+            </div>
+
         </div>
         `;
     });
@@ -751,8 +689,8 @@ function montarTabelaUnica(nomeAluno){
             continue;
         }
 
-        const freq = Number(String(aluno.totais?.frequencia).replace(",", "."));
-        const freqAnual = Number(String(aluno.totais?.frequencia_anual).replace(",", "."));
+        const freq = numero(aluno.totais?.frequencia);
+        const freqAnual = numero(aluno.totais?.frequencia_anual);
 
         html += `
         📌 Faltas acumuladas:
@@ -857,7 +795,7 @@ function mostrarAluno(index){
 
             ${montarEletivas(alunoBase)}
 
-            ${montarOcorrencias(a.nome)}
+            ${montarOcorrencias(a.nome, alunoBase?.ra)}
 
             <br>
 
@@ -911,7 +849,7 @@ function gerarDashboard(){
                 };
             }
 
-            const nota = Number(String(d.numero).replace(",", "."));
+            const nota = numero(d.numero);
 
             if(
                 d.numero === "-" ||
@@ -1030,64 +968,4 @@ function gerarDashboard(){
     `;
 
     const labels = Object.keys(disciplinas);
-    const boas = labels.map(d => disciplinas[d].boas);
-    const ruins = labels.map(d => disciplinas[d].ruins);
-    const sem = labels.map(d => disciplinas[d].sem);
-
-    if(graficoDashboard){
-        graficoDashboard.destroy();
-    }
-
-    graficoDashboard = new Chart(
-        document.getElementById("graficoDashboard"),
-        {
-            type:"bar",
-            data:{
-                labels,
-                datasets:[
-                    {
-                        label:"Notas ≥ 5",
-                        data:boas,
-                        backgroundColor:"green"
-                    },
-                    {
-                        label:"Notas < 5",
-                        data:ruins,
-                        backgroundColor:"red"
-                    },
-                    {
-                        label:"Sem Nota",
-                        data:sem,
-                        backgroundColor:"gray"
-                    }
-                ]
-            },
-            options:{
-                responsive:true,
-                plugins:{
-                    title:{
-                        display:true,
-                        text:"Análise de Notas por Disciplina"
-                    }
-                },
-                scales:{
-                    y:{
-                        beginAtZero:true
-                    }
-                }
-            }
-        }
-    );
-}
-
-document.getElementById("salaSelect")
-.addEventListener("change", e => {
-    serie = e.target.value;
-    carregar();
-});
-
-carregar();
-</script>
-
-</body>
-</html>
+    const boas = labels
