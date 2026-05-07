@@ -4,13 +4,38 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 3 - DEBUG</title>
+<title>Boletim Escolar 2.0</title>
 
 <style>
+:root{
+    --bg:#eef3f8;
+    --surface:#ffffff;
+    --surface-soft:#f8fafc;
+    --border:#d9e2ec;
+    --text:#172033;
+    --muted:#64748b;
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+    --purple:#7c3aed;
+    --shadow:0 14px 35px rgba(15,23,42,0.10);
+    --radius:14px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
 body{
-    font-family: Arial;
-    background:#f4f6f8;
-    padding:15px;
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 34%),
+        linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
+    color:var(--text);
+    padding:18px;
 }
 
 .container{
@@ -21,143 +46,224 @@ body{
 .topo{
     display:flex;
     justify-content:space-between;
-    margin-bottom:15px;
     align-items:center;
     flex-wrap:wrap;
-    gap:10px;
+    gap:14px;
+    background:rgba(255,255,255,0.86);
+    border:1px solid rgba(217,226,236,0.9);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
 }
 
-select, button{
-    padding:8px;
-    border-radius:6px;
+.topo h2{
+    margin:0;
+    font-size:22px;
+    letter-spacing:0;
+}
+
+select{
+    appearance:none;
+    padding:10px 38px 10px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background:
+        linear-gradient(45deg, transparent 50%, var(--muted) 50%) right 15px center / 6px 6px no-repeat,
+        linear-gradient(135deg, var(--muted) 50%, transparent 50%) right 9px center / 6px 6px no-repeat,
+        white;
+    color:var(--text);
+    font-weight:700;
+    cursor:pointer;
+}
+
+button{
+    font-family:inherit;
 }
 
 .navegacao-alunos{
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
-    margin-bottom:20px;
+    gap:7px;
+    margin-bottom:18px;
 }
 
 .btn-aluno{
     width:42px;
     height:42px;
     border:none;
-    border-radius:8px;
-    background:#0077cc;
+    border-radius:10px;
+    background:var(--primary);
     color:white;
     font-weight:bold;
     cursor:pointer;
+    transition:0.18s ease;
+    box-shadow:0 6px 14px rgba(37,99,235,0.24);
+}
+
+.btn-aluno:hover{
+    background:var(--primary-dark);
+    transform:translateY(-1px);
 }
 
 .btn-aluno.ativo{
-    background:#28a745;
+    background:var(--success);
+    box-shadow:0 6px 14px rgba(22,163,74,0.28);
+}
+
+.btn-dashboard{
+    padding:11px 18px;
+    border:none;
+    border-radius:10px;
+    background:var(--purple);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 8px 18px rgba(124,58,237,0.26);
+    transition:0.18s ease;
+}
+
+.btn-dashboard:hover{
+    filter:brightness(0.95);
+    transform:translateY(-1px);
 }
 
 .aluno{
-    background:white;
-    border-radius:12px;
-    padding:12px;
+    background:rgba(255,255,255,0.94);
+    border:1px solid rgba(217,226,236,0.95);
+    border-radius:var(--radius);
+    padding:16px;
     margin-bottom:20px;
     display:flex;
-    gap:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    gap:16px;
+    box-shadow:var(--shadow);
 }
 
 .foto{
-    width:90px;
-    height:90px;
-    border-radius:10px;
+    width:96px;
+    height:96px;
+    border-radius:14px;
     object-fit:cover;
-    border:2px solid #ddd;
+    border:3px solid white;
+    box-shadow:0 8px 20px rgba(15,23,42,0.16);
 }
 
 .sem-foto{
-    width:90px;
-    height:90px;
-    background:#eee;
+    width:96px;
+    height:96px;
+    background:#f1f5f9;
     display:flex;
     align-items:center;
     justify-content:center;
-    color:red;
-    border-radius:10px;
+    color:var(--danger);
+    border-radius:14px;
+    border:1px solid var(--border);
 }
 
 .info{
     flex:1;
     font-size:14px;
+    min-width:0;
+}
+
+.info > strong:first-child{
+    font-size:18px;
 }
 
 table{
     width:100%;
-    border-collapse:collapse;
+    border-collapse:separate;
+    border-spacing:0;
     font-size:12px;
     margin-top:10px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
 }
 
 th, td{
-    border:1px solid #ddd;
-    padding:6px;
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:7px;
     text-align:center;
 }
 
+tr:last-child td{
+    border-bottom:none;
+}
+
+th:last-child,
+td:last-child{
+    border-right:none;
+}
+
 th{
-    background:#0077cc;
+    background:var(--primary);
     color:white;
 }
 
+.subtopo th,
 .subtopo{
-    background:#005fa3;
+    background:var(--primary-dark);
     color:white;
     font-size:11px;
 }
 
 .vazio{
-    background:#e8ddff;
+    background:#ede9fe;
 }
 
 .eletiva-box,
 .ocorrencias-box{
     margin-top:10px;
-    padding:10px;
-    border-radius:8px;
-    background:#fafafa;
-    border:1px solid #ddd;
+    padding:12px;
+    border-radius:12px;
+    background:var(--surface-soft);
+    border:1px solid var(--border);
 }
 
 .nao-lancado{
-    background:#fff3cd;
-    color:#856404;
-    font-size:11px;
+    background:#fff7ed;
+    color:#9a3412;
+    border:1px solid #fed7aa;
+    font-size:12px;
     font-weight:bold;
-    padding:6px;
-    border-radius:6px;
+    padding:7px 9px;
+    border-radius:9px;
     display:inline-block;
 }
 
 .baixa-nota{
-    color:red;
+    color:var(--danger);
     font-weight:bold;
 }
 
 .alerta-frequencia{
-    color:red;
+    color:var(--danger);
     font-weight:bold;
     margin-top:5px;
     display:inline-block;
 }
 
+.ocorrencias-box h3{
+    margin:0 0 10px 0;
+    font-size:15px;
+}
+
 .ocorrencia-item{
-    border:1px solid #ddd;
+    border:1px solid var(--border);
     background:white;
-    border-radius:8px;
-    padding:8px;
-    margin-bottom:8px;
+    border-radius:12px;
+    padding:10px;
+    margin-bottom:9px;
+    box-shadow:0 5px 12px rgba(15,23,42,0.05);
 }
 
 .ocorrencia-meta{
     font-size:12px;
-    color:#555;
+    color:var(--muted);
     margin-bottom:4px;
     line-height:1.5;
 }
@@ -169,55 +275,69 @@ th{
     line-height:1.5;
 }
 
-/* DEBUG */
-.debug-box{
-    background:#111827;
-    color:#e5e7eb;
-    padding:12px;
-    border-radius:10px;
-    margin-bottom:20px;
-    font-size:12px;
-}
-
-.debug-box h3{
-    margin:0 0 10px 0;
-    color:white;
-}
-
-.debug-item{
-    border:1px solid #374151;
-    border-radius:8px;
-    margin-top:10px;
-    overflow:hidden;
-}
-
-.debug-title{
-    background:#1f2937;
-    padding:8px;
-    cursor:pointer;
-    font-weight:bold;
-}
-
-.debug-content{
+.popup-dashboard{
     display:none;
-    padding:8px;
-    background:#030712;
-    max-height:360px;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,0.72);
+    z-index:9999;
     overflow:auto;
-    white-space:pre-wrap;
-    word-break:break-word;
+    padding:22px;
 }
 
-.debug-ok{
-    color:#86efac;
+.dashboard-modal{
+    background:white;
+    width:95%;
+    max-width:1400px;
+    margin:10px auto;
+    border-radius:18px;
+    padding:22px;
+    position:relative;
+    box-shadow:0 30px 80px rgba(0,0,0,0.28);
 }
 
-.debug-erro{
-    color:#fca5a5;
+.btn-fechar{
+    position:absolute;
+    top:14px;
+    right:14px;
+    border:none;
+    background:var(--danger);
+    color:white;
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-.debug-warn{
-    color:#fde68a;
+.dashboard-card{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    border:1px solid var(--border);
+}
+
+@media(max-width:760px){
+    body{
+        padding:10px;
+    }
+
+    .aluno{
+        flex-direction:column;
+    }
+
+    .foto,
+    .sem-foto{
+        width:84px;
+        height:84px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
 }
 </style>
 </head>
@@ -227,7 +347,7 @@ th{
 <div class="container">
 
 <div class="topo">
-    <h2>📊 Boletim Completo - DEBUG</h2>
+    <h2>📊 Boletim Completo</h2>
 
     <select id="salaSelect">
         <option value="6">6º Ano A</option>
@@ -236,14 +356,36 @@ th{
     </select>
 </div>
 
-<div class="debug-box">
-    <h3>🔎 Painel Debug</h3>
-    <button onclick="alternarDebugTudo()">Abrir / fechar todos os JSONs</button>
-    <button onclick="carregar()">Recarregar tudo</button>
-    <div id="debugConteudo"></div>
+<div id="navegacaoAlunos" class="navegacao-alunos"></div>
+
+<div style="margin-bottom:15px;">
+    <button onclick="abrirDashboard()" class="btn-dashboard">
+        📊 Dashboard da Sala
+    </button>
 </div>
 
-<div id="navegacaoAlunos" class="navegacao-alunos"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div id="popupDashboard" class="popup-dashboard">
+    <div class="dashboard-modal">
+        <button onclick="fecharDashboard()" class="btn-fechar">X</button>
+
+        <h2>📊 Dashboard da Sala</h2>
+
+        <div style="margin:15px 0;">
+            <label>Bimestre:</label>
+
+            <select id="dashboardBimestre" onchange="gerarDashboard()">
+                <option value="1">1º Bimestre</option>
+                <option value="2">2º Bimestre</option>
+                <option value="3">3º Bimestre</option>
+                <option value="4">4º Bimestre</option>
+            </select>
+        </div>
+
+        <div id="dashboardConteudo"></div>
+    </div>
+</div>
 
 <div id="boletim"></div>
 
@@ -254,7 +396,7 @@ const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
 const URL_OCORRENCIAS =
-"https://script.google.com/macros/s/AKfycbxumXT10my5xZQL0_BeeC3NRtDCFSK1-dWYMk3qLQEuPDqDkAoGvLZjvZ4S7t6r9trj/exec";
+"https://script.google.com/macros/s/AKfycbxmGpGeUfRGOTZ0Geh6GP9DyCOmLsuQ1o9IjbGvt-QgiHizG3OolrVuM67ETmvu7VIB/exec";
 
 const BIMESTRES = {
     1: "apb",
@@ -269,8 +411,12 @@ let ocorrencias = [];
 let ocorrenciasCarregadas = false;
 let dadosBimestres = {};
 let indiceAtual = 0;
-let debugAberto = false;
-let debugRegistros = [];
+let graficoDashboard = null;
+
+function montarFoto(id){
+    if(!id) return null;
+    return "https://lh3.googleusercontent.com/d/" + String(id).trim();
+}
 
 function normalizar(t){
     return String(t || "")
@@ -310,113 +456,61 @@ function numero(valor){
 
 function classeNota(valor){
     const n = numero(valor);
-    return !isNaN(n) && n < 5 ? "baixa-nota" : "";
+
+    if(!isNaN(n) && n < 5){
+        return "baixa-nota";
+    }
+
+    return "";
 }
 
 function classeFrequencia(valor){
     const n = numero(valor);
-    return !isNaN(n) && n < 75 ? "baixa-nota" : "";
+
+    if(!isNaN(n) && n < 75){
+        return "baixa-nota";
+    }
+
+    return "";
 }
 
-function montarFoto(id){
-    if(!id) return null;
-    return "https://lh3.googleusercontent.com/d/" + String(id).trim();
-}
+function pegarCampo(obj, nomes){
+    if(!obj) return "";
 
-function adicionarDebug(titulo, url, status, dados, erro){
-    debugRegistros.push({
-        titulo,
-        url,
-        status,
-        dados,
-        erro
+    const mapa = {};
+
+    Object.keys(obj).forEach(chave => {
+        mapa[normalizar(chave)] = obj[chave];
     });
 
-    renderDebug();
+    for(const nome of nomes){
+        const valor = mapa[normalizar(nome)];
+
+        if(
+            valor !== undefined &&
+            valor !== null &&
+            valor !== ""
+        ){
+            return valor;
+        }
+    }
+
+    return "";
 }
 
-function renderDebug(){
-    const box = document.getElementById("debugConteudo");
-
-    box.innerHTML = debugRegistros.map((item, index) => {
-        const classe = item.erro
-            ? "debug-erro"
-            : item.status >= 200 && item.status < 300
-                ? "debug-ok"
-                : "debug-warn";
-
-        const conteudo = {
-            titulo: item.titulo,
-            url: item.url,
-            status: item.status,
-            erro: item.erro ? String(item.erro) : null,
-            dados: item.dados
-        };
-
-        return `
-        <div class="debug-item">
-            <div class="debug-title ${classe}" onclick="alternarDebug(${index})">
-                ${escaparHTML(item.titulo)} | Status: ${escaparHTML(item.status || "-")}
-            </div>
-            <div class="debug-content" id="debug-${index}">
-${escaparHTML(JSON.stringify(conteudo, null, 2))}
-            </div>
-        </div>
-        `;
-    }).join("");
-}
-
-function alternarDebug(index){
-    const el = document.getElementById("debug-" + index);
-    el.style.display = el.style.display === "block" ? "none" : "block";
-}
-
-function alternarDebugTudo(){
-    debugAberto = !debugAberto;
-
-    document.querySelectorAll(".debug-content").forEach(el => {
-        el.style.display = debugAberto ? "block" : "none";
-    });
-}
-
-async function buscarDebug(titulo, url){
+async function carregarAlunos(){
     try{
-        const res = await fetch(url);
-        const texto = await res.text();
+        const res = await fetch(URL_ALUNOS);
 
-        let json = null;
-        let erroJson = null;
-
-        try{
-            json = JSON.parse(texto);
-        }catch(e){
-            erroJson = "Resposta não é JSON válido. Primeiros caracteres: " + texto.slice(0, 300);
+        if(!res.ok){
+            throw new Error("Erro ao carregar alunos: " + res.status);
         }
 
-        adicionarDebug(
-            titulo,
-            url,
-            res.status,
-            json || texto,
-            erroJson
-        );
-
-        if(erroJson){
-            return null;
-        }
-
-        return json;
+        alunos = await res.json();
 
     }catch(e){
-        adicionarDebug(
-            titulo,
-            url,
-            "FALHA",
-            null,
-            e.message
-        );
-
-        return null;
+        console.error("Erro ao carregar alunos:", e);
+        alunos = [];
     }
 }
 
@@ -454,42 +548,48 @@ function extrairListaOcorrencias(json){
     return [];
 }
 
-async function carregarAlunos(){
-    const json = await buscarDebug("URL_ALUNOS", URL_ALUNOS);
-    alunos = Array.isArray(json) ? json : [];
-}
-
 async function carregarOcorrencias(){
     ocorrencias = [];
     ocorrenciasCarregadas = false;
 
-    const json = await buscarDebug("URL_OCORRENCIAS", URL_OCORRENCIAS);
+    try{
+        const res = await fetch(URL_OCORRENCIAS);
 
-    ocorrencias = extrairListaOcorrencias(json);
-    ocorrenciasCarregadas = true;
+        if(!res.ok){
+            throw new Error("Erro HTTP ao carregar ocorrências: " + res.status);
+        }
 
-    adicionarDebug(
-        "OCORRENCIAS_EXTRAIDAS",
-        "extraido de URL_OCORRENCIAS",
-        "OK",
-        {
-            quantidade: ocorrencias.length,
-            primeiraOcorrencia: ocorrencias[0] || null,
-            colunasPrimeiraOcorrencia: ocorrencias[0] ? Object.keys(ocorrencias[0]) : []
-        },
-        null
-    );
+        const json = await res.json();
+
+        console.log("JSON bruto das ocorrências:", json);
+
+        ocorrencias = extrairListaOcorrencias(json);
+
+        console.log("Lista final de ocorrências:", ocorrencias);
+
+    }catch(e){
+        console.error("Erro nas ocorrências:", e);
+        ocorrencias = [];
+    }finally{
+        ocorrenciasCarregadas = true;
+    }
 }
 
 async function carregarBimestre(n){
-    const arquivo = `${serie}${BIMESTRES[n]}.json`;
-    const json = await buscarDebug(`BIMESTRE_${n} | ${arquivo}`, arquivo);
+    try{
+        const arquivo = `${serie}${BIMESTRES[n]}.json`;
+        const res = await fetch(arquivo);
 
-    if(!json){
+        if(!res.ok){
+            throw new Error("Arquivo não encontrado: " + arquivo);
+        }
+
+        return await res.json();
+
+    }catch(e){
+        console.warn("Bimestre não carregado:", e.message);
         return null;
     }
-
-    return json;
 }
 
 function pegarBaseAlunos(){
@@ -508,7 +608,9 @@ function pegarAlunoBimestre(nomeAluno, n){
     if(!dados) return null;
 
     return Object.values(dados)
-        .find(a => normalizar(a.nome) === normalizar(nomeAluno));
+        .find(a =>
+            normalizar(a.nome) === normalizar(nomeAluno)
+        );
 }
 
 function pegarAlunoQualquerBimestre(nomeAluno){
@@ -545,60 +647,22 @@ async function carregar(){
     const box = document.getElementById("boletim");
     const nav = document.getElementById("navegacaoAlunos");
 
-    box.innerHTML = `<div class="nao-lancado">Carregando dados...</div>`;
+    box.innerHTML = `
+    <div class="nao-lancado">
+        Carregando dados...
+    </div>
+    `;
+
     nav.innerHTML = "";
-
-    debugRegistros = [];
-    renderDebug();
-
-    alunos = [];
+    dadosBimestres = {};
     ocorrencias = [];
     ocorrenciasCarregadas = false;
-    dadosBimestres = {};
-
-    adicionarDebug(
-        "CONFIGURACAO_ATUAL",
-        "interno",
-        "OK",
-        {
-            serie,
-            URL_ALUNOS,
-            URL_OCORRENCIAS,
-            arquivosBimestres: [
-                `${serie}apb.json`,
-                `${serie}asb.json`,
-                `${serie}atb.json`,
-                `${serie}aqb.json`
-            ]
-        },
-        null
-    );
 
     await carregarAlunos();
 
     for(let i = 1; i <= 4; i++){
         dadosBimestres[i] = await carregarBimestre(i);
     }
-
-    await carregarOcorrencias();
-
-    adicionarDebug(
-        "RESUMO_FINAL",
-        "interno",
-        "OK",
-        {
-            quantidadeAlunosURL: alunos.length,
-            quantidadeOcorrencias: ocorrencias.length,
-            bimestresCarregados: {
-                1: !!dadosBimestres[1],
-                2: !!dadosBimestres[2],
-                3: !!dadosBimestres[3],
-                4: !!dadosBimestres[4]
-            },
-            quantidadeBaseAlunos: pegarBaseAlunos().length
-        },
-        null
-    );
 
     montarNavegacao();
 
@@ -608,12 +672,17 @@ async function carregar(){
         box.innerHTML = `
         <div class="nao-lancado">
             Nenhum dado encontrado para esta sala.
+            Verifique se existem arquivos como ${serie}apb.json, ${serie}asb.json, ${serie}atb.json ou ${serie}aqb.json.
         </div>
         `;
         return;
     }
 
     mostrarAluno(0);
+
+    carregarOcorrencias().then(() => {
+        mostrarAluno(indiceAtual);
+    });
 }
 
 function montarEletivas(alunoBase){
@@ -623,8 +692,12 @@ function montarEletivas(alunoBase){
     return `
     <div class="eletiva-box">
         <strong>📘 Eletivas</strong><br><br>
-        Eletiva 1° Semestre: ${escaparHTML(e1 ? e1 : "Sem eletiva")}<br>
-        Eletiva 2° Semestre: ${escaparHTML(e2 ? e2 : "Sem eletiva")}
+
+        Eletiva 1° Semestre:
+        ${escaparHTML(e1 ? e1 : "Sem eletiva")}<br>
+
+        Eletiva 2° Semestre:
+        ${escaparHTML(e2 ? e2 : "Sem eletiva")}
     </div>
     `;
 }
@@ -633,11 +706,17 @@ function pegarOcorrenciasAluno(nomeAluno, raAluno){
     const nomeBoletim = normalizar(nomeAluno);
     const raBoletim = normalizarRA(raAluno);
 
-    const comparacoes = [];
+    return ocorrencias.filter(item => {
+        const nomeOcorrencia = normalizar(pegarCampo(item, [
+            "nome",
+            "Nome do Aluno",
+            "aluno"
+        ]));
 
-    const lista = ocorrencias.filter(item => {
-        const nomeOcorrencia = normalizar(item.nome);
-        const raOcorrencia = normalizarRA(item.ra);
+        const raOcorrencia = normalizarRA(pegarCampo(item, [
+            "ra",
+            "RA"
+        ]));
 
         const bateRA =
             raBoletim &&
@@ -649,37 +728,8 @@ function pegarOcorrenciasAluno(nomeAluno, raAluno){
             nomeOcorrencia &&
             nomeBoletim === nomeOcorrencia;
 
-        comparacoes.push({
-            nomeBoletimOriginal: nomeAluno,
-            nomeBoletimNormalizado: nomeBoletim,
-            raBoletimOriginal: raAluno,
-            raBoletimNormalizado: raBoletim,
-            nomeOcorrenciaOriginal: item.nome,
-            nomeOcorrenciaNormalizado: nomeOcorrencia,
-            raOcorrenciaOriginal: item.ra,
-            raOcorrenciaNormalizado: raOcorrencia,
-            bateRA,
-            bateNome,
-            registro: item
-        });
-
         return bateRA || bateNome;
     });
-
-    adicionarDebug(
-        "COMPARACAO_OCORRENCIAS_ALUNO_ATUAL",
-        "interno",
-        "OK",
-        {
-            aluno: nomeAluno,
-            ra: raAluno,
-            encontradas: lista.length,
-            comparacoes
-        },
-        null
-    );
-
-    return lista;
 }
 
 function montarOcorrencias(nomeAluno, raAluno){
@@ -689,52 +739,78 @@ function montarOcorrencias(nomeAluno, raAluno){
     `;
 
     if(!ocorrenciasCarregadas){
-        html += `<span class="nao-lancado">Carregando ocorrências...</span></div>`;
+        html += `
+        <span class="nao-lancado">
+            Carregando ocorrências...
+        </span>
+        </div>
+        `;
+
         return html;
     }
 
     const lista = pegarOcorrenciasAluno(nomeAluno, raAluno);
 
     if(lista.length === 0){
-        html += `<span class="nao-lancado">Nenhuma ocorrência encontrada</span></div>`;
+        html += `
+        <span class="nao-lancado">
+            Nenhuma ocorrência encontrada
+        </span>
+        </div>
+        `;
+
         return html;
     }
 
     lista.forEach(item => {
+        const dataRegistro = pegarCampo(item, ["dataRegistro", "Data Registro"]);
+        const horaRegistro = pegarCampo(item, ["horaRegistro", "Hora Registro"]);
+        const dataFato = pegarCampo(item, ["dataFato", "Data do Fato"]);
+        const horaFato = pegarCampo(item, ["horaFato", "Hora do Fato"]);
+        const ra = pegarCampo(item, ["ra", "RA"]);
+        const sala = pegarCampo(item, ["sala", "Sala"]);
+        const tutor = pegarCampo(item, ["tutor", "Tutor"]);
+        const professor = pegarCampo(item, ["professor", "Professor", "Nome do Professor"]);
+        const descricao = pegarCampo(item, ["descricao", "Descrição"]);
+        const acao = pegarCampo(item, ["acao", "Ação Tomada", "Ação"]);
+
         html += `
         <div class="ocorrencia-item">
+
             <div class="ocorrencia-meta">
                 <strong>Registro:</strong>
-                ${escaparHTML(v(item.dataRegistro))}
-                ${item.horaRegistro ? " - " + escaparHTML(item.horaRegistro) : ""}
+                ${escaparHTML(v(dataRegistro))}
+                ${horaRegistro ? " - " + escaparHTML(horaRegistro) : ""}
                 <br>
 
                 <strong>Data do fato:</strong>
-                ${escaparHTML(v(item.dataFato))}
+                ${escaparHTML(v(dataFato))}
+                ${horaFato ? " - " + escaparHTML(horaFato) : ""}
                 <br>
 
                 <strong>RA:</strong>
-                ${escaparHTML(v(item.ra))}
+                ${escaparHTML(v(ra))}
                 |
                 <strong>Sala:</strong>
-                ${escaparHTML(v(item.sala))}
+                ${escaparHTML(v(sala))}
                 |
                 <strong>Tutor:</strong>
-                ${escaparHTML(v(item.tutor))}
+                ${escaparHTML(v(tutor))}
                 |
                 <strong>Professor:</strong>
-                ${escaparHTML(v(item.professor))}
+                ${escaparHTML(v(professor))}
             </div>
 
             <div class="ocorrencia-descricao">
                 <strong>Descrição:</strong>
-                ${escaparHTML(v(item.descricao))}
+                ${escaparHTML(v(descricao))}
             </div>
 
             <div class="ocorrencia-meta">
                 <strong>Ação:</strong>
-                ${escaparHTML(v(item.acao))}
+                ${escaparHTML(v(acao))}
             </div>
+
         </div>
         `;
     });
@@ -749,7 +825,11 @@ function montarTabelaUnica(nomeAluno){
     const disciplinas = pegarDisciplinasAluno(nomeAluno);
 
     if(!alunoReferencia || disciplinas.length === 0){
-        return `<div class="nao-lancado">Nenhum boletim encontrado</div>`;
+        return `
+        <div class="nao-lancado">
+            Nenhum boletim encontrado
+        </div>
+        `;
     }
 
     let html = `
@@ -763,33 +843,57 @@ function montarTabelaUnica(nomeAluno){
         </tr>
 
         <tr class="subtopo">
-            <th>Média</th><th>Faltas</th><th>F.AC</th>
-            <th>Média</th><th>Faltas</th><th>F.AC</th>
-            <th>Média</th><th>Faltas</th><th>F.AC</th>
-            <th>Média</th><th>Faltas</th><th>F.AC</th>
+            <th>Média</th>
+            <th>Faltas</th>
+            <th>F.AC</th>
+
+            <th>Média</th>
+            <th>Faltas</th>
+            <th>F.AC</th>
+
+            <th>Média</th>
+            <th>Faltas</th>
+            <th>F.AC</th>
+
+            <th>Média</th>
+            <th>Faltas</th>
+            <th>F.AC</th>
         </tr>
     `;
 
     disciplinas.forEach(disciplina => {
-        html += `<tr><td>${escaparHTML(disciplina)}</td>`;
+        html += `<tr>`;
+        html += `<td>${escaparHTML(disciplina)}</td>`;
 
         for(let b = 1; b <= 4; b++){
             const aluno = pegarAlunoBimestre(nomeAluno, b);
 
             if(!dadosBimestres[b]){
-                html += `<td colspan="3" class="nao-lancado">Não lançado</td>`;
+                html += `
+                <td colspan="3" class="nao-lancado">
+                    Não lançado
+                </td>
+                `;
                 continue;
             }
 
             if(!aluno){
-                html += `<td colspan="3" class="nao-lancado">Sem dados</td>`;
+                html += `
+                <td colspan="3" class="nao-lancado">
+                    Sem dados
+                </td>
+                `;
                 continue;
             }
 
             const d = aluno.disciplinas?.[disciplina];
 
             if(!d){
-                html += `<td colspan="3" class="nao-lancado">Sem disciplina</td>`;
+                html += `
+                <td colspan="3" class="nao-lancado">
+                    Sem disciplina
+                </td>
+                `;
                 continue;
             }
 
@@ -798,9 +902,17 @@ function montarTabelaUnica(nomeAluno){
             const acum = v(d.faltas);
 
             html += `
-            <td class="${media === "-" ? "vazio" : ""} ${classeNota(media)}">${escaparHTML(media)}</td>
-            <td class="${faltas === "-" ? "vazio" : ""}">${escaparHTML(faltas)}</td>
-            <td>${escaparHTML(acum)}</td>
+            <td class="${media === "-" ? "vazio" : ""} ${classeNota(media)}">
+                ${escaparHTML(media)}
+            </td>
+
+            <td class="${faltas === "-" ? "vazio" : ""}">
+                ${escaparHTML(faltas)}
+            </td>
+
+            <td>
+                ${escaparHTML(acum)}
+            </td>
             `;
         }
 
@@ -812,15 +924,24 @@ function montarTabelaUnica(nomeAluno){
     for(let b = 1; b <= 4; b++){
         const aluno = pegarAlunoBimestre(nomeAluno, b);
 
-        html += `<br><strong>📘 ${b}° Bimestre</strong><br>`;
+        html += `<br>`;
+        html += `<strong>📘 ${b}° Bimestre</strong><br>`;
 
         if(!dadosBimestres[b]){
-            html += `<span class="nao-lancado">Bimestre não lançado</span>`;
+            html += `
+            <span class="nao-lancado">
+                Bimestre não lançado
+            </span>
+            `;
             continue;
         }
 
         if(!aluno){
-            html += `<span class="nao-lancado">Sem dados do aluno</span>`;
+            html += `
+            <span class="nao-lancado">
+                Sem dados do aluno
+            </span>
+            `;
             continue;
         }
 
@@ -860,9 +981,12 @@ function montarTabelaUnica(nomeAluno){
 
 function montarNavegacao(){
     const nav = document.getElementById("navegacaoAlunos");
+
     nav.innerHTML = "";
 
     const base = pegarBaseAlunos();
+
+    if(base.length === 0) return;
 
     base.forEach((a, index) => {
         nav.innerHTML += `
@@ -878,7 +1002,9 @@ function montarNavegacao(){
 function mostrarAluno(index){
     indiceAtual = index;
 
-    document.querySelectorAll(".btn-aluno").forEach((b,i) => {
+    const botoes = document.querySelectorAll(".btn-aluno");
+
+    botoes.forEach((b,i) => {
         b.classList.toggle("ativo", i === index);
     });
 
@@ -894,12 +1020,19 @@ function mostrarAluno(index){
     const a = base[index];
 
     if(!a){
-        box.innerHTML = `<div class="nao-lancado">Aluno não encontrado.</div>`;
+        box.innerHTML = `
+        <div class="nao-lancado">
+            Aluno não encontrado.
+        </div>
+        `;
         return;
     }
 
     const alunoBase = mapaAlunos[normalizar(a.nome)];
-    const foto = alunoBase ? montarFoto(alunoBase.foto) : null;
+
+    const foto = alunoBase
+        ? montarFoto(alunoBase.foto)
+        : null;
 
     const fotoHTML = foto
         ? `<img class="foto" src="${foto}">`
@@ -922,7 +1055,9 @@ function mostrarAluno(index){
             ${escaparHTML(tutorAluno)}<br>
 
             Situação:
-            <strong>${escaparHTML(a.situacao || "Não informada")}</strong><br>
+            <strong>
+            ${escaparHTML(a.situacao || "Não informada")}
+            </strong><br>
 
             ${montarEletivas(alunoBase)}
 
@@ -934,6 +1069,215 @@ function mostrarAluno(index){
         </div>
     </div>
     `;
+}
+
+function abrirDashboard(){
+    document.getElementById("popupDashboard").style.display = "block";
+    gerarDashboard();
+}
+
+function fecharDashboard(){
+    document.getElementById("popupDashboard").style.display = "none";
+}
+
+function gerarDashboard(){
+    const bimestre = Number(
+        document.getElementById("dashboardBimestre").value
+    );
+
+    const dados = dadosBimestres[bimestre];
+    const box = document.getElementById("dashboardConteudo");
+
+    if(!dados){
+        box.innerHTML = `
+        <div class="nao-lancado">
+            Bimestre não lançado
+        </div>
+        `;
+        return;
+    }
+
+    const disciplinas = {};
+    const alunosRisco = [];
+    const alunosSemNota = [];
+
+    Object.values(dados).forEach(aluno => {
+        let qtdNotasBaixas = 0;
+
+        for(let disc in aluno.disciplinas){
+            const d = aluno.disciplinas[disc];
+
+            if(!disciplinas[disc]){
+                disciplinas[disc] = {
+                    boas:0,
+                    ruins:0,
+                    sem:0
+                };
+            }
+
+            const nota = numero(d.numero);
+
+            if(
+                d.numero === "-" ||
+                d.numero === "" ||
+                d.numero === null ||
+                isNaN(nota)
+            ){
+                disciplinas[disc].sem++;
+                alunosSemNota.push(`${aluno.nome} - ${disc}`);
+            }else if(nota < 5){
+                disciplinas[disc].ruins++;
+                qtdNotasBaixas++;
+            }else{
+                disciplinas[disc].boas++;
+            }
+        }
+
+        if(qtdNotasBaixas >= 4){
+            alunosRisco.push(aluno.nome);
+        }
+    });
+
+    let tabelaVermelhos = `
+    <h3>🔴 Disciplinas com Notas Baixas</h3>
+
+    <table>
+        <tr>
+            <th>Disciplina</th>
+            <th>Notas ≥ 5</th>
+            <th>Notas < 5</th>
+            <th>Sem Nota</th>
+        </tr>
+    `;
+
+    Object.keys(disciplinas).forEach(d => {
+        tabelaVermelhos += `
+        <tr>
+            <td>${escaparHTML(d)}</td>
+            <td>${disciplinas[d].boas}</td>
+            <td class="baixa-nota">${disciplinas[d].ruins}</td>
+            <td>${disciplinas[d].sem}</td>
+        </tr>
+        `;
+    });
+
+    tabelaVermelhos += `</table>`;
+
+    let riscoHTML = `
+    <h3 style="margin-top:30px;">
+        ⚠ Alunos com Risco de Retenção
+    </h3>
+    `;
+
+    if(alunosRisco.length === 0){
+        riscoHTML += `Nenhum aluno encontrado.`;
+    }else{
+        riscoHTML += `
+        <table>
+            <tr>
+                <th>Aluno</th>
+            </tr>
+        `;
+
+        alunosRisco.forEach(a => {
+            riscoHTML += `
+            <tr>
+                <td class="baixa-nota">
+                    ${escaparHTML(a)}
+                </td>
+            </tr>
+            `;
+        });
+
+        riscoHTML += `</table>`;
+    }
+
+    let semNotaHTML = `
+    <h3 style="margin-top:30px;">
+        📌 Alunos sem Nota
+    </h3>
+    `;
+
+    if(alunosSemNota.length === 0){
+        semNotaHTML += `Nenhum aluno encontrado.`;
+    }else{
+        semNotaHTML += `
+        <table>
+            <tr>
+                <th>Aluno / Disciplina</th>
+            </tr>
+        `;
+
+        alunosSemNota.forEach(a => {
+            semNotaHTML += `
+            <tr>
+                <td>${escaparHTML(a)}</td>
+            </tr>
+            `;
+        });
+
+        semNotaHTML += `</table>`;
+    }
+
+    box.innerHTML = `
+        <div class="dashboard-card">
+            <canvas id="graficoDashboard"></canvas>
+        </div>
+
+        ${tabelaVermelhos}
+        ${riscoHTML}
+        ${semNotaHTML}
+    `;
+
+    const labels = Object.keys(disciplinas);
+    const boas = labels.map(d => disciplinas[d].boas);
+    const ruins = labels.map(d => disciplinas[d].ruins);
+    const sem = labels.map(d => disciplinas[d].sem);
+
+    if(graficoDashboard){
+        graficoDashboard.destroy();
+    }
+
+    graficoDashboard = new Chart(
+        document.getElementById("graficoDashboard"),
+        {
+            type:"bar",
+            data:{
+                labels,
+                datasets:[
+                    {
+                        label:"Notas ≥ 5",
+                        data:boas,
+                        backgroundColor:"#16a34a"
+                    },
+                    {
+                        label:"Notas < 5",
+                        data:ruins,
+                        backgroundColor:"#dc2626"
+                    },
+                    {
+                        label:"Sem Nota",
+                        data:sem,
+                        backgroundColor:"#64748b"
+                    }
+                ]
+            },
+            options:{
+                responsive:true,
+                plugins:{
+                    title:{
+                        display:true,
+                        text:"Análise de Notas por Disciplina"
+                    }
+                },
+                scales:{
+                    y:{
+                        beginAtZero:true
+                    }
+                }
+            }
+        }
+    );
 }
 
 document.getElementById("salaSelect")
