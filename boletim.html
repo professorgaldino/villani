@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 21</title>
+<title>Boletim Escolar 22</title>
 
 <style>
 
@@ -776,6 +776,14 @@ async function carregar(){
 
     montarNavegacao();
 
+    }
+
+montarNavegacao();
+
+if(
+    dadosBimestres[1] &&
+    Object.keys(dadosBimestres[1]).length > 0
+){
     mostrarAluno(0);
 }
 
@@ -1024,7 +1032,36 @@ function montarNavegacao(){
 
     const base = dadosBimestres[1];
 
-    if(!base) return;
+    // SE NÃO EXISTIR JSON
+    if(
+        !base ||
+        Object.keys(base).length === 0
+    ){
+
+        document.getElementById(
+            "boletim"
+        ).innerHTML = `
+
+        <div class="aluno">
+
+            <div class="info">
+
+                <h2>
+                    ⚠ Nenhum boletim vinculado
+                </h2>
+
+                <p>
+                    Esta sala ainda não possui
+                    boletins cadastrados.
+                </p>
+
+            </div>
+
+        </div>
+        `;
+
+        return;
+    }
 
     Object.values(base).forEach((a, index) => {
 
