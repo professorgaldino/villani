@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar</title>
+<title>Boletim Escolar 20</title>
 
 <style>
 
@@ -158,43 +158,6 @@ th{
     margin-top:5px;
     display:inline-block;
 }
-/* OCORRÊNCIAS */
-
-.ocorrencias-box{
-    margin-top:20px;
-    background:white;
-    border:1px solid #ddd;
-    border-radius:10px;
-    padding:12px;
-}
-
-.ocorrencia-item{
-    border-left:5px solid #dc3545;
-    background:#fff5f5;
-    padding:10px;
-    margin-bottom:10px;
-    border-radius:8px;
-}
-
-.ocorrencia-data{
-    font-size:12px;
-    color:#666;
-    margin-bottom:5px;
-}
-
-.ocorrencia-prof{
-    font-weight:bold;
-    color:#0077cc;
-}
-
-.sem-ocorrencia{
-    background:#d4edda;
-    color:#155724;
-    padding:10px;
-    border-radius:8px;
-    font-weight:bold;
-}
-
 
 </style>
 
@@ -670,8 +633,7 @@ function gerarDashboard(){
 
 const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-const URL_OCORRENCIAS =
-"https://script.google.com/macros/s/AKfycbxumXT10my5xZQL0_BeeC3NRtDCFSK1-dWYMk3qLQEuPDqDkAoGvLZjvZ4S7t6r9trj/exec";
+
 const BIMESTRES = {
     1: "apb",
     2: "asb",
@@ -683,7 +645,6 @@ let serie = "6";
 
 let alunos = [];
 let dadosBimestres = {};
-let ocorrencias = [];
 
 let indiceAtual = 0;
 
@@ -747,37 +708,6 @@ async function carregarAlunos(){
     alunos = await res.json();
 }
 
-// CARREGAR OCORRÊNCIAS
-async function carregarOcorrencias(){
-
-    try{
-
-        console.log("=================================");
-        console.log("CARREGANDO OCORRÊNCIAS");
-
-        const res =
-            await fetch(URL_OCORRENCIAS);
-
-        ocorrencias =
-            await res.json();
-
-        console.log("OCORRÊNCIAS:");
-        console.log(ocorrencias);
-
-        console.log("TOTAL:");
-        console.log(ocorrencias.length);
-
-        console.log("=================================");
-
-    }catch(e){
-
-        console.log("ERRO AO CARREGAR OCORRÊNCIAS");
-        console.log(e);
-
-        ocorrencias = [];
-    }
-}
-
 // CARREGAR BIMESTRE
 async function carregarBimestre(n){
 
@@ -800,12 +730,9 @@ async function carregarBimestre(n){
 }
 
 // CARREGAR
-// CARREGAR
 async function carregar(){
 
     await carregarAlunos();
-
-    await carregarOcorrencias();
 
     dadosBimestres = {};
 
@@ -819,7 +746,6 @@ async function carregar(){
 
     mostrarAluno(0);
 }
-
 
 // ELETIVAS
 function montarEletivas(alunoBase){
@@ -988,8 +914,6 @@ function montarTabelaUnica(nomeAluno){
 
     html += `</table>`;
 
-    
-
     // RESUMOS
     for(let b = 1; b <= 4; b++){
 
@@ -1055,123 +979,6 @@ function montarTabelaUnica(nomeAluno){
 
     return html;
 }
-// MONTAR OCORRÊNCIAS
-function montarOcorrencias(raAluno){
-
-    console.log("=================================");
-    console.log("MONTANDO OCORRÊNCIAS");
-
-    console.log("RA ALUNO ORIGINAL:");
-    console.log(raAluno);
-
-    // LIMPAR RA DO ALUNO
-    const raLimpo = String(
-        raAluno || ""
-    )
-    .replace(/\D/g,'')
-    .trim();
-
-    console.log("RA ALUNO LIMPO:");
-    console.log(raLimpo);
-
-    // FILTRAR EXCLUSIVAMENTE PELO RA
-    const lista = ocorrencias.filter(o => {
-
-        const raOcorrencia = String(
-            o.ra || ""
-        )
-        .replace(/\D/g,'')
-        .trim();
-
-        console.log("-------------------------");
-        console.log("RA OCORRÊNCIA:");
-        console.log(raOcorrencia);
-
-        console.log("COMPARAÇÃO:");
-        console.log(
-            raLimpo === raOcorrencia
-        );
-
-        return (
-            raLimpo &&
-            raOcorrencia &&
-            raLimpo === raOcorrencia
-        );
-
-    });
-
-    console.log("TOTAL ENCONTRADO:");
-    console.log(lista.length);
-
-    let html = `
-    <div class="ocorrencias-box">
-
-        <h3>
-            📋 Ficha de Ocorrências
-        </h3>
-    `;
-
-    if(lista.length === 0){
-
-        html += `
-        <div class="sem-ocorrencia">
-            ✅ Nenhuma ocorrência registrada
-        </div>
-        `;
-
-        html += `</div>`;
-
-        return html;
-    }
-
-    lista.forEach(o => {
-
-        html += `
-        <div class="ocorrencia-item">
-
-            <div class="ocorrencia-data">
-
-                📅 ${o.dataRegistro || "-"}
-
-                |
-
-                ⏰ ${o.horaRegistro || "-"}
-
-            </div>
-
-            <div class="ocorrencia-prof">
-
-                👨‍🏫 ${o.professor || "-"}
-
-            </div>
-
-            <br>
-
-            <strong>
-                Descrição:
-            </strong><br>
-
-            ${o.descricao || "-"}
-
-            <br><br>
-
-            <strong>
-                Ação:
-            </strong><br>
-
-            ${o.acao || "-"}
-
-        </div>
-        `;
-    });
-
-    html += `</div>`;
-
-    console.log("=================================");
-
-    return html;
-}
-
 
 // NAVEGAÇÃO
 function montarNavegacao(){
@@ -1247,149 +1054,6 @@ function mostrarAluno(index){
         ? `<img class="foto" src="${foto}">`
         : `<div class="sem-foto">❌</div>`;
 
-    // =========================
-    // RA LIMPO
-    // =========================
-
-    const raAluno = String(
-        alunoBase?.ra || ""
-    )
-    .replace(/\D/g,'')
-    .replace(/^0+/,'')
-    .trim();
-
-    console.log("=================================");
-    console.log("ALUNO:");
-    console.log(a.nome);
-
-    console.log("RA ALUNO:");
-    console.log(raAluno);
-
-    // =========================
-    // FILTRAR OCORRÊNCIAS
-    // =========================
-
-    const listaOcorrencias =
-        ocorrencias.filter(o => {
-
-            const raOcorrencia = String(
-                o.ra || ""
-            )
-            .replace(/\D/g,'')
-            .replace(/^0+/,'')
-            .trim();
-
-            console.log("RA OCORRÊNCIA:");
-            console.log(raOcorrencia);
-
-            return (
-                raAluno !== "" &&
-                raOcorrencia !== "" &&
-                raAluno === raOcorrencia
-            );
-        });
-
-    console.log("TOTAL OCORRÊNCIAS:");
-    console.log(listaOcorrencias.length);
-
-    // =========================
-    // HTML OCORRÊNCIAS
-    // =========================
-
-    let htmlOcorrencias = `
-
-    <div style="
-        margin-top:20px;
-        background:white;
-        border:1px solid #ddd;
-        border-radius:10px;
-        padding:12px;
-    ">
-
-        <h3>
-            📋 Ficha de Ocorrências
-        </h3>
-    `;
-
-    if(listaOcorrencias.length === 0){
-
-        htmlOcorrencias += `
-
-        <div style="
-            background:#d4edda;
-            color:#155724;
-            padding:10px;
-            border-radius:8px;
-            font-weight:bold;
-        ">
-            ✅ Nenhuma ocorrência registrada
-        </div>
-        `;
-
-    }else{
-
-        listaOcorrencias.forEach(o => {
-
-            htmlOcorrencias += `
-
-            <div style="
-                border-left:5px solid #dc3545;
-                background:#fff5f5;
-                padding:10px;
-                margin-bottom:10px;
-                border-radius:8px;
-            ">
-
-                <div style="
-                    font-size:12px;
-                    color:#666;
-                    margin-bottom:5px;
-                ">
-
-                    📅 ${o.dataRegistro || "-"}
-
-                    |
-
-                    ⏰ ${o.horaRegistro || "-"}
-
-                </div>
-
-                <div style="
-                    font-weight:bold;
-                    color:#0077cc;
-                ">
-
-                    👨‍🏫 ${o.professor || "-"}
-
-                </div>
-
-                <br>
-
-                <strong>
-                    Descrição:
-                </strong><br>
-
-                ${o.descricao || "-"}
-
-                <br><br>
-
-                <strong>
-                    Ação:
-                </strong><br>
-
-                ${o.acao || "-"}
-
-            </div>
-            `;
-        });
-    }
-
-    htmlOcorrencias += `</div>`;
-
-    // =========================
-    // MONTAR CARD
-    // =========================
-
     box.innerHTML = `
     <div class="aluno">
 
@@ -1416,13 +1080,12 @@ function mostrarAluno(index){
 
             ${montarTabelaUnica(a.nome)}
 
-            ${htmlOcorrencias}
-
         </div>
 
     </div>
     `;
 }
+
 // TROCAR SÉRIE
 document.getElementById("salaSelect")
 .addEventListener("change", e => {
