@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 19</title>
+<title>Boletim Escolar</title>
 
 <style>
 
@@ -158,7 +158,6 @@ th{
     margin-top:5px;
     display:inline-block;
 }
-
 /* OCORRÊNCIAS */
 
 .ocorrencias-box{
@@ -196,6 +195,7 @@ th{
     font-weight:bold;
 }
 
+
 </style>
 
 </head>
@@ -216,7 +216,13 @@ th{
 
 </div>
 
+<!-- NAVEGAÇÃO -->
 <div id="navegacaoAlunos" class="navegacao-alunos"></div>
+<!-- ===================================================== -->
+<!-- COLE TUDO ISSO LOGO ABAIXO DA NAVEGAÇÃO DOS ALUNOS -->
+<!-- ABAIXO DE: -->
+<!-- <div id="navegacaoAlunos" class="navegacao-alunos"></div> -->
+<!-- ===================================================== -->
 
 <div style="margin-bottom:15px;">
 
@@ -234,7 +240,17 @@ th{
 
 </div>
 
+<!-- ===================================================== -->
+<!-- CHART JS -->
+<!-- COLE ANTES DO <script> PRINCIPAL -->
+<!-- ===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- ===================================================== -->
+<!-- POPUP DASHBOARD -->
+<!-- COLE ACIMA DO </body> -->
+<!-- ===================================================== -->
 
 <div id="popupDashboard" style="
     display:none;
@@ -275,15 +291,28 @@ th{
 
         <div style="margin:15px 0;">
 
-            <label>Bimestre:</label>
+            <label>
+                Bimestre:
+            </label>
 
             <select id="dashboardBimestre"
                 onchange="gerarDashboard()">
 
-                <option value="1">1º Bimestre</option>
-                <option value="2">2º Bimestre</option>
-                <option value="3">3º Bimestre</option>
-                <option value="4">4º Bimestre</option>
+                <option value="1">
+                    1º Bimestre
+                </option>
+
+                <option value="2">
+                    2º Bimestre
+                </option>
+
+                <option value="3">
+                    3º Bimestre
+                </option>
+
+                <option value="4">
+                    4º Bimestre
+                </option>
 
             </select>
 
@@ -295,9 +324,11 @@ th{
 
 </div>
 
-<div id="boletim"></div>
-
-</div>
+<!-- ===================================================== -->
+<!-- JAVASCRIPT -->
+<!-- COLE ACIMA DA PARTE: -->
+<!-- // TROCAR SÉRIE -->
+<!-- ===================================================== -->
 
 <script>
 
@@ -307,6 +338,7 @@ th{
 
 let graficoDashboard = null;
 
+// ABRIR
 function abrirDashboard(){
 
     document.getElementById(
@@ -316,6 +348,7 @@ function abrirDashboard(){
     gerarDashboard();
 }
 
+// FECHAR
 function fecharDashboard(){
 
     document.getElementById(
@@ -323,6 +356,7 @@ function fecharDashboard(){
     ).style.display = "none";
 }
 
+// GERAR DASHBOARD
 function gerarDashboard(){
 
     const bimestre = Number(
@@ -409,6 +443,7 @@ function gerarDashboard(){
         }
     });
 
+    // TABELA
     let tabelaVermelhos = `
     <h3>
         🔴 Disciplinas com Notas Baixas
@@ -449,6 +484,81 @@ function gerarDashboard(){
 
     tabelaVermelhos += `</table>`;
 
+    // RISCO
+    let riscoHTML = `
+    <h3 style="margin-top:30px;">
+        ⚠ Alunos com Risco de Retenção
+    </h3>
+    `;
+
+    if(alunosRisco.length === 0){
+
+        riscoHTML += `
+        Nenhum aluno encontrado.
+        `;
+
+    }else{
+
+        riscoHTML += `
+        <table>
+
+            <tr>
+                <th>Aluno</th>
+            </tr>
+        `;
+
+        alunosRisco.forEach(a => {
+
+            riscoHTML += `
+            <tr>
+                <td class="baixa-nota">
+                    ${a}
+                </td>
+            </tr>
+            `;
+        });
+
+        riscoHTML += `</table>`;
+    }
+
+    // SEM NOTA
+    let semNotaHTML = `
+    <h3 style="margin-top:30px;">
+        📌 Alunos sem Nota
+    </h3>
+    `;
+
+    if(alunosSemNota.length === 0){
+
+        semNotaHTML += `
+        Nenhum aluno encontrado.
+        `;
+
+    }else{
+
+        semNotaHTML += `
+        <table>
+
+            <tr>
+                <th>Aluno / Disciplina</th>
+            </tr>
+        `;
+
+        alunosSemNota.forEach(a => {
+
+            semNotaHTML += `
+            <tr>
+                <td>
+                    ${a}
+                </td>
+            </tr>
+            `;
+        });
+
+        semNotaHTML += `</table>`;
+    }
+
+    // HTML
     box.innerHTML = `
 
         <div style="
@@ -462,8 +572,13 @@ function gerarDashboard(){
         </div>
 
         ${tabelaVermelhos}
+
+        ${riscoHTML}
+
+        ${semNotaHTML}
     `;
 
+    // GRAFICO
     const labels =
         Object.keys(disciplinas);
 
@@ -527,6 +642,14 @@ function gerarDashboard(){
 
                 responsive:true,
 
+                plugins:{
+                    title:{
+                        display:true,
+                        text:
+                        "Análise de Notas por Disciplina"
+                    }
+                },
+
                 scales:{
                     y:{
                         beginAtZero:true
@@ -537,12 +660,18 @@ function gerarDashboard(){
     );
 }
 
+</script>
+
+<div id="boletim"></div>
+
+</div>
+
+<script>
+
 const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
-
 const URL_OCORRENCIAS =
 "https://script.google.com/macros/s/AKfycbxumXT10my5xZQL0_BeeC3NRtDCFSK1-dWYMk3qLQEuPDqDkAoGvLZjvZ4S7t6r9trj/exec";
-
 const BIMESTRES = {
     1: "apb",
     2: "asb",
@@ -629,12 +758,10 @@ async function carregarOcorrencias(){
         const res =
             await fetch(URL_OCORRENCIAS);
 
-        console.log("STATUS:");
-        console.log(res.status);
+        ocorrencias =
+            await res.json();
 
-        ocorrencias = await res.json();
-
-        console.log("OCORRÊNCIAS RECEBIDAS:");
+        console.log("OCORRÊNCIAS:");
         console.log(ocorrencias);
 
         console.log("TOTAL:");
@@ -644,7 +771,7 @@ async function carregarOcorrencias(){
 
     }catch(e){
 
-        console.log("ERRO OCORRÊNCIAS:");
+        console.log("ERRO AO CARREGAR OCORRÊNCIAS");
         console.log(e);
 
         ocorrencias = [];
@@ -673,6 +800,7 @@ async function carregarBimestre(n){
 }
 
 // CARREGAR
+// CARREGAR
 async function carregar(){
 
     await carregarAlunos();
@@ -691,6 +819,7 @@ async function carregar(){
 
     mostrarAluno(0);
 }
+
 
 // ELETIVAS
 function montarEletivas(alunoBase){
@@ -859,64 +988,115 @@ function montarTabelaUnica(nomeAluno){
 
     html += `</table>`;
 
+    
+
+    // RESUMOS
+    for(let b = 1; b <= 4; b++){
+
+        const aluno = pegarAlunoBimestre(nomeAluno, b);
+
+        html += `<br>`;
+
+        html += `<strong>📘 ${b}° Bimestre</strong><br>`;
+
+        if(!dadosBimestres[b]){
+
+            html += `
+            <span class="nao-lancado">
+                Bimestre não lançado
+            </span>
+            `;
+
+            continue;
+        }
+
+        if(!aluno){
+
+            html += `
+            <span class="nao-lancado">
+                Sem dados do aluno
+            </span>
+            `;
+
+            continue;
+        }
+
+        const freq =
+            Number(aluno.totais?.frequencia);
+
+        html += `
+        📌 Faltas acumuladas:
+        ${v(aluno.totais?.faltas_acumuladas)}<br>
+
+        <span class="${classeFrequencia(freq)}">
+        📊 Frequência:
+        ${v(aluno.totais?.frequencia)}%
+        </span><br>
+
+        📌 Faltas anual:
+        ${v(aluno.totais?.faltas_anual)}<br>
+
+        <span class="${classeFrequencia(freq)}">
+        📊 Frequência anual:
+        ${v(aluno.totais?.frequencia_anual)}%
+        </span>
+        `;
+
+        if(freq < 75){
+
+            html += `
+            <br>
+            <span class="alerta-frequencia">
+                ⚠ Apresenta Muitas Faltas
+            </span>
+            `;
+        }
+    }
+
     return html;
 }
-
-// MONTAR OCORRÊNCIAS COM DEBUG
-function montarOcorrencias(nomeAluno, raAluno){
+// MONTAR OCORRÊNCIAS
+function montarOcorrencias(raAluno){
 
     console.log("=================================");
-    console.log("INICIANDO MONTAGEM DE OCORRÊNCIAS");
+    console.log("MONTANDO OCORRÊNCIAS");
 
-    console.log("NOME ALUNO:");
-    console.log(nomeAluno);
-
-    console.log("RA ORIGINAL:");
+    console.log("RA ALUNO ORIGINAL:");
     console.log(raAluno);
 
-    const raAlunoLimpo = String(
+    // LIMPAR RA DO ALUNO
+    const raLimpo = String(
         raAluno || ""
     )
     .replace(/\D/g,'')
-    .replace(/^0+/,'')
     .trim();
 
-    console.log("RA LIMPO:");
-    console.log(raAlunoLimpo);
+    console.log("RA ALUNO LIMPO:");
+    console.log(raLimpo);
 
+    // FILTRAR EXCLUSIVAMENTE PELO RA
     const lista = ocorrencias.filter(o => {
 
-        console.log("---------------------------------");
-        console.log("OCORRÊNCIA ANALISADA:");
-        console.log(o);
-
         const raOcorrencia = String(
-
-            o.ra ||
-            o.RA ||
-            o.registro ||
-            o.registroAluno ||
-            o.raAluno ||
-            o.matricula ||
-            ""
-
+            o.ra || ""
         )
         .replace(/\D/g,'')
-        .replace(/^0+/,'')
         .trim();
 
+        console.log("-------------------------");
         console.log("RA OCORRÊNCIA:");
         console.log(raOcorrencia);
 
-        const raOK =
-            raAlunoLimpo &&
+        console.log("COMPARAÇÃO:");
+        console.log(
+            raLimpo === raOcorrencia
+        );
+
+        return (
+            raLimpo &&
             raOcorrencia &&
-            raAlunoLimpo === raOcorrencia;
-
-        console.log("RA OK?");
-        console.log(raOK);
-
-        return raOK;
+            raLimpo === raOcorrencia
+        );
 
     });
 
@@ -992,6 +1172,7 @@ function montarOcorrencias(nomeAluno, raAluno){
     return html;
 }
 
+
 // NAVEGAÇÃO
 function montarNavegacao(){
 
@@ -1066,6 +1247,149 @@ function mostrarAluno(index){
         ? `<img class="foto" src="${foto}">`
         : `<div class="sem-foto">❌</div>`;
 
+    // =========================
+    // RA LIMPO
+    // =========================
+
+    const raAluno = String(
+        alunoBase?.ra || ""
+    )
+    .replace(/\D/g,'')
+    .replace(/^0+/,'')
+    .trim();
+
+    console.log("=================================");
+    console.log("ALUNO:");
+    console.log(a.nome);
+
+    console.log("RA ALUNO:");
+    console.log(raAluno);
+
+    // =========================
+    // FILTRAR OCORRÊNCIAS
+    // =========================
+
+    const listaOcorrencias =
+        ocorrencias.filter(o => {
+
+            const raOcorrencia = String(
+                o.ra || ""
+            )
+            .replace(/\D/g,'')
+            .replace(/^0+/,'')
+            .trim();
+
+            console.log("RA OCORRÊNCIA:");
+            console.log(raOcorrencia);
+
+            return (
+                raAluno !== "" &&
+                raOcorrencia !== "" &&
+                raAluno === raOcorrencia
+            );
+        });
+
+    console.log("TOTAL OCORRÊNCIAS:");
+    console.log(listaOcorrencias.length);
+
+    // =========================
+    // HTML OCORRÊNCIAS
+    // =========================
+
+    let htmlOcorrencias = `
+
+    <div style="
+        margin-top:20px;
+        background:white;
+        border:1px solid #ddd;
+        border-radius:10px;
+        padding:12px;
+    ">
+
+        <h3>
+            📋 Ficha de Ocorrências
+        </h3>
+    `;
+
+    if(listaOcorrencias.length === 0){
+
+        htmlOcorrencias += `
+
+        <div style="
+            background:#d4edda;
+            color:#155724;
+            padding:10px;
+            border-radius:8px;
+            font-weight:bold;
+        ">
+            ✅ Nenhuma ocorrência registrada
+        </div>
+        `;
+
+    }else{
+
+        listaOcorrencias.forEach(o => {
+
+            htmlOcorrencias += `
+
+            <div style="
+                border-left:5px solid #dc3545;
+                background:#fff5f5;
+                padding:10px;
+                margin-bottom:10px;
+                border-radius:8px;
+            ">
+
+                <div style="
+                    font-size:12px;
+                    color:#666;
+                    margin-bottom:5px;
+                ">
+
+                    📅 ${o.dataRegistro || "-"}
+
+                    |
+
+                    ⏰ ${o.horaRegistro || "-"}
+
+                </div>
+
+                <div style="
+                    font-weight:bold;
+                    color:#0077cc;
+                ">
+
+                    👨‍🏫 ${o.professor || "-"}
+
+                </div>
+
+                <br>
+
+                <strong>
+                    Descrição:
+                </strong><br>
+
+                ${o.descricao || "-"}
+
+                <br><br>
+
+                <strong>
+                    Ação:
+                </strong><br>
+
+                ${o.acao || "-"}
+
+            </div>
+            `;
+        });
+    }
+
+    htmlOcorrencias += `</div>`;
+
+    // =========================
+    // MONTAR CARD
+    // =========================
+
     box.innerHTML = `
     <div class="aluno">
 
@@ -1092,14 +1416,13 @@ function mostrarAluno(index){
 
             ${montarTabelaUnica(a.nome)}
 
-            ${montarOcorrencias(a.nome, alunoBase?.ra)}
+            ${htmlOcorrencias}
 
         </div>
 
     </div>
     `;
 }
-
 // TROCAR SÉRIE
 document.getElementById("salaSelect")
 .addEventListener("change", e => {
