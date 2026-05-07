@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 18</title>
+<title>Boletim Escolar 19</title>
 
 <style>
 
@@ -216,7 +216,6 @@ th{
 
 </div>
 
-<!-- NAVEGAÇÃO -->
 <div id="navegacaoAlunos" class="navegacao-alunos"></div>
 
 <div style="margin-bottom:15px;">
@@ -276,28 +275,15 @@ th{
 
         <div style="margin:15px 0;">
 
-            <label>
-                Bimestre:
-            </label>
+            <label>Bimestre:</label>
 
             <select id="dashboardBimestre"
                 onchange="gerarDashboard()">
 
-                <option value="1">
-                    1º Bimestre
-                </option>
-
-                <option value="2">
-                    2º Bimestre
-                </option>
-
-                <option value="3">
-                    3º Bimestre
-                </option>
-
-                <option value="4">
-                    4º Bimestre
-                </option>
+                <option value="1">1º Bimestre</option>
+                <option value="2">2º Bimestre</option>
+                <option value="3">3º Bimestre</option>
+                <option value="4">4º Bimestre</option>
 
             </select>
 
@@ -309,6 +295,10 @@ th{
 
 </div>
 
+<div id="boletim"></div>
+
+</div>
+
 <script>
 
 /* ========================= */
@@ -317,7 +307,6 @@ th{
 
 let graficoDashboard = null;
 
-// ABRIR
 function abrirDashboard(){
 
     document.getElementById(
@@ -327,7 +316,6 @@ function abrirDashboard(){
     gerarDashboard();
 }
 
-// FECHAR
 function fecharDashboard(){
 
     document.getElementById(
@@ -335,7 +323,6 @@ function fecharDashboard(){
     ).style.display = "none";
 }
 
-// GERAR DASHBOARD
 function gerarDashboard(){
 
     const bimestre = Number(
@@ -462,78 +449,6 @@ function gerarDashboard(){
 
     tabelaVermelhos += `</table>`;
 
-    let riscoHTML = `
-    <h3 style="margin-top:30px;">
-        ⚠ Alunos com Risco de Retenção
-    </h3>
-    `;
-
-    if(alunosRisco.length === 0){
-
-        riscoHTML += `
-        Nenhum aluno encontrado.
-        `;
-
-    }else{
-
-        riscoHTML += `
-        <table>
-
-            <tr>
-                <th>Aluno</th>
-            </tr>
-        `;
-
-        alunosRisco.forEach(a => {
-
-            riscoHTML += `
-            <tr>
-                <td class="baixa-nota">
-                    ${a}
-                </td>
-            </tr>
-            `;
-        });
-
-        riscoHTML += `</table>`;
-    }
-
-    let semNotaHTML = `
-    <h3 style="margin-top:30px;">
-        📌 Alunos sem Nota
-    </h3>
-    `;
-
-    if(alunosSemNota.length === 0){
-
-        semNotaHTML += `
-        Nenhum aluno encontrado.
-        `;
-
-    }else{
-
-        semNotaHTML += `
-        <table>
-
-            <tr>
-                <th>Aluno / Disciplina</th>
-            </tr>
-        `;
-
-        alunosSemNota.forEach(a => {
-
-            semNotaHTML += `
-            <tr>
-                <td>
-                    ${a}
-                </td>
-            </tr>
-            `;
-        });
-
-        semNotaHTML += `</table>`;
-    }
-
     box.innerHTML = `
 
         <div style="
@@ -547,10 +462,6 @@ function gerarDashboard(){
         </div>
 
         ${tabelaVermelhos}
-
-        ${riscoHTML}
-
-        ${semNotaHTML}
     `;
 
     const labels =
@@ -616,14 +527,6 @@ function gerarDashboard(){
 
                 responsive:true,
 
-                plugins:{
-                    title:{
-                        display:true,
-                        text:
-                        "Análise de Notas por Disciplina"
-                    }
-                },
-
                 scales:{
                     y:{
                         beginAtZero:true
@@ -633,14 +536,6 @@ function gerarDashboard(){
         }
     );
 }
-
-</script>
-
-<div id="boletim"></div>
-
-</div>
-
-<script>
 
 const URL_ALUNOS =
 "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
@@ -755,6 +650,28 @@ async function carregarOcorrencias(){
         ocorrencias = [];
     }
 }
+
+// CARREGAR BIMESTRE
+async function carregarBimestre(n){
+
+    try{
+
+        const arquivo = `${serie}${BIMESTRES[n]}.json`;
+
+        const res = await fetch(arquivo);
+
+        if(!res.ok){
+            throw new Error();
+        }
+
+        return await res.json();
+
+    }catch(e){
+
+        return null;
+    }
+}
+
 // CARREGAR
 async function carregar(){
 
@@ -942,68 +859,6 @@ function montarTabelaUnica(nomeAluno){
 
     html += `</table>`;
 
-    for(let b = 1; b <= 4; b++){
-
-        const aluno = pegarAlunoBimestre(nomeAluno, b);
-
-        html += `<br>`;
-
-        html += `<strong>📘 ${b}° Bimestre</strong><br>`;
-
-        if(!dadosBimestres[b]){
-
-            html += `
-            <span class="nao-lancado">
-                Bimestre não lançado
-            </span>
-            `;
-
-            continue;
-        }
-
-        if(!aluno){
-
-            html += `
-            <span class="nao-lancado">
-                Sem dados do aluno
-            </span>
-            `;
-
-            continue;
-        }
-
-        const freq =
-            Number(aluno.totais?.frequencia);
-
-        html += `
-        📌 Faltas acumuladas:
-        ${v(aluno.totais?.faltas_acumuladas)}<br>
-
-        <span class="${classeFrequencia(freq)}">
-        📊 Frequência:
-        ${v(aluno.totais?.frequencia)}%
-        </span><br>
-
-        📌 Faltas anual:
-        ${v(aluno.totais?.faltas_anual)}<br>
-
-        <span class="${classeFrequencia(freq)}">
-        📊 Frequência anual:
-        ${v(aluno.totais?.frequencia_anual)}%
-        </span>
-        `;
-
-        if(freq < 75){
-
-            html += `
-            <br>
-            <span class="alerta-frequencia">
-                ⚠ Apresenta Muitas Faltas
-            </span>
-            `;
-        }
-    }
-
     return html;
 }
 
@@ -1136,6 +991,7 @@ function montarOcorrencias(nomeAluno, raAluno){
 
     return html;
 }
+
 // NAVEGAÇÃO
 function montarNavegacao(){
 
