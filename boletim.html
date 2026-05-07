@@ -3,11 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Boletim Escolar 23</title>
+<title>Boletim Escolar PRO</title>
 
 <style>
-
 body{
     font-family: Arial;
     background:#f4f6f8;
@@ -22,7 +20,6 @@ body{
 .topo{
     display:flex;
     justify-content:space-between;
-    margin-bottom:15px;
     align-items:center;
     flex-wrap:wrap;
     gap:10px;
@@ -33,12 +30,11 @@ select{
     border-radius:6px;
 }
 
-/* NAVEGAÇÃO ALUNOS */
 .navegacao-alunos{
     display:flex;
     flex-wrap:wrap;
     gap:6px;
-    margin-bottom:20px;
+    margin:15px 0;
 }
 
 .btn-aluno{
@@ -48,117 +44,54 @@ select{
     border-radius:8px;
     background:#0077cc;
     color:white;
-    font-weight:bold;
     cursor:pointer;
-    transition:0.2s;
-}
-
-.btn-aluno:hover{
-    background:#005fa3;
-    transform:scale(1.05);
 }
 
 .btn-aluno.ativo{
     background:#28a745;
 }
 
-/* CARD */
 .aluno{
     background:white;
-    border-radius:12px;
     padding:12px;
-    margin-bottom:20px;
+    border-radius:12px;
     display:flex;
     gap:15px;
     box-shadow:0 2px 8px rgba(0,0,0,0.08);
 }
 
-/* FOTO */
-.foto{
-    width:90px;
-    height:90px;
-    border-radius:10px;
-    object-fit:cover;
-    border:2px solid #ddd;
-}
+.info{flex:1}
 
-.sem-foto{
-    width:90px;
-    height:90px;
-    background:#eee;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:red;
-    border-radius:10px;
-}
-
-/* INFO */
-.info{
-    flex:1;
-    font-size:14px;
-}
-
-/* TABELA */
-table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:12px;
-    margin-top:10px;
-}
-
-th, td{
-    border:1px solid #ddd;
-    padding:6px;
-    text-align:center;
-}
-
-th{
-    background:#0077cc;
-    color:white;
-}
-
-.subtopo{
-    background:#005fa3;
-    color:white;
-    font-size:11px;
-}
-
-.vazio{
-    background:#e8ddff;
-}
-
-/* ELETIVAS */
-.eletiva-box{
-    margin-top:6px;
-    padding:8px;
-    border-radius:8px;
-    background:white;
-    border:1px solid #ddd;
-}
-
-/* NÃO LANÇADO */
 .nao-lancado{
     background:#fff3cd;
-    color:#856404;
-    font-size:11px;
+    padding:10px;
+    border-radius:8px;
     font-weight:bold;
 }
 
-/* NOTAS BAIXAS */
 .baixa-nota{
     color:red;
     font-weight:bold;
 }
 
-/* ALERTA */
-.alerta-frequencia{
-    color:red;
-    font-weight:bold;
-    margin-top:5px;
-    display:inline-block;
+/* DASHBOARD */
+#popupDashboard{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.7);
+    overflow:auto;
+    z-index:9999;
 }
 
+.dashboard-box{
+    background:white;
+    max-width:1200px;
+    margin:30px auto;
+    padding:20px;
+    border-radius:12px;
+    position:relative;
+}
 </style>
 
 </head>
@@ -168,1010 +101,293 @@ th{
 <div class="container">
 
 <div class="topo">
-
-    <h2>📊 Boletim Completo</h2>
+    <h2>📊 Boletim PRO</h2>
 
     <select id="salaSelect">
-        <option value="6a">
-        6º Ano A
-        </option>
-    
-        <option value="6b">
-            6º Ano B
-        </option>
-    
-        <option value="6c">
-            6º Ano C
-        </option>
-    
-        <option value="7a">
-            7º Ano A
-        </option>
-    
-        <option value="7b">
-            7º Ano B
-        </option>
-    
-        <option value="7c">
-            7º Ano C
-        </option>
-    
-        <option value="8a">
-            8º Ano A
-        </option>
-    
-        <option value="8b">
-            8º Ano B
-        </option>
-    
-        <option value="8c">
-            8º Ano C
-        </option>
+        <option value="6a">6º A</option>
+        <option value="6b">6º B</option>
+        <option value="7a">7º A</option>
+        <option value="7b">7º B</option>
     </select>
-
 </div>
 
-<!-- NAVEGAÇÃO -->
-<div id="navegacaoAlunos" class="navegacao-alunos"></div>
-<!-- ===================================================== -->
-<!-- COLE TUDO ISSO LOGO ABAIXO DA NAVEGAÇÃO DOS ALUNOS -->
-<!-- ABAIXO DE: -->
-<!-- <div id="navegacaoAlunos" class="navegacao-alunos"></div> -->
-<!-- ===================================================== -->
+<div id="navegacaoAlunos"></div>
 
-<div style="margin-bottom:15px;">
+<button onclick="abrirDashboard()">📊 Dashboard Power BI</button>
 
-    <button onclick="abrirDashboard()" style="
-        padding:10px 18px;
-        border:none;
-        border-radius:8px;
-        background:#6f42c1;
-        color:white;
-        font-weight:bold;
-        cursor:pointer;
-    ">
-        📊 Dashboard da Sala
-    </button>
+<div id="popupDashboard">
+    <div class="dashboard-box">
 
-</div>
+        <button onclick="fecharDashboard()" style="position:absolute;right:10px;top:10px;">X</button>
 
-<!-- ===================================================== -->
-<!-- CHART JS -->
-<!-- COLE ANTES DO <script> PRINCIPAL -->
-<!-- ===================================================== -->
+        <h2>Dashboard Escolar</h2>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-<!-- ===================================================== -->
-<!-- POPUP DASHBOARD -->
-<!-- COLE ACIMA DO </body> -->
-<!-- ===================================================== -->
-
-<div id="popupDashboard" style="
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,0.7);
-    z-index:9999;
-    overflow:auto;
-">
-
-    <div style="
-        background:white;
-        width:95%;
-        max-width:1400px;
-        margin:30px auto;
-        border-radius:12px;
-        padding:20px;
-        position:relative;
-    ">
-
-        <button onclick="fecharDashboard()" style="
-            position:absolute;
-            top:15px;
-            right:15px;
-            border:none;
-            background:red;
-            color:white;
-            width:40px;
-            height:40px;
-            border-radius:50%;
-            font-size:18px;
-            cursor:pointer;
-        ">
-            X
-        </button>
-
-        <h2>📊 Dashboard da Sala</h2>
-
-        <div style="margin:15px 0;">
-
-            <label>
-                Bimestre:
-            </label>
-
-            <select id="dashboardBimestre"
-                onchange="gerarDashboard()">
-
-                <option value="1">
-                    1º Bimestre
-                </option>
-
-                <option value="2">
-                    2º Bimestre
-                </option>
-
-                <option value="3">
-                    3º Bimestre
-                </option>
-
-                <option value="4">
-                    4º Bimestre
-                </option>
-
-            </select>
-
-        </div>
+        <select id="dashboardBimestre" onchange="gerarDashboard()">
+            <option value="1">1º Bimestre</option>
+            <option value="2">2º Bimestre</option>
+            <option value="3">3º Bimestre</option>
+            <option value="4">4º Bimestre</option>
+        </select>
 
         <div id="dashboardConteudo"></div>
 
     </div>
-
 </div>
-
-<!-- ===================================================== -->
-<!-- JAVASCRIPT -->
-<!-- COLE ACIMA DA PARTE: -->
-<!-- // TROCAR SÉRIE -->
-<!-- ===================================================== -->
-
-<script>
-
-/* ========================= */
-/* DASHBOARD */
-/* ========================= */
-
-let graficoDashboard = null;
-
-// ABRIR
-function abrirDashboard(){
-
-    document.getElementById(
-        "popupDashboard"
-    ).style.display = "block";
-
-    gerarDashboard();
-}
-
-// FECHAR
-function fecharDashboard(){
-
-    document.getElementById(
-        "popupDashboard"
-    ).style.display = "none";
-}
-
-// GERAR DASHBOARD
-function gerarDashboard(){
-
-    const bimestre = Number(
-        document.getElementById(
-            "dashboardBimestre"
-        ).value
-    );
-
-    const dados = dadosBimestres[bimestre];
-
-    const box =
-        document.getElementById(
-            "dashboardConteudo"
-        );
-
-    if(!dados){
-
-        box.innerHTML = `
-        <div class="nao-lancado">
-            Bimestre não lançado
-        </div>
-        `;
-
-        return;
-    }
-
-    const disciplinas = {};
-
-    const alunosRisco = [];
-
-    const alunosSemNota = [];
-
-    Object.values(dados).forEach(aluno => {
-
-        let qtdNotasBaixas = 0;
-
-        for(let disc in aluno.disciplinas){
-
-            const d =
-                aluno.disciplinas[disc];
-
-            if(!disciplinas[disc]){
-
-                disciplinas[disc] = {
-                    boas:0,
-                    ruins:0,
-                    sem:0
-                };
-            }
-
-            const nota =
-                Number(d.numero);
-
-            if(
-                d.numero === "-" ||
-                d.numero === "" ||
-                d.numero === null ||
-                isNaN(nota)
-            ){
-
-                disciplinas[disc].sem++;
-
-                alunosSemNota.push(
-                    `${aluno.nome} - ${disc}`
-                );
-
-            }else if(nota < 5){
-
-                disciplinas[disc].ruins++;
-
-                qtdNotasBaixas++;
-
-            }else{
-
-                disciplinas[disc].boas++;
-            }
-        }
-
-        if(qtdNotasBaixas >= 4){
-
-            alunosRisco.push(
-                aluno.nome
-            );
-        }
-    });
-
-    // TABELA
-    let tabelaVermelhos = `
-    <h3>
-        🔴 Disciplinas com Notas Baixas
-    </h3>
-
-    <table>
-
-        <tr>
-            <th>Disciplina</th>
-            <th>Notas ≥ 5</th>
-            <th>Notas < 5</th>
-            <th>Sem Nota</th>
-        </tr>
-    `;
-
-    Object.keys(disciplinas).forEach(d => {
-
-        tabelaVermelhos += `
-        <tr>
-
-            <td>${d}</td>
-
-            <td>
-                ${disciplinas[d].boas}
-            </td>
-
-            <td class="baixa-nota">
-                ${disciplinas[d].ruins}
-            </td>
-
-            <td>
-                ${disciplinas[d].sem}
-            </td>
-
-        </tr>
-        `;
-    });
-
-    tabelaVermelhos += `</table>`;
-
-    // RISCO
-    let riscoHTML = `
-    <h3 style="margin-top:30px;">
-        ⚠ Alunos com Risco de Retenção
-    </h3>
-    `;
-
-    if(alunosRisco.length === 0){
-
-        riscoHTML += `
-        Nenhum aluno encontrado.
-        `;
-
-    }else{
-
-        riscoHTML += `
-        <table>
-
-            <tr>
-                <th>Aluno</th>
-            </tr>
-        `;
-
-        alunosRisco.forEach(a => {
-
-            riscoHTML += `
-            <tr>
-                <td class="baixa-nota">
-                    ${a}
-                </td>
-            </tr>
-            `;
-        });
-
-        riscoHTML += `</table>`;
-    }
-
-    // SEM NOTA
-    let semNotaHTML = `
-    <h3 style="margin-top:30px;">
-        📌 Alunos sem Nota
-    </h3>
-    `;
-
-    if(alunosSemNota.length === 0){
-
-        semNotaHTML += `
-        Nenhum aluno encontrado.
-        `;
-
-    }else{
-
-        semNotaHTML += `
-        <table>
-
-            <tr>
-                <th>Aluno / Disciplina</th>
-            </tr>
-        `;
-
-        alunosSemNota.forEach(a => {
-
-            semNotaHTML += `
-            <tr>
-                <td>
-                    ${a}
-                </td>
-            </tr>
-            `;
-        });
-
-        semNotaHTML += `</table>`;
-    }
-
-    // HTML
-    box.innerHTML = `
-
-        <div style="
-            background:white;
-            padding:15px;
-            border-radius:10px;
-        ">
-
-            <canvas id="graficoDashboard"></canvas>
-
-        </div>
-
-        ${tabelaVermelhos}
-
-        ${riscoHTML}
-
-        ${semNotaHTML}
-    `;
-
-    // GRAFICO
-    const labels =
-        Object.keys(disciplinas);
-
-    const boas =
-        labels.map(
-            d => disciplinas[d].boas
-        );
-
-    const ruins =
-        labels.map(
-            d => disciplinas[d].ruins
-        );
-
-    const sem =
-        labels.map(
-            d => disciplinas[d].sem
-        );
-
-    if(graficoDashboard){
-
-        graficoDashboard.destroy();
-    }
-
-    graficoDashboard = new Chart(
-
-        document.getElementById(
-            "graficoDashboard"
-        ),
-
-        {
-
-            type:"bar",
-
-            data:{
-
-                labels,
-
-                datasets:[
-
-                    {
-                        label:"Notas ≥ 5",
-                        data:boas,
-                        backgroundColor:"green"
-                    },
-
-                    {
-                        label:"Notas < 5",
-                        data:ruins,
-                        backgroundColor:"red"
-                    },
-
-                    {
-                        label:"Sem Nota",
-                        data:sem,
-                        backgroundColor:"gray"
-                    }
-                ]
-            },
-
-            options:{
-
-                responsive:true,
-
-                plugins:{
-                    title:{
-                        display:true,
-                        text:
-                        "Análise de Notas por Disciplina"
-                    }
-                },
-
-                scales:{
-                    y:{
-                        beginAtZero:true
-                    }
-                }
-            }
-        }
-    );
-}
-
-</script>
 
 <div id="boletim"></div>
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
 
-const URL_ALUNOS =
-"https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+const URL_ALUNOS = "https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
 
-const BIMESTRES = {
-    1: "1",
-    2: "2",
-    3: "3",
-    4: "4"
-};
+const BIM = {1:"1",2:"2",3:"3",4:"4"};
 
 let serie = "6a";
-
 let alunos = [];
 let dadosBimestres = {};
+let grafico = null;
 
-let indiceAtual = 0;
+/* =========================
+   UTIL
+========================= */
 
-// FOTO
-function montarFoto(id){
-
-    if(!id) return null;
-
-    return "https://lh3.googleusercontent.com/d/" + String(id).trim();
-}
-
-// NORMALIZAR
 function normalizar(t){
-
-    return (t || "")
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .trim();
+    return (t||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim();
 }
 
-// VALOR
-function v(x){
+/* =========================
+   CARREGAMENTO
+========================= */
 
-    return (
-        x === null ||
-        x === undefined ||
-        x === ""
-    ) ? "-" : x;
-}
-
-// NOTA BAIXA
-function classeNota(valor){
-
-    const n = Number(valor);
-
-    if(!isNaN(n) && n < 5){
-        return "baixa-nota";
-    }
-
-    return "";
-}
-
-// FREQUÊNCIA
-function classeFrequencia(valor){
-
-    const n = Number(valor);
-
-    if(!isNaN(n) && n < 75){
-        return "baixa-nota";
-    }
-
-    return "";
-}
-
-// CARREGAR ALUNOS
 async function carregarAlunos(){
-
     const res = await fetch(URL_ALUNOS);
-
     alunos = await res.json();
 }
 
-// CARREGAR BIMESTRE
 async function carregarBimestre(n){
-
     try{
-
-        const arquivo = `${serie}/${BIMESTRES[n]}.json`;
-
-        const res = await fetch(arquivo);
-
-        if(!res.ok){
-            throw new Error();
-        }
-
+        const res = await fetch(`${serie}/${BIM[n]}.json`);
+        if(!res.ok) return null;
         return await res.json();
-
-    }catch(e){
-
+    }catch{
         return null;
     }
 }
 
-// CARREGAR
 async function carregar(){
-
     await carregarAlunos();
 
-    dadosBimestres = {};
-
-    for(let i = 1; i <= 4; i++){
-
-        dadosBimestres[i] =
-            await carregarBimestre(i);
+    for(let i=1;i<=4;i++){
+        dadosBimestres[i] = await carregarBimestre(i);
     }
+}
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
+
+async function iniciar(){
+    await carregar();
 
     montarNavegacao();
 
-    }
-
-montarNavegacao();
-
-if(
-    dadosBimestres[1] &&
-    Object.keys(dadosBimestres[1]).length > 0
-){
-
-    // LIMPA A MENSAGEM
-    document.getElementById(
-        "boletim"
-    ).innerHTML = "";
-
-    mostrarAluno(0);
-}
-
-// ELETIVAS
-function montarEletivas(alunoBase){
-
-    const e1 = alunoBase?.eletiva1 || "";
-    const e2 = alunoBase?.eletiva2 || "";
-
-    return `
-    <div class="eletiva-box">
-
-        <strong>📘 Eletivas</strong><br><br>
-
-        Eletiva 1° Semestre:
-        ${e1 ? e1 : "Sem eletiva"}<br>
-
-        Eletiva 2° Semestre:
-        ${e2 ? e2 : "Sem eletiva"}
-
-    </div>
-    `;
-}
-
-// PEGAR DADOS BIMESTRE
-function pegarAlunoBimestre(nomeAluno, n){
-
-    const dados = dadosBimestres[n];
-
-    if(!dados) return null;
-
-    return Object.values(dados)
-        .find(a =>
-            normalizar(a.nome) ===
-            normalizar(nomeAluno)
-        );
-}
-
-// TABELA ÚNICA
-function montarTabelaUnica(nomeAluno){
-
-    const alunoBase = pegarAlunoBimestre(nomeAluno, 1);
-
-    if(!alunoBase){
-
-        return `
-        <div class="nao-lancado">
-            Nenhum boletim encontrado
-        </div>
-        `;
-    }
-
-    let html = `
-    <table>
-
-        <tr>
-
-            <th rowspan="2">
-                Disciplina
-            </th>
-
-            <th colspan="3">
-                📘 1° Bimestre
-            </th>
-
-            <th colspan="3">
-                📘 2° Bimestre
-            </th>
-
-            <th colspan="3">
-                📘 3° Bimestre
-            </th>
-
-            <th colspan="3">
-                📘 4° Bimestre
-            </th>
-
-        </tr>
-
-        <tr class="subtopo">
-
-            <th>Média</th>
-            <th>Faltas</th>
-            <th>F.AC</th>
-
-            <th>Média</th>
-            <th>Faltas</th>
-            <th>F.AC</th>
-
-            <th>Média</th>
-            <th>Faltas</th>
-            <th>F.AC</th>
-
-            <th>Média</th>
-            <th>Faltas</th>
-            <th>F.AC</th>
-
-        </tr>
-    `;
-
-    for(let disciplina in alunoBase.disciplinas){
-
-        html += `<tr>`;
-
-        html += `<td>${disciplina}</td>`;
-
-        for(let b = 1; b <= 4; b++){
-
-            const aluno = pegarAlunoBimestre(nomeAluno, b);
-
-            if(!dadosBimestres[b]){
-
-                html += `
-                <td colspan="3" class="nao-lancado">
-                    Não lançado
-                </td>
-                `;
-
-                continue;
-            }
-
-            if(!aluno){
-
-                html += `
-                <td colspan="3" class="nao-lancado">
-                    Sem dados
-                </td>
-                `;
-
-                continue;
-            }
-
-            const d =
-                aluno.disciplinas[disciplina];
-
-            if(!d){
-
-                html += `
-                <td colspan="3" class="nao-lancado">
-                    Sem disciplina
-                </td>
-                `;
-
-                continue;
-            }
-
-            const media = v(d.numero);
-            const faltas = v(d.media);
-            const acum = v(d.faltas);
-
-            html += `
-            <td class="${media==='-'?'vazio':''} ${classeNota(media)}">
-                ${media}
-            </td>
-
-            <td class="${faltas==='-'?'vazio':''}">
-                ${faltas}
-            </td>
-
-            <td>
-                ${acum}
-            </td>
-            `;
-        }
-
-        html += `</tr>`;
-    }
-
-    html += `</table>`;
-
-    // RESUMOS
-    for(let b = 1; b <= 4; b++){
-
-        const aluno = pegarAlunoBimestre(nomeAluno, b);
-
-        html += `<br>`;
-
-        html += `<strong>📘 ${b}° Bimestre</strong><br>`;
-
-        if(!dadosBimestres[b]){
-
-            html += `
-            <span class="nao-lancado">
-                Bimestre não lançado
-            </span>
-            `;
-
-            continue;
-        }
-
-        if(!aluno){
-
-            html += `
-            <span class="nao-lancado">
-                Sem dados do aluno
-            </span>
-            `;
-
-            continue;
-        }
-
-        const freq =
-            Number(aluno.totais?.frequencia);
-
-        html += `
-        📌 Faltas acumuladas:
-        ${v(aluno.totais?.faltas_acumuladas)}<br>
-
-        <span class="${classeFrequencia(freq)}">
-        📊 Frequência:
-        ${v(aluno.totais?.frequencia)}%
-        </span><br>
-
-        📌 Faltas anual:
-        ${v(aluno.totais?.faltas_anual)}<br>
-
-        <span class="${classeFrequencia(freq)}">
-        📊 Frequência anual:
-        ${v(aluno.totais?.frequencia_anual)}%
-        </span>
-        `;
-
-        if(freq < 75){
-
-            html += `
-            <br>
-            <span class="alerta-frequencia">
-                ⚠ Apresenta Muitas Faltas
-            </span>
-            `;
-        }
-    }
-
-    return html;
-}
-
-// NAVEGAÇÃO
-function montarNavegacao(){
-
-    const nav =
-        document.getElementById(
-            "navegacaoAlunos"
-        );
-
-    nav.innerHTML = "";
-
     const base = dadosBimestres[1];
 
-    // SE NÃO EXISTIR JSON
-    if(
-        !base ||
-        Object.keys(base).length === 0
-    ){
+    if(base && Object.keys(base).length>0){
+        mostrarAluno(0);
+    }
+}
 
-        document.getElementById(
-            "boletim"
-        ).innerHTML = `
+iniciar();
 
-        <div class="aluno">
+/* =========================
+   NAVEGAÇÃO
+========================= */
 
-            <div class="info">
+function montarNavegacao(){
 
-                <h2>
-                    ⚠ Nenhum boletim vinculado
-                </h2>
+    const nav = document.getElementById("navegacaoAlunos");
+    nav.innerHTML="";
 
-                <p>
-                    Esta sala ainda não possui
-                    boletins cadastrados.
-                </p>
+    const base = dadosBimestres[1];
+    if(!base) return;
 
-            </div>
-
-        </div>
+    Object.values(base).forEach((a,i)=>{
+        nav.innerHTML += `
+        <button class="btn-aluno ${i===0?'ativo':''}" onclick="mostrarAluno(${i})">${i+1}</button>
         `;
+    });
+}
 
+/* =========================
+   ALUNO
+========================= */
+
+function mostrarAluno(i){
+
+    const base = Object.values(dadosBimestres[1]||{});
+    const a = base[i];
+    if(!a) return;
+
+    document.getElementById("boletim").innerHTML = `
+        <div class="aluno">
+            <div class="info">
+                <h3>${a.nome}</h3>
+                ${montarTabela(a.nome)}
+            </div>
+        </div>
+    `;
+}
+
+/* =========================
+   TABELA
+========================= */
+
+function montarTabela(nome){
+
+    const aluno = Object.values(dadosBimestres[1]||{}).find(a=>a.nome===nome);
+
+    if(!aluno) return "Sem dados";
+
+    let html = "<table border='1' width='100%'><tr><th>Disciplina</th><th>Nota</th></tr>";
+
+    for(let d in aluno.disciplinas){
+
+        const n = aluno.disciplinas[d].numero;
+
+        html += `
+        <tr>
+            <td>${d}</td>
+            <td class="${Number(n)<5?'baixa-nota':''}">${n}</td>
+        </tr>
+        `;
+    }
+
+    return html + "</table>";
+}
+
+/* =========================
+   DASHBOARD POWER BI
+========================= */
+
+function abrirDashboard(){
+    document.getElementById("popupDashboard").style.display="block";
+    gerarDashboard();
+}
+
+function fecharDashboard(){
+    document.getElementById("popupDashboard").style.display="none";
+}
+
+function gerarDashboard(){
+
+    const b = document.getElementById("dashboardBimestre").value;
+    const dados = dadosBimestres[b];
+
+    if(!dados){
+        document.getElementById("dashboardConteudo").innerHTML =
+        "<div class='nao-lancado'>Sem dados do bimestre</div>";
         return;
     }
 
-    Object.values(base).forEach((a, index) => {
+    let total=0;
+    let soma=0;
+    let risco=0;
 
-        nav.innerHTML += `
-        <button
-            class="btn-aluno ${index===0?'ativo':''}"
-            onclick="mostrarAluno(${index})">
-            ${index + 1}
-        </button>
-        `;
+    let faixas = {"0-4":0,"5-6":0,"7-8":0,"9-10":0};
+
+    let ranking = [];
+
+    Object.values(dados).forEach(a=>{
+
+        let abaixo=0;
+        let somaAluno=0;
+        let qtd=0;
+
+        for(let d in a.disciplinas){
+
+            const n = Number(a.disciplinas[d].numero);
+
+            if(!isNaN(n)){
+                soma += n;
+                total++;
+
+                somaAluno += n;
+                qtd++;
+
+                if(n<5){
+                    abaixo++;
+                    faixas["0-4"]++;
+                }else if(n<7){
+                    faixas["5-6"]++;
+                }else if(n<9){
+                    faixas["7-8"]++;
+                }else{
+                    faixas["9-10"]++;
+                }
+            }
+        }
+
+        if(abaixo>=3) risco++;
+
+        ranking.push({
+            nome:a.nome,
+            media:somaAluno/qtd
+        });
     });
-}
 
-// MOSTRAR ALUNO
-function mostrarAluno(index){
+    ranking.sort((a,b)=>b.media-a.media);
 
-    indiceAtual = index;
+    let mediaGeral = (soma/total).toFixed(1);
 
-    const botoes =
-        document.querySelectorAll(".btn-aluno");
+    document.getElementById("dashboardConteudo").innerHTML = `
 
-    botoes.forEach((b,i)=>{
-
-        b.classList.toggle(
-            "ativo",
-            i===index
-        );
-    });
-
-    const box =
-        document.getElementById("boletim");
-
-    const mapaAlunos = {};
-
-    alunos.forEach(a => {
-
-        mapaAlunos[
-            normalizar(a.nome)
-        ] = a;
-    });
-
-    const base =
-        Object.values(
-            dadosBimestres[1] || {}
-        );
-
-    const a = base[index];
-
-    if(!a) return;
-
-    const alunoBase =
-        mapaAlunos[normalizar(a.nome)];
-
-    const foto = alunoBase
-        ? montarFoto(alunoBase.foto)
-        : null;
-
-    const fotoHTML = foto
-        ? `<img class="foto" src="${foto}">`
-        : `<div class="sem-foto">❌</div>`;
-
-    box.innerHTML = `
-    <div class="aluno">
-
-        ${fotoHTML}
-
-        <div class="info">
-
-            <strong>${a.nome}</strong><br>
-
-            RA:
-            ${alunoBase?.ra || "-"}<br>
-
-            Tutor:
-            ${alunoBase?.tutor || "-"}<br>
-
-            Situação:
-            <strong>
-            ${a.situacao || "Não informada"}
-            </strong><br>
-
-            ${montarEletivas(alunoBase)}
-
-            <br>
-
-            ${montarTabelaUnica(a.nome)}
-
+        <div style="display:flex;gap:10px;margin-bottom:15px;">
+            <div style="background:#0077cc;color:white;padding:10px;border-radius:8px;">👨‍🎓 Alunos: ${Object.keys(dados).length}</div>
+            <div style="background:#28a745;color:white;padding:10px;border-radius:8px;">📊 Média: ${mediaGeral}</div>
+            <div style="background:#dc3545;color:white;padding:10px;border-radius:8px;">⚠ Risco: ${risco}</div>
         </div>
 
-    </div>
+        <canvas id="grafico"></canvas>
+
+        <h3>🏆 Ranking</h3>
+        <table border="1" width="100%">
+        ${ranking.slice(0,10).map(r=>`
+            <tr><td>${r.nome}</td><td>${r.media.toFixed(1)}</td></tr>
+        `).join("")}
+        </table>
     `;
+
+    setTimeout(()=>{
+
+        if(grafico) grafico.destroy();
+
+        grafico = new Chart(document.getElementById("grafico"),{
+            type:"bar",
+            data:{
+                labels:Object.keys(faixas),
+                datasets:[{
+                    label:"Notas",
+                    data:Object.values(faixas)
+                }]
+            }
+        });
+
+    },200);
 }
 
-// TROCAR SÉRIE
-document.getElementById("salaSelect")
-.addEventListener("change", e => {
+/* =========================
+   TROCA SÉRIE
+========================= */
 
+document.getElementById("salaSelect").addEventListener("change",e=>{
     serie = e.target.value;
-
-    carregar();
+    iniciar();
 });
-
-// INICIAR
-carregar();
 
 </script>
 
