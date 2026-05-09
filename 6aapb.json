@@ -3801,7 +3801,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 0,
         "faltas": 0,
         "acumulado": 35
@@ -3912,7 +3912,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 36
