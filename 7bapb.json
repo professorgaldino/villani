@@ -153,8 +153,8 @@
       "ELETIVAS": {
         "codigo": 8465,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 2
       },
       "GEOGRAFIA": {
@@ -348,7 +348,7 @@
     },
     "totais": {
       "faltas_acumuladas": 65,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 65,
       "frequencia_anual": 81
     }
@@ -388,9 +388,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 4
       },
       "GEOGRAFIA": {
@@ -624,9 +624,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 4,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 6
       },
       "GEOGRAFIA": {
@@ -938,7 +938,7 @@
     },
     "totais": {
       "faltas_acumuladas": 175,
-      "frequencia": 63,
+      "frequencia": 64,
       "faltas_anual": 167,
       "frequencia_anual": 50
     }
@@ -1410,7 +1410,7 @@
     },
     "totais": {
       "faltas_acumuladas": 27,
-      "frequencia": 94,
+      "frequencia": 95,
       "faltas_anual": 27,
       "frequencia_anual": 92
     }
@@ -1804,9 +1804,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 4,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 16
       },
       "GEOGRAFIA": {
@@ -1922,7 +1922,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 2,
         "faltas": 0,
         "acumulado": 17
@@ -2118,7 +2118,7 @@
     },
     "totais": {
       "faltas_acumuladas": 81,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 79,
       "frequencia_anual": 76
     }
@@ -2158,9 +2158,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 19
       },
       "GEOGRAFIA": {
@@ -2231,11 +2231,11 @@
         "numero": 8,
         "media": 4,
         "faltas": 0,
-        "acumulado": 56
+        "acumulado": 58
       }
     },
     "totais": {
-      "faltas_acumuladas": 56,
+      "faltas_acumuladas": 58,
       "frequencia": 88,
       "faltas_anual": 56,
       "frequencia_anual": 83
@@ -2748,9 +2748,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 24
       },
       "GEOGRAFIA": {
@@ -3062,7 +3062,7 @@
     },
     "totais": {
       "faltas_acumuladas": 26,
-      "frequencia": 94,
+      "frequencia": 95,
       "faltas_anual": 24,
       "frequencia_anual": 93
     }
@@ -3220,9 +3220,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 28
       },
       "GEOGRAFIA": {
@@ -3293,11 +3293,11 @@
         "numero": 3,
         "media": 8,
         "faltas": 0,
-        "acumulado": 95
+        "acumulado": 97
       }
     },
     "totais": {
-      "faltas_acumuladas": 95,
+      "faltas_acumuladas": 97,
       "frequencia": 80,
       "faltas_anual": 95,
       "frequencia_anual": 72
@@ -3534,7 +3534,7 @@
     },
     "totais": {
       "faltas_acumuladas": 56,
-      "frequencia": 88,
+      "frequencia": 89,
       "faltas_anual": 52,
       "frequencia_anual": 84
     }
@@ -4124,7 +4124,7 @@
     },
     "totais": {
       "faltas_acumuladas": 65,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 63,
       "frequencia_anual": 81
     }
@@ -4360,7 +4360,7 @@
     },
     "totais": {
       "faltas_acumuladas": 27,
-      "frequencia": 94,
+      "frequencia": 95,
       "faltas_anual": 27,
       "frequencia_anual": 92
     }
