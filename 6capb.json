@@ -20,7 +20,7 @@
       },
       "EDUCACAO_FISICA": {
         "codigo": 1900,
-        "numero": 8,
+        "numero": 7,
         "media": 1,
         "faltas": 0,
         "acumulado": 1
@@ -105,7 +105,7 @@
     },
     "totais": {
       "faltas_acumuladas": 22,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 22,
       "frequencia_anual": 93
     }
@@ -138,9 +138,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 2
       },
       "GEOGRAFIA": {
@@ -582,7 +582,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 9,
         "media": 2,
         "faltas": 0,
         "acumulado": 6
@@ -660,7 +660,7 @@
     },
     "totais": {
       "faltas_acumuladas": 80,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 78,
       "frequencia_anual": 77
     }
@@ -693,9 +693,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 7
       },
       "GEOGRAFIA": {
@@ -882,7 +882,7 @@
     },
     "totais": {
       "faltas_acumuladas": 138,
-      "frequencia": 71,
+      "frequencia": 72,
       "faltas_anual": 134,
       "frequencia_anual": 60
     }
@@ -915,28 +915,28 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 9
       },
       "GEOGRAFIA": {
         "codigo": 2100,
-        "numero": 3,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 9
       },
       "HISTORIA": {
         "codigo": 2200,
-        "numero": 3,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 9
       },
       "LINGUA_INGLESA": {
         "codigo": 8467,
-        "numero": 4,
+        "numero": 5,
         "media": 6,
         "faltas": 0,
         "acumulado": 9
@@ -988,11 +988,11 @@
         "numero": 6,
         "media": 6,
         "faltas": 0,
-        "acumulado": 30
+        "acumulado": 32
       }
     },
     "totais": {
-      "faltas_acumuladas": 30,
+      "faltas_acumuladas": 32,
       "frequencia": 94,
       "faltas_anual": 30,
       "frequencia_anual": 91
@@ -1019,7 +1019,7 @@
       },
       "EDUCACAO_FISICA": {
         "codigo": 1900,
-        "numero": 8,
+        "numero": 9,
         "media": 1,
         "faltas": 0,
         "acumulado": 10
@@ -1033,7 +1033,7 @@
       },
       "GEOGRAFIA": {
         "codigo": 2100,
-        "numero": 4,
+        "numero": 6,
         "media": 2,
         "faltas": 0,
         "acumulado": 10
@@ -1130,7 +1130,7 @@
       },
       "EDUCACAO_FISICA": {
         "codigo": 1900,
-        "numero": 9,
+        "numero": 4,
         "media": 3,
         "faltas": 0,
         "acumulado": 11
@@ -1158,7 +1158,7 @@
       },
       "LINGUA_INGLESA": {
         "codigo": 8467,
-        "numero": 5,
+        "numero": 4,
         "media": 0,
         "faltas": 0,
         "acumulado": 11
@@ -1215,7 +1215,7 @@
     },
     "totais": {
       "faltas_acumuladas": 56,
-      "frequencia": 88,
+      "frequencia": 89,
       "faltas_anual": 56,
       "frequencia_anual": 83
     }
@@ -1770,7 +1770,7 @@
     },
     "totais": {
       "faltas_acumuladas": 42,
-      "frequencia": 91,
+      "frequencia": 92,
       "faltas_anual": 40,
       "frequencia_anual": 88
     }
@@ -1992,7 +1992,7 @@
     },
     "totais": {
       "faltas_acumuladas": 129,
-      "frequencia": 73,
+      "frequencia": 74,
       "faltas_anual": 121,
       "frequencia_anual": 64
     }
@@ -2136,21 +2136,21 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 7,
         "media": 0,
         "faltas": 0,
         "acumulado": 20
       },
       "GEOGRAFIA": {
         "codigo": 2100,
-        "numero": 3,
+        "numero": 5,
         "media": 5,
         "faltas": 0,
         "acumulado": 20
       },
       "HISTORIA": {
         "codigo": 2200,
-        "numero": 4,
+        "numero": 5,
         "media": 2,
         "faltas": 0,
         "acumulado": 20
@@ -2164,7 +2164,7 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 3,
+        "numero": 5,
         "media": 7,
         "faltas": 0,
         "acumulado": 20
@@ -2214,7 +2214,7 @@
     },
     "totais": {
       "faltas_acumuladas": 32,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 32,
       "frequencia_anual": 91
     }
@@ -2325,7 +2325,7 @@
     },
     "totais": {
       "faltas_acumuladas": 51,
-      "frequencia": 89,
+      "frequencia": 90,
       "faltas_anual": 51,
       "frequencia_anual": 85
     }
@@ -3324,7 +3324,7 @@
     },
     "totais": {
       "faltas_acumuladas": 99,
-      "frequencia": 79,
+      "frequencia": 80,
       "faltas_anual": 99,
       "frequencia_anual": 71
     }
@@ -3435,7 +3435,7 @@
     },
     "totais": {
       "faltas_acumuladas": 31,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 27,
       "frequencia_anual": 92
     }
@@ -3546,7 +3546,7 @@
     },
     "totais": {
       "faltas_acumuladas": 17,
-      "frequencia": 96,
+      "frequencia": 97,
       "faltas_anual": 17,
       "frequencia_anual": 95
     }
@@ -3801,7 +3801,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 8,
+        "numero": 7,
         "media": 0,
         "faltas": 0,
         "acumulado": 35
@@ -3879,7 +3879,7 @@
     },
     "totais": {
       "faltas_acumuladas": 22,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 22,
       "frequencia_anual": 93
     }
@@ -3905,7 +3905,7 @@
       },
       "EDUCACAO_FISICA": {
         "codigo": 1900,
-        "numero": 8,
+        "numero": 7,
         "media": 5,
         "faltas": 0,
         "acumulado": 36
@@ -4101,7 +4101,7 @@
     },
     "totais": {
       "faltas_acumuladas": 32,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 32,
       "frequencia_anual": 91
     }
@@ -4113,7 +4113,7 @@
     "disciplinas": {
       "ARTE": {
         "codigo": 1813,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 38
