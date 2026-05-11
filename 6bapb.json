@@ -27,7 +27,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 2,
         "faltas": 0,
         "acumulado": 1
@@ -249,9 +249,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 3
       },
       "GEOGRAFIA": {
@@ -471,9 +471,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 5
       },
       "GEOGRAFIA": {
@@ -660,7 +660,7 @@
     },
     "totais": {
       "faltas_acumuladas": 17,
-      "frequencia": 96,
+      "frequencia": 97,
       "faltas_anual": 17,
       "frequencia_anual": 95
     }
@@ -693,7 +693,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 8,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 7
@@ -882,7 +882,7 @@
     },
     "totais": {
       "faltas_acumuladas": 74,
-      "frequencia": 84,
+      "frequencia": 85,
       "faltas_anual": 72,
       "frequencia_anual": 78
     }
@@ -1104,7 +1104,7 @@
     },
     "totais": {
       "faltas_acumuladas": 45,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 45,
       "frequencia_anual": 86
     }
@@ -1248,9 +1248,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 12
       },
       "GEOGRAFIA": {
@@ -1359,7 +1359,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 0,
         "faltas": 0,
         "acumulado": 13
@@ -1470,7 +1470,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 9,
         "media": 0,
         "faltas": 0,
         "acumulado": 14
@@ -1548,7 +1548,7 @@
     },
     "totais": {
       "faltas_acumuladas": 22,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 22,
       "frequencia_anual": 93
     }
@@ -1935,7 +1935,7 @@
       },
       "LINGUA_INGLESA": {
         "codigo": 8467,
-        "numero": 7,
+        "numero": 8,
         "media": 0,
         "faltas": 0,
         "acumulado": 18
@@ -2325,7 +2325,7 @@
     },
     "totais": {
       "faltas_acumuladas": 105,
-      "frequencia": 78,
+      "frequencia": 79,
       "faltas_anual": 105,
       "frequencia_anual": 68
     }
@@ -2358,9 +2358,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 22
       },
       "GEOGRAFIA": {
@@ -2431,11 +2431,11 @@
         "numero": 5,
         "media": 2,
         "faltas": 0,
-        "acumulado": 81
+        "acumulado": 83
       }
     },
     "totais": {
-      "faltas_acumuladas": 81,
+      "faltas_acumuladas": 83,
       "frequencia": 83,
       "faltas_anual": 81,
       "frequencia_anual": 76
@@ -2547,7 +2547,7 @@
     },
     "totais": {
       "faltas_acumuladas": 45,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 39,
       "frequencia_anual": 88
     }
@@ -2691,7 +2691,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 0,
         "faltas": 0,
         "acumulado": 25
@@ -2802,7 +2802,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 9,
         "media": 0,
         "faltas": 0,
         "acumulado": 26
@@ -2880,7 +2880,7 @@
     },
     "totais": {
       "faltas_acumuladas": 12,
-      "frequencia": 97,
+      "frequencia": 98,
       "faltas_anual": 12,
       "frequencia_anual": 96
     }
@@ -2913,9 +2913,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 27
       },
       "GEOGRAFIA": {
@@ -2986,11 +2986,11 @@
         "numero": 3,
         "media": 2,
         "faltas": 0,
-        "acumulado": 75
+        "acumulado": 77
       }
     },
     "totais": {
-      "faltas_acumuladas": 75,
+      "faltas_acumuladas": 77,
       "frequencia": 84,
       "faltas_anual": 75,
       "frequencia_anual": 77
@@ -3024,9 +3024,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 28
       },
       "GEOGRAFIA": {
@@ -3213,7 +3213,7 @@
     },
     "totais": {
       "faltas_acumuladas": 46,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 46,
       "frequencia_anual": 86
     }
@@ -3357,9 +3357,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 31
       },
       "GEOGRAFIA": {
@@ -3385,14 +3385,14 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 4,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 31
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": 4,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 31
@@ -3427,7 +3427,7 @@
       },
       "TECNOLOGIA_E_INOVACAO": {
         "codigo": 8466,
-        "numero": 4,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 5
@@ -3579,7 +3579,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 9,
         "media": 0,
         "faltas": 0,
         "acumulado": 33
@@ -3683,7 +3683,7 @@
       },
       "EDUCACAO_FISICA": {
         "codigo": 1900,
-        "numero": 0,
+        "numero": 10,
         "media": 3,
         "faltas": 0,
         "acumulado": 34
@@ -3768,7 +3768,7 @@
     },
     "totais": {
       "faltas_acumuladas": 60,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 56,
       "frequencia_anual": 83
     }
@@ -3879,7 +3879,7 @@
     },
     "totais": {
       "faltas_acumuladas": 92,
-      "frequencia": 80,
+      "frequencia": 81,
       "faltas_anual": 90,
       "frequencia_anual": 73
     }
@@ -3990,7 +3990,7 @@
     },
     "totais": {
       "faltas_acumuladas": 108,
-      "frequencia": 77,
+      "frequencia": 78,
       "faltas_anual": 106,
       "frequencia_anual": 68
     }
@@ -4109,7 +4109,7 @@
   "38": {
     "numero": 38,
     "nome": "CAMILA MIRELLA ANDRELINO DOS SANTOS",
-    "situacao": "Ativo",
+    "situacao": "Transferido",
     "disciplinas": {
       "ARTE": {
         "codigo": 1813,
@@ -4212,7 +4212,7 @@
     },
     "totais": {
       "faltas_acumuladas": 12,
-      "frequencia": 97,
+      "frequencia": 98,
       "faltas_anual": 12,
       "frequencia_anual": 96
     }
@@ -4225,8 +4225,8 @@
       "ARTE": {
         "codigo": 1813,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "CIENCIAS": {
@@ -4253,8 +4253,8 @@
       "GEOGRAFIA": {
         "codigo": 2100,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "HISTORIA": {
@@ -4267,22 +4267,22 @@
       "LINGUA_INGLESA": {
         "codigo": 8467,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "MATEMATICA": {
         "codigo": 2700,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
@@ -4316,8 +4316,119 @@
       "TECNOLOGIA_E_INOVACAO": {
         "codigo": 8466,
         "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 0
+      }
+    },
+    "totais": {
+      "faltas_acumuladas": 0,
+      "frequencia": 100,
+      "faltas_anual": 0,
+      "frequencia_anual": 100
+    }
+  },
+  "40": {
+    "numero": 40,
+    "nome": "MARIA CLARA QUARESMA DE SOUZA",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "ARTE": {
+        "codigo": 1813,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 40
+      },
+      "CIENCIAS": {
+        "codigo": 8468,
+        "numero": null,
         "media": null,
         "faltas": null,
+        "acumulado": 40
+      },
+      "EDUCACAO_FISICA": {
+        "codigo": 1900,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 40
+      },
+      "ELETIVAS": {
+        "codigo": 8465,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 40
+      },
+      "GEOGRAFIA": {
+        "codigo": 2100,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 40
+      },
+      "HISTORIA": {
+        "codigo": 2200,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 40
+      },
+      "LINGUA_INGLESA": {
+        "codigo": 8467,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 40
+      },
+      "LINGUA_PORTUGUESA": {
+        "codigo": 1100,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 40
+      },
+      "MATEMATICA": {
+        "codigo": 2700,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 40
+      },
+      "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
+        "codigo": 55208,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 40
+      },
+      "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
+        "codigo": 55207,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 40
+      },
+      "PROJETO_DE_VIDA": {
+        "codigo": 8441,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 40
+      },
+      "REDAÇAO_E_LEITURA": {
+        "codigo": 52001,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 40
+      },
+      "TECNOLOGIA_E_INOVACAO": {
+        "codigo": 8466,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 0
       }
     },
