@@ -230,7 +230,7 @@
     },
     "totais": {
       "faltas_acumuladas": 61,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 61,
       "frequencia_anual": 82
     }
@@ -820,7 +820,7 @@
     },
     "totais": {
       "faltas_acumuladas": 22,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 20,
       "frequencia_anual": 94
     }
@@ -938,7 +938,7 @@
     },
     "totais": {
       "faltas_acumuladas": 27,
-      "frequencia": 94,
+      "frequencia": 95,
       "faltas_anual": 25,
       "frequencia_anual": 93
     }
@@ -978,9 +978,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 9
       },
       "GEOGRAFIA": {
@@ -1174,7 +1174,7 @@
     },
     "totais": {
       "faltas_acumuladas": 75,
-      "frequencia": 84,
+      "frequencia": 85,
       "faltas_anual": 73,
       "frequencia_anual": 79
     }
@@ -1332,9 +1332,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 12
       },
       "GEOGRAFIA": {
@@ -1410,7 +1410,7 @@
     },
     "totais": {
       "faltas_acumuladas": 22,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 22,
       "frequencia_anual": 94
     }
@@ -1528,7 +1528,7 @@
     },
     "totais": {
       "faltas_acumuladas": 110,
-      "frequencia": 77,
+      "frequencia": 78,
       "faltas_anual": 104,
       "frequencia_anual": 70
     }
@@ -1686,9 +1686,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 15
       },
       "GEOGRAFIA": {
@@ -1759,12 +1759,12 @@
         "numero": 6,
         "media": 2,
         "faltas": 0,
-        "acumulado": 21
+        "acumulado": 23
       }
     },
     "totais": {
-      "faltas_acumuladas": 21,
-      "frequencia": 96,
+      "faltas_acumuladas": 23,
+      "frequencia": 95,
       "faltas_anual": 21,
       "frequencia_anual": 94
     }
@@ -2000,7 +2000,7 @@
     },
     "totais": {
       "faltas_acumuladas": 51,
-      "frequencia": 89,
+      "frequencia": 90,
       "faltas_anual": 51,
       "frequencia_anual": 85
     }
@@ -2354,7 +2354,7 @@
     },
     "totais": {
       "faltas_acumuladas": 74,
-      "frequencia": 84,
+      "frequencia": 85,
       "faltas_anual": 74,
       "frequencia_anual": 76
     }
@@ -2915,7 +2915,7 @@
       },
       "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
         "codigo": 55207,
-        "numero": 5,
+        "numero": 4,
         "media": 4,
         "faltas": 0,
         "acumulado": 25
@@ -2944,7 +2944,7 @@
     },
     "totais": {
       "faltas_acumuladas": 79,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 75,
       "frequencia_anual": 78
     }
@@ -3180,7 +3180,7 @@
     },
     "totais": {
       "faltas_acumuladas": 22,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 22,
       "frequencia_anual": 94
     }
@@ -3534,7 +3534,7 @@
     },
     "totais": {
       "faltas_acumuladas": 60,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 58,
       "frequencia_anual": 83
     }
@@ -3574,9 +3574,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 31
       },
       "GEOGRAFIA": {
@@ -3647,11 +3647,11 @@
         "numero": 7,
         "media": 0,
         "faltas": 0,
-        "acumulado": 39
+        "acumulado": 41
       }
     },
     "totais": {
-      "faltas_acumuladas": 39,
+      "faltas_acumuladas": 41,
       "frequencia": 92,
       "faltas_anual": 39,
       "frequencia_anual": 89
@@ -3888,7 +3888,7 @@
     },
     "totais": {
       "faltas_acumuladas": 47,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 43,
       "frequencia_anual": 87
     }
@@ -4478,7 +4478,7 @@
     },
     "totais": {
       "faltas_acumuladas": 31,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 29,
       "frequencia_anual": 91
     }
