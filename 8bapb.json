@@ -112,7 +112,7 @@
     },
     "totais": {
       "faltas_acumuladas": 17,
-      "frequencia": 96,
+      "frequencia": 97,
       "faltas_anual": 17,
       "frequencia_anual": 95
     }
@@ -388,9 +388,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 9,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 4
       },
       "GEOGRAFIA": {
@@ -461,11 +461,11 @@
         "numero": 3,
         "media": 2,
         "faltas": 0,
-        "acumulado": 64
+        "acumulado": 66
       }
     },
     "totais": {
-      "faltas_acumuladas": 64,
+      "faltas_acumuladas": 66,
       "frequencia": 87,
       "faltas_anual": 64,
       "frequencia_anual": 81
@@ -506,9 +506,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 5
       },
       "GEOGRAFIA": {
@@ -742,9 +742,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 7
       },
       "GEOGRAFIA": {
@@ -770,7 +770,7 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 5,
+        "numero": 4,
         "media": 0,
         "faltas": 0,
         "acumulado": 7
@@ -1056,7 +1056,7 @@
     },
     "totais": {
       "faltas_acumuladas": 47,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 45,
       "frequencia_anual": 87
     }
@@ -1096,9 +1096,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 9,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 10
       },
       "GEOGRAFIA": {
@@ -1764,7 +1764,7 @@
     },
     "totais": {
       "faltas_acumuladas": 37,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 37,
       "frequencia_anual": 89
     }
@@ -1804,9 +1804,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 16
       },
       "GEOGRAFIA": {
@@ -2000,7 +2000,7 @@
     },
     "totais": {
       "faltas_acumuladas": 198,
-      "frequencia": 59,
+      "frequencia": 60,
       "faltas_anual": 194,
       "frequencia_anual": 44
     }
@@ -2118,7 +2118,7 @@
     },
     "totais": {
       "faltas_acumuladas": 66,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 64,
       "frequencia_anual": 81
     }
@@ -2472,7 +2472,7 @@
     },
     "totais": {
       "faltas_acumuladas": 129,
-      "frequencia": 73,
+      "frequencia": 74,
       "faltas_anual": 125,
       "frequencia_anual": 64
     }
@@ -2512,9 +2512,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 22
       },
       "GEOGRAFIA": {
@@ -2826,7 +2826,7 @@
     },
     "totais": {
       "faltas_acumuladas": 80,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 76,
       "frequencia_anual": 78
     }
@@ -3012,7 +3012,7 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 5,
+        "numero": 6,
         "media": 6,
         "faltas": 0,
         "acumulado": 26
@@ -3130,7 +3130,7 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 6,
+        "numero": 4,
         "media": 8,
         "faltas": 0,
         "acumulado": 27
@@ -3269,7 +3269,7 @@
       },
       "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
         "codigo": 55207,
-        "numero": 4,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 28
@@ -3298,7 +3298,7 @@
     },
     "totais": {
       "faltas_acumuladas": 107,
-      "frequencia": 78,
+      "frequencia": 79,
       "faltas_anual": 101,
       "frequencia_anual": 71
     }
@@ -3416,7 +3416,7 @@
     },
     "totais": {
       "faltas_acumuladas": 71,
-      "frequencia": 85,
+      "frequencia": 86,
       "faltas_anual": 65,
       "frequencia_anual": 81
     }
@@ -3456,9 +3456,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 30
       },
       "GEOGRAFIA": {
@@ -3529,12 +3529,12 @@
         "numero": 3,
         "media": 2,
         "faltas": 0,
-        "acumulado": 89
+        "acumulado": 91
       }
     },
     "totais": {
-      "faltas_acumuladas": 89,
-      "frequencia": 81,
+      "faltas_acumuladas": 91,
+      "frequencia": 82,
       "faltas_anual": 89,
       "frequencia_anual": 74
     }
@@ -3888,7 +3888,7 @@
     },
     "totais": {
       "faltas_acumuladas": 87,
-      "frequencia": 82,
+      "frequencia": 83,
       "faltas_anual": 87,
       "frequencia_anual": 75
     }
@@ -4124,7 +4124,7 @@
     },
     "totais": {
       "faltas_acumuladas": 32,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 30,
       "frequencia_anual": 91
     }
@@ -4547,8 +4547,8 @@
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "MATEMATICA": {
@@ -4568,8 +4568,8 @@
       "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
         "codigo": 55207,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "PROJETO_DE_VIDA": {
