@@ -34,9 +34,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 4,
+        "faltas": 0,
         "acumulado": 1
       },
       "GEOGRAFIA": {
@@ -107,12 +107,12 @@
         "numero": 6,
         "media": 0,
         "faltas": 0,
-        "acumulado": 29
+        "acumulado": 33
       }
     },
     "totais": {
-      "faltas_acumuladas": 29,
-      "frequencia": 94,
+      "faltas_acumuladas": 33,
+      "frequencia": 93,
       "faltas_anual": 29,
       "frequencia_anual": 91
     }
@@ -152,9 +152,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 2
       },
       "GEOGRAFIA": {
@@ -624,9 +624,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 6
       },
       "GEOGRAFIA": {
@@ -702,7 +702,7 @@
     },
     "totais": {
       "faltas_acumuladas": 36,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 36,
       "frequencia_anual": 89
     }
@@ -742,9 +742,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 7
       },
       "GEOGRAFIA": {
@@ -770,7 +770,7 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 4,
+        "numero": 5,
         "media": 4,
         "faltas": 0,
         "acumulado": 7
@@ -1568,9 +1568,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 14
       },
       "GEOGRAFIA": {
@@ -1832,7 +1832,7 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": 4,
+        "numero": 5,
         "media": 4,
         "faltas": 0,
         "acumulado": 16
@@ -2118,7 +2118,7 @@
     },
     "totais": {
       "faltas_acumuladas": 57,
-      "frequencia": 88,
+      "frequencia": 89,
       "faltas_anual": 55,
       "frequencia_anual": 84
     }
@@ -2276,7 +2276,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 0,
         "faltas": 0,
         "acumulado": 20
@@ -2394,9 +2394,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 4,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 21
       },
       "GEOGRAFIA": {
@@ -2472,7 +2472,7 @@
     },
     "totais": {
       "faltas_acumuladas": 12,
-      "frequencia": 97,
+      "frequencia": 98,
       "faltas_anual": 12,
       "frequencia_anual": 96
     }
@@ -2512,9 +2512,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 22
       },
       "GEOGRAFIA": {
@@ -2984,7 +2984,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": 8,
         "media": 4,
         "faltas": 0,
         "acumulado": 26
@@ -3102,9 +3102,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 27
       },
       "GEOGRAFIA": {
@@ -3220,7 +3220,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
+        "numero": 7,
         "media": 0,
         "faltas": 0,
         "acumulado": 28
@@ -3692,9 +3692,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 32
       },
       "GEOGRAFIA": {
@@ -3770,7 +3770,7 @@
     },
     "totais": {
       "faltas_acumuladas": 36,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 36,
       "frequencia_anual": 89
     }
@@ -4242,7 +4242,7 @@
     },
     "totais": {
       "faltas_acumuladas": 41,
-      "frequencia": 91,
+      "frequencia": 92,
       "faltas_anual": 39,
       "frequencia_anual": 89
     }
@@ -4282,9 +4282,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 37
       },
       "GEOGRAFIA": {
@@ -4400,9 +4400,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 10,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 38
       },
       "GEOGRAFIA": {
