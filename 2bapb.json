@@ -34,9 +34,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 1
       },
       "Empreendedorismo": {
@@ -453,7 +453,7 @@
     },
     "totais": {
       "faltas_acumuladas": 46,
-      "frequencia": 89,
+      "frequencia": 90,
       "faltas_anual": 44,
       "frequencia_anual": 88
     }
@@ -1565,8 +1565,8 @@
       "ELETIVAS": {
         "codigo": 8465,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 11
       },
       "Empreendedorismo": {
@@ -1672,11 +1672,11 @@
         "numero": 3,
         "media": 2,
         "faltas": 0,
-        "acumulado": 16
+        "acumulado": 18
       }
     },
     "totais": {
-      "faltas_acumuladas": 16,
+      "faltas_acumuladas": 18,
       "frequencia": 96,
       "faltas_anual": 16,
       "frequencia_anual": 95
@@ -1870,9 +1870,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 13
       },
       "Empreendedorismo": {
@@ -1978,12 +1978,12 @@
         "numero": 4,
         "media": 0,
         "faltas": 0,
-        "acumulado": 36
+        "acumulado": 38
       }
     },
     "totais": {
-      "faltas_acumuladas": 36,
-      "frequencia": 92,
+      "faltas_acumuladas": 38,
+      "frequencia": 91,
       "faltas_anual": 36,
       "frequencia_anual": 90
     }
@@ -2289,7 +2289,7 @@
     },
     "totais": {
       "faltas_acumuladas": 93,
-      "frequencia": 78,
+      "frequencia": 79,
       "faltas_anual": 93,
       "frequencia_anual": 71
     }
@@ -2329,9 +2329,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 16
       },
       "Empreendedorismo": {
@@ -2482,9 +2482,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 17
       },
       "Empreendedorismo": {
@@ -2901,7 +2901,7 @@
     },
     "totais": {
       "faltas_acumuladas": 46,
-      "frequencia": 89,
+      "frequencia": 90,
       "faltas_anual": 46,
       "frequencia_anual": 86
     }
@@ -2941,9 +2941,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 20
       },
       "Empreendedorismo": {
@@ -3054,7 +3054,7 @@
     },
     "totais": {
       "faltas_acumuladas": 73,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 73,
       "frequencia_anual": 79
     }
@@ -3360,7 +3360,7 @@
     },
     "totais": {
       "faltas_acumuladas": 33,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 31,
       "frequencia_anual": 90
     }
@@ -3827,7 +3827,7 @@
   "26": {
     "numero": 26,
     "nome": "MIGUEL HENRIQUE TEODORO DA SILVA",
-    "situacao": "Ativo",
+    "situacao": "Transferido",
     "disciplinas": {
       "Arte_e_Mídias_Digitais": {
         "codigo": 50427,
@@ -3972,7 +3972,7 @@
     },
     "totais": {
       "faltas_acumuladas": 60,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 60,
       "frequencia_anual": 83
     }
@@ -4472,8 +4472,8 @@
       "ELETIVAS": {
         "codigo": 8465,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 30
       },
       "Empreendedorismo": {
@@ -5043,7 +5043,7 @@
     },
     "totais": {
       "faltas_acumuladas": 24,
-      "frequencia": 94,
+      "frequencia": 95,
       "faltas_anual": 24,
       "frequencia_anual": 93
     }
@@ -5167,7 +5167,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 4,
         "media": 0,
         "faltas": 0,
         "acumulado": 34
@@ -5204,7 +5204,7 @@
   "35": {
     "numero": 35,
     "nome": "ISAAC DIAS FERREIRA",
-    "situacao": "Ativo",
+    "situacao": "Transferido",
     "disciplinas": {
       "Arte_e_Mídias_Digitais": {
         "codigo": 50427,
@@ -5222,7 +5222,7 @@
       },
       "EDUCAÇAO_FINANCEIRA": {
         "codigo": 52000,
-        "numero": 4,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 35
@@ -5321,8 +5321,8 @@
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
         "numero": null,
-        "media": null,
-        "faltas": null,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 35
       },
       "QUIMICA": {
@@ -5352,6 +5352,159 @@
       "frequencia": 100,
       "faltas_anual": 0,
       "frequencia_anual": 100
+    }
+  },
+  "36": {
+    "numero": 36,
+    "nome": "SOPHIA DE OLIVEIRA CALIXTO",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "Arte_e_Mídias_Digitais": {
+        "codigo": 50427,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "BIOLOGIA": {
+        "codigo": 2400,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "EDUCAÇAO_FINANCEIRA": {
+        "codigo": 52000,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "EDUCACAO_FISICA": {
+        "codigo": 1900,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "ELETIVAS": {
+        "codigo": 8465,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "Empreendedorismo": {
+        "codigo": 50424,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "FISICA": {
+        "codigo": 2600,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "GEOGRAFIA": {
+        "codigo": 2100,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "HISTORIA": {
+        "codigo": 2200,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "LINGUA_INGLESA": {
+        "codigo": 8467,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "LINGUA_PORTUGUESA": {
+        "codigo": 1100,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "MATEMATICA": {
+        "codigo": 2700,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "Oratória_e_Liderança": {
+        "codigo": 55202,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
+        "codigo": 55208,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
+        "codigo": 55207,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "PROGRAMACAO": {
+        "codigo": 55204,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "PROJETO_DE_VIDA": {
+        "codigo": 8441,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "QUIMICA": {
+        "codigo": 2800,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "REDAÇAO_E_LEITURA": {
+        "codigo": 52001,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 36
+      },
+      "SOCIOLOGIA": {
+        "codigo": 2300,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 0
+      }
+    },
+    "totais": {
+      "faltas_acumuladas": 0,
+      "frequencia": 100,
+      "faltas_anual": 0,
+      "frequencia_anual": 0
     }
   }
 }
