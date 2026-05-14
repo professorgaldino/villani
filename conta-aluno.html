@@ -8,19 +8,18 @@
 
 <style>
 :root{
-    --bg:#eef3f8;
+    --bg:#edf2f7;
     --surface:#ffffff;
     --surface-soft:#f8fafc;
     --border:#d9e2ec;
     --text:#172033;
     --muted:#64748b;
-    --primary:#2563eb;
-    --primary-dark:#1d4ed8;
-    --success:#16a34a;
-    --danger:#dc2626;
-    --warning:#f59e0b;
-    --purple:#7c3aed;
-    --shadow:0 14px 35px rgba(15,23,42,0.10);
+    --primary:#1d4ed8;
+    --primary-dark:#172554;
+    --success:#15803d;
+    --danger:#b91c1c;
+    --warning:#b45309;
+    --shadow:0 18px 45px rgba(15,23,42,0.12);
     --radius:14px;
 }
 
@@ -32,19 +31,19 @@ body{
     margin:0;
     font-family:Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 34%),
+        radial-gradient(circle at top left, rgba(29,78,216,0.14), transparent 34%),
         linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
     color:var(--text);
     padding:18px;
 }
 
 .container{
-    max-width:1200px;
+    max-width:1220px;
     margin:auto;
 }
 
 .card{
-    background:white;
+    background:var(--surface);
     border:1px solid var(--border);
     border-radius:var(--radius);
     padding:18px;
@@ -53,8 +52,32 @@ body{
 }
 
 .login-card{
-    max-width:470px;
-    margin:45px auto;
+    max-width:480px;
+    margin:42px auto;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo{
+    width:54px;
+    height:54px;
+    object-fit:cover;
+    border-radius:14px;
+    border:1px solid var(--border);
+    background:white;
+}
+
+.logo-grande{
+    width:72px;
+    height:72px;
+    object-fit:cover;
+    border-radius:18px;
+    border:1px solid var(--border);
+    background:white;
 }
 
 .topo{
@@ -75,6 +98,10 @@ h1,h2,h3{
     margin-top:0;
 }
 
+h2{
+    margin-bottom:6px;
+}
+
 label{
     display:block;
     font-size:13px;
@@ -85,7 +112,7 @@ label{
 input,
 select{
     width:100%;
-    padding:11px 12px;
+    padding:12px;
     border:1px solid var(--border);
     border-radius:10px;
     font-family:inherit;
@@ -102,6 +129,11 @@ button{
     font-family:inherit;
 }
 
+button:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+}
+
 .btn-primary{
     background:var(--primary);
     color:white;
@@ -110,6 +142,16 @@ button{
 .btn-soft{
     background:#e2e8f0;
     color:var(--text);
+}
+
+.btn-info{
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    padding:0;
+    background:#dbeafe;
+    color:var(--primary);
+    font-weight:bold;
 }
 
 .erro{
@@ -136,29 +178,29 @@ button{
 }
 
 .foto{
-    width:96px;
-    height:96px;
-    border-radius:16px;
+    width:92px;
+    height:92px;
+    border-radius:18px;
     object-fit:cover;
     border:3px solid white;
     box-shadow:0 8px 20px rgba(15,23,42,0.16);
 }
 
 .sem-foto{
-    width:96px;
-    height:96px;
+    width:92px;
+    height:92px;
     background:#f1f5f9;
     display:flex;
     align-items:center;
     justify-content:center;
     color:var(--danger);
-    border-radius:16px;
+    border-radius:18px;
     border:1px solid var(--border);
     font-size:26px;
 }
 
 .saldo-card{
-    background:linear-gradient(135deg, #172033, #2563eb);
+    background:linear-gradient(135deg, #0f172a, #1d4ed8);
     color:white;
     border:none;
     position:relative;
@@ -168,10 +210,10 @@ button{
 .saldo-card:after{
     content:"";
     position:absolute;
-    right:-70px;
-    top:-70px;
-    width:190px;
-    height:190px;
+    right:-80px;
+    top:-80px;
+    width:220px;
+    height:220px;
     background:rgba(255,255,255,0.12);
     border-radius:50%;
 }
@@ -183,7 +225,7 @@ button{
 }
 
 .saldo-valor{
-    font-size:40px;
+    font-size:42px;
     font-weight:bold;
     margin-bottom:10px;
 }
@@ -211,10 +253,17 @@ button{
     padding:14px;
 }
 
+.indicador-topo{
+    display:flex;
+    justify-content:space-between;
+    gap:8px;
+    align-items:center;
+}
+
 .indicador strong{
     display:block;
     font-size:22px;
-    margin-top:5px;
+    margin-top:6px;
 }
 
 table{
@@ -269,6 +318,50 @@ th{
     color:var(--muted);
 }
 
+.loading{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(148,163,184,0.88);
+    z-index:99999;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:#0f172a;
+    font-weight:bold;
+    font-size:22px;
+}
+
+.loading-box{
+    background:white;
+    padding:26px 34px;
+    border-radius:18px;
+    box-shadow:0 30px 80px rgba(15,23,42,0.25);
+}
+
+.popup{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,0.72);
+    z-index:9999;
+    padding:22px;
+}
+
+.modal{
+    background:white;
+    width:95%;
+    max-width:560px;
+    margin:70px auto;
+    border-radius:18px;
+    padding:22px;
+    box-shadow:0 30px 80px rgba(0,0,0,0.28);
+}
+
+.modal p{
+    line-height:1.55;
+}
+
 @media(max-width:760px){
     body{
         padding:10px;
@@ -279,7 +372,11 @@ th{
     }
 
     .saldo-valor{
-        font-size:30px;
+        font-size:31px;
+    }
+
+    .topo{
+        align-items:flex-start;
     }
 
     table{
@@ -293,11 +390,30 @@ th{
 
 <body>
 
+<div id="loading" class="loading">
+    <div class="loading-box">
+        Carregando dados...
+    </div>
+</div>
+
+<div id="popupInfo" class="popup" onclick="fecharInfo()">
+    <div class="modal" onclick="event.stopPropagation()">
+        <h2 id="infoTitulo"></h2>
+        <p id="infoTexto"></p>
+        <button class="btn-primary" onclick="fecharInfo()">Entendi</button>
+    </div>
+</div>
+
 <div class="container">
 
 <div id="loginTela" class="card login-card">
-    <h2>🏦 VillaniBank</h2>
-    <p class="muted">Acesse sua conta acadêmica usando RA e senha.</p>
+    <div class="brand">
+        <img class="logo-grande" src="logoescola.jpeg" alt="Logo da escola">
+        <div>
+            <h2>VillaniBank</h2>
+            <div class="muted">Conta acadêmica individual</div>
+        </div>
+    </div>
 
     <label>Sala</label>
     <select id="loginSala">
@@ -329,7 +445,7 @@ th{
     <input id="loginSenha" type="password" placeholder="Exemplo: J07081997#">
 
     <div style="margin-top:16px;">
-        <button class="btn-primary" onclick="entrarAluno()">Entrar</button>
+        <button id="btnEntrar" class="btn-primary" onclick="entrarAluno()">Entrar</button>
     </div>
 
     <div id="erroLogin" class="erro"></div>
@@ -338,10 +454,17 @@ th{
 <div id="contaTela" class="oculto">
 
     <div class="topo">
-        <h2>🏦 VillaniBank - Conta Acadêmica</h2>
+        <div class="brand">
+            <img class="logo" src="logoescola.jpeg" alt="Logo da escola">
+            <div>
+                <h2>VillaniBank</h2>
+                <div class="muted">Painel financeiro acadêmico</div>
+            </div>
+        </div>
 
         <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <select id="bimestreConta" onchange="renderizarConta()">
+            <select id="periodoConta" onchange="renderizarConta()">
+                <option value="anual">Extrato Anual</option>
                 <option value="1">1º Bimestre</option>
                 <option value="2">2º Bimestre</option>
                 <option value="3">3º Bimestre</option>
@@ -379,6 +502,7 @@ const BIMESTRES = {
 };
 
 const DESCONTO_POR_OCORRENCIA = 3;
+const PERCENTUAL_FREQUENCIA = 0.10;
 
 let alunosCadastro = [];
 let ocorrencias = [];
@@ -387,6 +511,48 @@ let dadosBimestres = {};
 let alunoLogado = null;
 let alunoCadastroLogado = null;
 let serieAtual = "6a";
+
+const explicacoes = {
+    tc:{
+        titulo:"TC - Therezinha Coin",
+        texto:"TC é a moeda acadêmica da conta. As notas viram saldo, os superávits aumentam a conta e os déficits reduzem o saldo."
+    },
+    superavit:{
+        titulo:"Superávit",
+        texto:"Superávit é uma valorização. Na conta acadêmica, representa ganho de TC por bom desempenho, participação, meta da sala ou nota alta."
+    },
+    deficit:{
+        titulo:"Déficit",
+        texto:"Déficit é uma perda ou desvalorização. Pode acontecer por notas baixas, ocorrências ou lançamentos gerais da sala."
+    },
+    ocorrencias:{
+        titulo:"Ocorrências",
+        texto:"Cada ocorrência registrada no boletim individual desconta 3 TC da conta do aluno. A tabela mostra a quantidade e as datas."
+    },
+    frequencia:{
+        titulo:"Frequência Anual",
+        texto:"A frequência anual também afeta a conta. Abaixo de 80% gera desvalorização de 10%. Com 90% ou mais, gera valorização de 10%."
+    },
+    saldo:{
+        titulo:"Saldo Acadêmico",
+        texto:"É o resultado final da conta: notas convertidas em TC, mais superávits, menos déficits, menos ocorrências e mais ou menos o fator da frequência anual."
+    }
+};
+
+function mostrarCarregando(ativo){
+    document.getElementById("loading").style.display = ativo ? "flex" : "none";
+    document.getElementById("btnEntrar").disabled = ativo;
+}
+
+function abrirInfo(chave){
+    document.getElementById("infoTitulo").innerHTML = explicacoes[chave].titulo;
+    document.getElementById("infoTexto").innerHTML = explicacoes[chave].texto;
+    document.getElementById("popupInfo").style.display = "block";
+}
+
+function fecharInfo(){
+    document.getElementById("popupInfo").style.display = "none";
+}
 
 function normalizar(t){
     return String(t || "")
@@ -573,7 +739,6 @@ async function carregarOcorrencias(){
         ocorrencias = extrairListaOcorrencias(json);
 
     }catch(e){
-        console.warn("Ocorrências não carregadas:", e.message);
         ocorrencias = [];
     }
 }
@@ -589,7 +754,6 @@ async function carregarVillaniBank(){
         villaniBank = await res.json();
 
     }catch(e){
-        console.warn("VillaniBank geral não carregado:", e.message);
         villaniBank = {};
     }
 }
@@ -724,10 +888,18 @@ function pegarAjustesGeraisSala(serie){
     return [];
 }
 
-function calcularAjustesGerais(serie){
+function filtrarAjustesPorPeriodo(serie, periodo){
     const ajustes = pegarAjustesGeraisSala(serie);
 
-    return ajustes.map(item => {
+    return ajustes.filter(item => {
+        if(periodo === "anual") return true;
+
+        if(item.bimestre === undefined || item.bimestre === null || item.bimestre === ""){
+            return true;
+        }
+
+        return Number(item.bimestre) === Number(periodo);
+    }).map(item => {
         const tipoNormalizado = normalizar(item.tipo);
         const valor = Math.abs(numero(item.valor));
         const valorFinal = tipoNormalizado === "deficit" ? -valor : valor;
@@ -736,16 +908,24 @@ function calcularAjustesGerais(serie){
             data: item.data || "-",
             tipo: tipoNormalizado === "deficit" ? "Déficit geral da sala" : "Superávit geral da sala",
             valorFinal,
-            motivo: item.motivo || "-"
+            motivo: item.motivo || "-",
+            bimestre: item.bimestre || "-"
         };
     });
 }
 
-function calcularContaAcademica(nomeAluno, raAluno, bimestre){
+function calcularNotasBimestre(nomeAluno, bimestre){
     const aluno = pegarAlunoBimestre(nomeAluno, bimestre);
 
     if(!aluno || !aluno.disciplinas){
-        return null;
+        return {
+            saldoNotas:0,
+            ativos:[],
+            deficit:0,
+            superavit:0,
+            estaveis:0,
+            frequenciaAnual:NaN
+        };
     }
 
     let saldoNotas = 0;
@@ -775,6 +955,7 @@ function calcularContaAcademica(nomeAluno, raAluno, bimestre){
         }
 
         ativos.push({
+            bimestre,
             disciplina,
             nota,
             valor,
@@ -782,27 +963,99 @@ function calcularContaAcademica(nomeAluno, raAluno, bimestre){
         });
     });
 
+    return {
+        saldoNotas,
+        ativos,
+        deficit,
+        superavit,
+        estaveis,
+        frequenciaAnual: numero(aluno.totais?.frequencia_anual)
+    };
+}
+
+function calcularFatorFrequencia(saldoNotas, frequencia){
+    if(isNaN(frequencia)){
+        return {
+            valor:0,
+            status:"Frequência anual não informada",
+            classe:"estavel"
+        };
+    }
+
+    if(frequencia < 80){
+        return {
+            valor: -Math.abs(saldoNotas * PERCENTUAL_FREQUENCIA),
+            status:"Desvalorização por frequência abaixo de 80%",
+            classe:"baixa"
+        };
+    }
+
+    if(frequencia >= 90){
+        return {
+            valor: Math.abs(saldoNotas * PERCENTUAL_FREQUENCIA),
+            status:"Valorização por frequência de 90% ou mais",
+            classe:"alta"
+        };
+    }
+
+    return {
+        valor:0,
+        status:"Frequência neutra",
+        classe:"estavel"
+    };
+}
+
+function calcularContaAcademica(nomeAluno, raAluno, periodo){
+    const bimestres = periodo === "anual"
+        ? [1,2,3,4]
+        : [Number(periodo)];
+
+    let saldoNotas = 0;
+    let ativos = [];
+    let deficit = 0;
+    let superavit = 0;
+    let estaveis = 0;
+    let ultimaFrequenciaAnual = NaN;
+
+    bimestres.forEach(bimestre => {
+        const dados = calcularNotasBimestre(nomeAluno, bimestre);
+
+        saldoNotas += dados.saldoNotas;
+        ativos = ativos.concat(dados.ativos);
+        deficit += dados.deficit;
+        superavit += dados.superavit;
+        estaveis += dados.estaveis;
+
+        if(!isNaN(dados.frequenciaAnual)){
+            ultimaFrequenciaAnual = dados.frequenciaAnual;
+        }
+    });
+
     const listaOcorrencias = pegarOcorrenciasAluno(nomeAluno, raAluno);
     const descontoOcorrencias = listaOcorrencias.length * DESCONTO_POR_OCORRENCIA;
 
-    const ajustesGerais = calcularAjustesGerais(serieAtual);
+    const ajustesGerais = filtrarAjustesPorPeriodo(serieAtual, periodo);
     const saldoAjustesGerais = ajustesGerais.reduce((total, item) => {
         return total + Number(item.valorFinal || 0);
     }, 0);
 
-    const saldoTotal = saldoNotas + saldoAjustesGerais - descontoOcorrencias;
+    const fatorFrequencia = calcularFatorFrequencia(saldoNotas, ultimaFrequenciaAnual);
+    const saldoTotal = saldoNotas + saldoAjustesGerais - descontoOcorrencias + fatorFrequencia.valor;
 
     return {
         saldoNotas,
         saldoAjustesGerais,
         descontoOcorrencias,
+        fatorFrequencia,
         saldoTotal,
         ativos,
         deficit,
         superavit,
         estaveis,
         ocorrencias: listaOcorrencias,
-        ajustesGerais
+        ajustesGerais,
+        frequenciaAnual: ultimaFrequenciaAnual,
+        periodo
     };
 }
 
@@ -811,6 +1064,7 @@ async function entrarAluno(){
 
     erro.style.display = "none";
     erro.innerHTML = "";
+    mostrarCarregando(true);
 
     try{
         serieAtual = document.getElementById("loginSala").value;
@@ -853,11 +1107,13 @@ async function entrarAluno(){
     }catch(e){
         erro.innerHTML = escaparHTML(e.message);
         erro.style.display = "block";
+    }finally{
+        mostrarCarregando(false);
     }
 }
 
 function renderizarConta(){
-    const bimestre = Number(document.getElementById("bimestreConta").value);
+    const periodo = document.getElementById("periodoConta").value;
     const conteudo = document.getElementById("conteudoConta");
     const dadosAluno = document.getElementById("dadosAluno");
 
@@ -866,7 +1122,7 @@ function renderizarConta(){
     const fotoId = pegarCampo(alunoCadastroLogado, ["foto", "Foto"]);
     const foto = montarFoto(fotoId);
 
-    const conta = calcularContaAcademica(alunoLogado.nome, ra, bimestre);
+    const conta = calcularContaAcademica(alunoLogado.nome, ra, periodo);
 
     dadosAluno.innerHTML = `
         ${foto ? `<img class="foto" src="${foto}">` : `<div class="sem-foto">?</div>`}
@@ -878,15 +1134,6 @@ function renderizarConta(){
             Sala: ${escaparHTML(serieAtual.toUpperCase())}
         </div>
     `;
-
-    if(!conta){
-        conteudo.innerHTML = `
-        <div class="card">
-            <strong>Conta acadêmica indisponível para este bimestre.</strong>
-        </div>
-        `;
-        return;
-    }
 
     let status = "Carteira acadêmica estável";
 
@@ -900,10 +1147,11 @@ function renderizarConta(){
 
     let carteiraHTML = `
     <div class="card">
-        <h3>📈 Carteira de Disciplinas</h3>
+        <h3>Carteira de Disciplinas</h3>
 
         <table>
             <tr>
+                <th>Bimestre</th>
                 <th>Disciplina</th>
                 <th>Nota</th>
                 <th>Valor</th>
@@ -911,32 +1159,38 @@ function renderizarConta(){
             </tr>
     `;
 
-    conta.ativos.forEach(item => {
-        const classe = item.situacao === "Déficit"
-            ? "baixa"
-            : item.situacao === "Superávit"
-                ? "alta"
-                : "estavel";
+    if(conta.ativos.length === 0){
+        carteiraHTML += `<tr><td colspan="5">Nenhuma nota encontrada para este período.</td></tr>`;
+    }else{
+        conta.ativos.forEach(item => {
+            const classe = item.situacao === "Déficit"
+                ? "baixa"
+                : item.situacao === "Superávit"
+                    ? "alta"
+                    : "estavel";
 
-        carteiraHTML += `
-        <tr>
-            <td>${escaparHTML(item.disciplina)}</td>
-            <td class="${classe}">${escaparHTML(item.nota)}</td>
-            <td>${formatarTC(item.valor)}</td>
-            <td class="${classe}">${escaparHTML(item.situacao)}</td>
-        </tr>
-        `;
-    });
+            carteiraHTML += `
+            <tr>
+                <td>${item.bimestre}º</td>
+                <td>${escaparHTML(item.disciplina)}</td>
+                <td class="${classe}">${escaparHTML(item.nota)}</td>
+                <td>${formatarTC(item.valor)}</td>
+                <td class="${classe}">${escaparHTML(item.situacao)}</td>
+            </tr>
+            `;
+        });
+    }
 
     carteiraHTML += `</table></div>`;
 
     let ajustesHTML = `
     <div class="card">
-        <h3>🏫 Movimentações Gerais da Sala</h3>
+        <h3>Movimentações Gerais da Sala</h3>
 
         <table>
             <tr>
                 <th>Data</th>
+                <th>Bimestre</th>
                 <th>Tipo</th>
                 <th>Valor</th>
                 <th>Motivo</th>
@@ -944,16 +1198,13 @@ function renderizarConta(){
     `;
 
     if(conta.ajustesGerais.length === 0){
-        ajustesHTML += `
-        <tr>
-            <td colspan="4">Nenhum déficit ou superávit geral lançado para esta sala.</td>
-        </tr>
-        `;
+        ajustesHTML += `<tr><td colspan="5">Nenhum déficit ou superávit geral lançado para esta sala.</td></tr>`;
     }else{
         conta.ajustesGerais.forEach(item => {
             ajustesHTML += `
             <tr>
                 <td>${escaparHTML(item.data)}</td>
+                <td>${escaparHTML(item.bimestre)}</td>
                 <td class="${item.valorFinal >= 0 ? "alta" : "baixa"}">${escaparHTML(item.tipo)}</td>
                 <td class="${item.valorFinal >= 0 ? "alta" : "baixa"}">${formatarTC(item.valorFinal)}</td>
                 <td>${escaparHTML(item.motivo)}</td>
@@ -966,12 +1217,13 @@ function renderizarConta(){
 
     let ocorrenciasHTML = `
     <div class="card">
-        <h3>📌 Ocorrências Individuais</h3>
+        <h3>Ocorrências Individuais</h3>
 
         <p>
+            Quantidade encontrada:
+            <strong>${conta.ocorrencias.length}</strong>.
             Cada ocorrência desconta
-            <strong class="baixa">${DESCONTO_POR_OCORRENCIA} TC</strong>
-            da conta acadêmica.
+            <strong class="baixa">${DESCONTO_POR_OCORRENCIA} TC</strong>.
         </p>
 
         <table>
@@ -983,11 +1235,7 @@ function renderizarConta(){
     `;
 
     if(conta.ocorrencias.length === 0){
-        ocorrenciasHTML += `
-        <tr>
-            <td colspan="3">Nenhuma ocorrência encontrada.</td>
-        </tr>
-        `;
+        ocorrenciasHTML += `<tr><td colspan="3">Nenhuma ocorrência encontrada.</td></tr>`;
     }else{
         conta.ocorrencias.forEach(item => {
             ocorrenciasHTML += `
@@ -1004,35 +1252,79 @@ function renderizarConta(){
 
     conteudo.innerHTML = `
         <div class="card saldo-card">
-            <div class="saldo-label">Saldo acadêmico disponível</div>
+            <div class="saldo-label">
+                Saldo acadêmico disponível
+                <button class="btn-info" onclick="abrirInfo('saldo')">i</button>
+            </div>
             <div class="saldo-valor">${formatarTC(conta.saldoTotal)}</div>
             <div class="saldo-status">${escaparHTML(status)}</div>
         </div>
 
         <div class="grid">
             <div class="indicador">
-                Saldo das notas
+                <div class="indicador-topo">
+                    Saldo das notas
+                    <button class="btn-info" onclick="abrirInfo('tc')">i</button>
+                </div>
                 <strong>${formatarTC(conta.saldoNotas)}</strong>
             </div>
 
             <div class="indicador">
-                Ajuste geral da sala
+                <div class="indicador-topo">
+                    Ajuste geral da sala
+                    <button class="btn-info" onclick="abrirInfo('superavit')">i</button>
+                </div>
                 <strong class="${conta.saldoAjustesGerais >= 0 ? "alta" : "baixa"}">
                     ${formatarTC(conta.saldoAjustesGerais)}
                 </strong>
             </div>
 
             <div class="indicador">
-                Desconto por ocorrências
-                <strong class="baixa">
-                    -${formatarTC(conta.descontoOcorrencias)}
-                </strong>
+                <div class="indicador-topo">
+                    Ocorrências
+                    <button class="btn-info" onclick="abrirInfo('ocorrencias')">i</button>
+                </div>
+                <strong class="baixa">-${formatarTC(conta.descontoOcorrencias)}</strong>
             </div>
         </div>
 
         <div class="grid">
             <div class="indicador">
-                Ativos em superávit
+                <div class="indicador-topo">
+                    Frequência anual
+                    <button class="btn-info" onclick="abrirInfo('frequencia')">i</button>
+                </div>
+                <strong class="${conta.fatorFrequencia.classe}">
+                    ${isNaN(conta.frequenciaAnual) ? "-" : conta.frequenciaAnual + "%"}
+                </strong>
+            </div>
+
+            <div class="indicador">
+                <div class="indicador-topo">
+                    Valorização/Desvalorização
+                    <button class="btn-info" onclick="abrirInfo('frequencia')">i</button>
+                </div>
+                <strong class="${conta.fatorFrequencia.classe}">
+                    ${formatarTC(conta.fatorFrequencia.valor)}
+                </strong>
+                <div class="muted">${escaparHTML(conta.fatorFrequencia.status)}</div>
+            </div>
+
+            <div class="indicador">
+                <div class="indicador-topo">
+                    Período
+                    <button class="btn-info" onclick="abrirInfo('tc')">i</button>
+                </div>
+                <strong>${periodo === "anual" ? "Anual" : periodo + "º"}</strong>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="indicador">
+                <div class="indicador-topo">
+                    Ativos em superávit
+                    <button class="btn-info" onclick="abrirInfo('superavit')">i</button>
+                </div>
                 <strong class="alta">${conta.superavit}</strong>
             </div>
 
@@ -1042,7 +1334,10 @@ function renderizarConta(){
             </div>
 
             <div class="indicador">
-                Ativos em déficit
+                <div class="indicador-topo">
+                    Ativos em déficit
+                    <button class="btn-info" onclick="abrirInfo('deficit')">i</button>
+                </div>
                 <strong class="baixa">${conta.deficit}</strong>
             </div>
         </div>
