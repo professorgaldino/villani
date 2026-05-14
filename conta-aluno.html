@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VillaniBank - Conta Acadêmica</title>
+
+<style>
+:root{
+    --bg:#eef3f8;
+    --surface:#ffffff;
+    --surface-soft:#f8fafc;
+    --border:#d9e2ec;
+    --text:#172033;
+    --muted:#64748b;
+    --primary:#2563eb;
+    --primary-dark:#1d4ed8;
+    --success:#16a34a;
+    --danger:#dc2626;
+    --warning:#f59e0b;
+    --purple:#7c3aed;
+    --shadow:0 14px 35px rgba(15,23,42,0.10);
+    --radius:14px;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 34%),
+        linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
+    color:var(--text);
+    padding:18px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.card{
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:18px;
+    box-shadow:var(--shadow);
+    margin-bottom:16px;
+}
+
+.login-card{
+    max-width:470px;
+    margin:45px auto;
+}
+
+.topo{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    margin-bottom:16px;
+    box-shadow:var(--shadow);
+}
+
+h1,h2,h3{
+    margin-top:0;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin:12px 0 6px;
+}
+
+input,
+select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    font-family:inherit;
+    color:var(--text);
+    background:white;
+}
+
+button{
+    border:none;
+    border-radius:10px;
+    padding:11px 16px;
+    font-weight:bold;
+    cursor:pointer;
+    font-family:inherit;
+}
+
+.btn-primary{
+    background:var(--primary);
+    color:white;
+}
+
+.btn-soft{
+    background:#e2e8f0;
+    color:var(--text);
+}
+
+.erro{
+    display:none;
+    margin-top:12px;
+    background:#fee2e2;
+    border:1px solid #fecaca;
+    color:#991b1b;
+    padding:10px;
+    border-radius:10px;
+    font-size:13px;
+    font-weight:bold;
+}
+
+.oculto{
+    display:none;
+}
+
+.aluno-resumo{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.foto{
+    width:96px;
+    height:96px;
+    border-radius:16px;
+    object-fit:cover;
+    border:3px solid white;
+    box-shadow:0 8px 20px rgba(15,23,42,0.16);
+}
+
+.sem-foto{
+    width:96px;
+    height:96px;
+    background:#f1f5f9;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:var(--danger);
+    border-radius:16px;
+    border:1px solid var(--border);
+    font-size:26px;
+}
+
+.saldo-card{
+    background:linear-gradient(135deg, #172033, #2563eb);
+    color:white;
+    border:none;
+    position:relative;
+    overflow:hidden;
+}
+
+.saldo-card:after{
+    content:"";
+    position:absolute;
+    right:-70px;
+    top:-70px;
+    width:190px;
+    height:190px;
+    background:rgba(255,255,255,0.12);
+    border-radius:50%;
+}
+
+.saldo-label{
+    color:rgba(255,255,255,0.78);
+    font-size:14px;
+    margin-bottom:8px;
+}
+
+.saldo-valor{
+    font-size:40px;
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
+.saldo-status{
+    display:inline-block;
+    padding:7px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.16);
+    font-weight:bold;
+    font-size:13px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:14px;
+    margin-bottom:16px;
+}
+
+.indicador{
+    background:var(--surface-soft);
+    border:1px solid var(--border);
+    border-radius:12px;
+    padding:14px;
+}
+
+.indicador strong{
+    display:block;
+    font-size:22px;
+    margin-top:5px;
+}
+
+table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    font-size:13px;
+    margin-top:10px;
+    background:white;
+    border:1px solid var(--border);
+    border-radius:12px;
+    overflow:hidden;
+}
+
+th,td{
+    border-right:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:8px;
+    text-align:center;
+}
+
+tr:last-child td{
+    border-bottom:none;
+}
+
+th:last-child,
+td:last-child{
+    border-right:none;
+}
+
+th{
+    background:var(--primary);
+    color:white;
+}
+
+.alta{
+    color:var(--success);
+    font-weight:bold;
+}
+
+.baixa{
+    color:var(--danger);
+    font-weight:bold;
+}
+
+.estavel{
+    color:var(--warning);
+    font-weight:bold;
+}
+
+.muted{
+    color:var(--muted);
+}
+
+@media(max-width:760px){
+    body{
+        padding:10px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .saldo-valor{
+        font-size:30px;
+    }
+
+    table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div id="loginTela" class="card login-card">
+    <h2>🏦 VillaniBank</h2>
+    <p class="muted">Acesse sua conta acadêmica usando RA e senha.</p>
+
+    <label>Sala</label>
+    <select id="loginSala">
+        <option value="6a">6º Ano A</option>
+        <option value="6b">6º Ano B</option>
+        <option value="6c">6º Ano C</option>
+        <option value="7a">7º Ano A</option>
+        <option value="7b">7º Ano B</option>
+        <option value="7c">7º Ano C</option>
+        <option value="8a">8º Ano A</option>
+        <option value="8b">8º Ano B</option>
+        <option value="8c">8º Ano C</option>
+        <option value="9a">9º Ano A</option>
+        <option value="9b">9º Ano B</option>
+        <option value="9c">9º Ano C</option>
+        <option value="1a">1º Ano A</option>
+        <option value="1b">1º Ano B</option>
+        <option value="1c">1º Ano C</option>
+        <option value="1d">1º Ano D</option>
+        <option value="2a">2º Ano A</option>
+        <option value="2b">2º Ano B</option>
+        <option value="3a">3º Ano A</option>
+    </select>
+
+    <label>RA</label>
+    <input id="loginRA" type="text" placeholder="Digite seu RA">
+
+    <label>Senha</label>
+    <input id="loginSenha" type="password" placeholder="Exemplo: J07081997#">
+
+    <div style="margin-top:16px;">
+        <button class="btn-primary" onclick="entrarAluno()">Entrar</button>
+    </div>
+
+    <div id="erroLogin" class="erro"></div>
+</div>
+
+<div id="contaTela" class="oculto">
+
+    <div class="topo">
+        <h2>🏦 VillaniBank - Conta Acadêmica</h2>
+
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+            <select id="bimestreConta" onchange="renderizarConta()">
+                <option value="1">1º Bimestre</option>
+                <option value="2">2º Bimestre</option>
+                <option value="3">3º Bimestre</option>
+                <option value="4">4º Bimestre</option>
+            </select>
+
+            <button class="btn-soft" onclick="sair()">Sair</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div id="dadosAluno" class="aluno-resumo"></div>
+    </div>
+
+    <div id="conteudoConta"></div>
+
+</div>
+
+</div>
+
+<script>
+const URL_ALUNOS =
+"https://script.google.com/macros/s/AKfycbzMz2KkT2rF4pFG5skyztvtHHVms1LMXfGjLMWj2chY-zYbPPqN3PpHLknqE7Rj651Cjw/exec";
+
+const URL_OCORRENCIAS =
+"https://script.google.com/macros/s/AKfycbxmGpGeUfRGOTZ0Geh6GP9DyCOmLsuQ1o9IjbGvt-QgiHizG3OolrVuM67ETmvu7VIB/exec";
+
+const URL_VILLANIBANK = "villanibank.json";
+
+const BIMESTRES = {
+    1: "apb",
+    2: "asb",
+    3: "atb",
+    4: "aqb"
+};
+
+const DESCONTO_POR_OCORRENCIA = 3;
+
+let alunosCadastro = [];
+let ocorrencias = [];
+let villaniBank = {};
+let dadosBimestres = {};
+let alunoLogado = null;
+let alunoCadastroLogado = null;
+let serieAtual = "6a";
+
+function normalizar(t){
+    return String(t || "")
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/\s+/g, " ")
+        .trim();
+}
+
+function normalizarRA(ra){
+    return String(ra || "")
+        .replace(/\D/g, "")
+        .replace(/^0+/, "");
+}
+
+function escaparHTML(valor){
+    return String(valor ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+function numero(valor){
+    return Number(String(valor).replace(",", "."));
+}
+
+function formatarTC(valor){
+    return `${Number(valor || 0).toFixed(1).replace(".", ",")} TC`;
+}
+
+function pegarCampo(obj, nomes){
+    if(!obj) return "";
+
+    const mapa = {};
+
+    Object.keys(obj).forEach(chave => {
+        mapa[normalizar(chave)] = obj[chave];
+    });
+
+    for(const nome of nomes){
+        const valor = mapa[normalizar(nome)];
+
+        if(valor !== undefined && valor !== null && valor !== ""){
+            return valor;
+        }
+    }
+
+    return "";
+}
+
+function montarFoto(id){
+    if(!id) return null;
+    return "https://lh3.googleusercontent.com/d/" + String(id).trim();
+}
+
+function formatarDataBR(valor){
+    if(!valor) return "-";
+
+    if(typeof valor === "string" && valor.includes("/") && !valor.includes("T")){
+        return valor;
+    }
+
+    const data = new Date(valor);
+
+    if(isNaN(data.getTime())){
+        return String(valor);
+    }
+
+    return data.toLocaleDateString("pt-BR", {
+        timeZone:"America/Sao_Paulo"
+    });
+}
+
+function dataSenha(valor){
+    if(!valor) return "";
+
+    if(typeof valor === "string"){
+        const apenasNumeros = valor.replace(/\D/g, "");
+
+        if(apenasNumeros.length === 8){
+            return apenasNumeros;
+        }
+
+        if(valor.includes("T")){
+            const data = new Date(valor);
+
+            if(!isNaN(data.getTime())){
+                const dia = String(data.getUTCDate()).padStart(2, "0");
+                const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
+                const ano = data.getUTCFullYear();
+
+                return `${dia}${mes}${ano}`;
+            }
+        }
+    }
+
+    const data = new Date(valor);
+
+    if(!isNaN(data.getTime())){
+        const dia = String(data.getUTCDate()).padStart(2, "0");
+        const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
+        const ano = data.getUTCFullYear();
+
+        return `${dia}${mes}${ano}`;
+    }
+
+    return "";
+}
+
+function gerarSenhaAluno(aluno){
+    const nome = pegarCampo(aluno, ["nome", "Nome", "Nome do Aluno"]);
+    const nascimento = pegarCampo(aluno, [
+        "dataNascimento",
+        "Data de Nascimento",
+        "nascimento",
+        "Nascimento",
+        "data_nascimento"
+    ]);
+
+    const primeiraLetra = String(nome || "").trim().charAt(0).toUpperCase();
+    const data = dataSenha(nascimento);
+
+    return `${primeiraLetra}${data}#`;
+}
+
+async function carregarCadastroAlunos(){
+    if(alunosCadastro.length > 0) return;
+
+    const res = await fetch(URL_ALUNOS);
+
+    if(!res.ok){
+        throw new Error("Erro ao carregar cadastro de alunos.");
+    }
+
+    alunosCadastro = await res.json();
+}
+
+function extrairListaOcorrencias(json){
+    if(!json) return [];
+
+    if(Array.isArray(json)){
+        return json;
+    }
+
+    const chavesPossiveis = [
+        "ocorrencias",
+        "ocorrências",
+        "dados",
+        "data",
+        "registros",
+        "lista",
+        "items",
+        "result",
+        "results"
+    ];
+
+    for(const chave of chavesPossiveis){
+        if(Array.isArray(json[chave])){
+            return json[chave];
+        }
+    }
+
+    for(const chave in json){
+        if(Array.isArray(json[chave])){
+            return json[chave];
+        }
+    }
+
+    return [];
+}
+
+async function carregarOcorrencias(){
+    try{
+        const res = await fetch(URL_OCORRENCIAS);
+
+        if(!res.ok){
+            throw new Error("Erro ao carregar ocorrências.");
+        }
+
+        const json = await res.json();
+        ocorrencias = extrairListaOcorrencias(json);
+
+    }catch(e){
+        console.warn("Ocorrências não carregadas:", e.message);
+        ocorrencias = [];
+    }
+}
+
+async function carregarVillaniBank(){
+    try{
+        const res = await fetch(URL_VILLANIBANK + "?v=" + Date.now());
+
+        if(!res.ok){
+            throw new Error("Arquivo villanibank.json não encontrado.");
+        }
+
+        villaniBank = await res.json();
+
+    }catch(e){
+        console.warn("VillaniBank geral não carregado:", e.message);
+        villaniBank = {};
+    }
+}
+
+async function carregarBimestre(serie, n){
+    try{
+        const arquivo = `${serie}${BIMESTRES[n]}.json`;
+        const res = await fetch(arquivo);
+
+        if(!res.ok){
+            throw new Error("Arquivo não encontrado.");
+        }
+
+        return await res.json();
+
+    }catch(e){
+        return null;
+    }
+}
+
+async function carregarDadosSala(serie){
+    dadosBimestres = {};
+
+    for(let i = 1; i <= 4; i++){
+        dadosBimestres[i] = await carregarBimestre(serie, i);
+    }
+}
+
+function pegarBaseAlunos(){
+    for(let b = 1; b <= 4; b++){
+        if(dadosBimestres[b]){
+            return Object.values(dadosBimestres[b]);
+        }
+    }
+
+    return [];
+}
+
+function pegarAlunoBimestre(nomeAluno, bimestre){
+    const dados = dadosBimestres[bimestre];
+
+    if(!dados) return null;
+
+    return Object.values(dados).find(a =>
+        normalizar(a.nome) === normalizar(nomeAluno)
+    );
+}
+
+function encontrarCadastroPorRA(ra){
+    const raBusca = normalizarRA(ra);
+
+    return alunosCadastro.find(a => {
+        const raAluno = normalizarRA(pegarCampo(a, ["ra", "RA"]));
+        return raAluno && raAluno === raBusca;
+    });
+}
+
+function encontrarBoletimPorRAOuNome(ra, nome){
+    const raBusca = normalizarRA(ra);
+    const nomeBusca = normalizar(nome);
+    const base = pegarBaseAlunos();
+
+    return base.find(a => {
+        const bateRA = normalizarRA(a.ra) && normalizarRA(a.ra) === raBusca;
+        const bateNome = normalizar(a.nome) === nomeBusca;
+
+        return bateRA || bateNome;
+    });
+}
+
+function pegarOcorrenciasAluno(nomeAluno, raAluno){
+    const nomeBoletim = normalizar(nomeAluno);
+    const raBoletim = normalizarRA(raAluno);
+
+    return ocorrencias.filter(item => {
+        const nomeOcorrencia = normalizar(pegarCampo(item, [
+            "nome",
+            "Nome do Aluno",
+            "aluno"
+        ]));
+
+        const raOcorrencia = normalizarRA(pegarCampo(item, [
+            "ra",
+            "RA"
+        ]));
+
+        const bateRA =
+            raBoletim &&
+            raOcorrencia &&
+            raBoletim === raOcorrencia;
+
+        const bateNome =
+            nomeBoletim &&
+            nomeOcorrencia &&
+            nomeBoletim === nomeOcorrencia;
+
+        return bateRA || bateNome;
+    });
+}
+
+function pegarDataOcorrencia(item){
+    return pegarCampo(item, [
+        "dataFato",
+        "Data do Fato",
+        "dataRegistro",
+        "Data Registro",
+        "data",
+        "Data"
+    ]);
+}
+
+function pegarDescricaoOcorrencia(item){
+    return pegarCampo(item, [
+        "descricao",
+        "Descrição",
+        "ocorrencia",
+        "Ocorrência",
+        "motivo",
+        "Motivo"
+    ]);
+}
+
+function pegarAjustesGeraisSala(serie){
+    if(Array.isArray(villaniBank[serie])){
+        return villaniBank[serie];
+    }
+
+    if(villaniBank.salas && Array.isArray(villaniBank.salas[serie])){
+        return villaniBank.salas[serie];
+    }
+
+    return [];
+}
+
+function calcularAjustesGerais(serie){
+    const ajustes = pegarAjustesGeraisSala(serie);
+
+    return ajustes.map(item => {
+        const tipoNormalizado = normalizar(item.tipo);
+        const valor = Math.abs(numero(item.valor));
+        const valorFinal = tipoNormalizado === "deficit" ? -valor : valor;
+
+        return {
+            data: item.data || "-",
+            tipo: tipoNormalizado === "deficit" ? "Déficit geral da sala" : "Superávit geral da sala",
+            valorFinal,
+            motivo: item.motivo || "-"
+        };
+    });
+}
+
+function calcularContaAcademica(nomeAluno, raAluno, bimestre){
+    const aluno = pegarAlunoBimestre(nomeAluno, bimestre);
+
+    if(!aluno || !aluno.disciplinas){
+        return null;
+    }
+
+    let saldoNotas = 0;
+    let ativos = [];
+    let deficit = 0;
+    let superavit = 0;
+    let estaveis = 0;
+
+    Object.keys(aluno.disciplinas).forEach(disciplina => {
+        const nota = numero(aluno.disciplinas[disciplina].numero);
+
+        if(isNaN(nota)) return;
+
+        const valor = nota * 10;
+        saldoNotas += valor;
+
+        let situacao = "Estável";
+
+        if(nota < 5){
+            situacao = "Déficit";
+            deficit++;
+        }else if(nota >= 7){
+            situacao = "Superávit";
+            superavit++;
+        }else{
+            estaveis++;
+        }
+
+        ativos.push({
+            disciplina,
+            nota,
+            valor,
+            situacao
+        });
+    });
+
+    const listaOcorrencias = pegarOcorrenciasAluno(nomeAluno, raAluno);
+    const descontoOcorrencias = listaOcorrencias.length * DESCONTO_POR_OCORRENCIA;
+
+    const ajustesGerais = calcularAjustesGerais(serieAtual);
+    const saldoAjustesGerais = ajustesGerais.reduce((total, item) => {
+        return total + Number(item.valorFinal || 0);
+    }, 0);
+
+    const saldoTotal = saldoNotas + saldoAjustesGerais - descontoOcorrencias;
+
+    return {
+        saldoNotas,
+        saldoAjustesGerais,
+        descontoOcorrencias,
+        saldoTotal,
+        ativos,
+        deficit,
+        superavit,
+        estaveis,
+        ocorrencias: listaOcorrencias,
+        ajustesGerais
+    };
+}
+
+async function entrarAluno(){
+    const erro = document.getElementById("erroLogin");
+
+    erro.style.display = "none";
+    erro.innerHTML = "";
+
+    try{
+        serieAtual = document.getElementById("loginSala").value;
+
+        const ra = document.getElementById("loginRA").value;
+        const senha = document.getElementById("loginSenha").value;
+
+        await carregarCadastroAlunos();
+        await carregarDadosSala(serieAtual);
+        await carregarOcorrencias();
+        await carregarVillaniBank();
+
+        const cadastro = encontrarCadastroPorRA(ra);
+
+        if(!cadastro){
+            throw new Error("RA não encontrado no cadastro.");
+        }
+
+        const senhaCorreta = gerarSenhaAluno(cadastro);
+
+        if(senha !== senhaCorreta){
+            throw new Error("Senha incorreta. Use a primeira letra do nome maiúscula + nascimento + #.");
+        }
+
+        const nomeCadastro = pegarCampo(cadastro, ["nome", "Nome", "Nome do Aluno"]);
+        const boletim = encontrarBoletimPorRAOuNome(ra, nomeCadastro);
+
+        if(!boletim){
+            throw new Error("Aluno encontrado no cadastro, mas não encontrado nos arquivos desta sala.");
+        }
+
+        alunoLogado = boletim;
+        alunoCadastroLogado = cadastro;
+
+        document.getElementById("loginTela").classList.add("oculto");
+        document.getElementById("contaTela").classList.remove("oculto");
+
+        renderizarConta();
+
+    }catch(e){
+        erro.innerHTML = escaparHTML(e.message);
+        erro.style.display = "block";
+    }
+}
+
+function renderizarConta(){
+    const bimestre = Number(document.getElementById("bimestreConta").value);
+    const conteudo = document.getElementById("conteudoConta");
+    const dadosAluno = document.getElementById("dadosAluno");
+
+    const ra = pegarCampo(alunoCadastroLogado, ["ra", "RA"]) || alunoLogado.ra || "-";
+    const tutor = pegarCampo(alunoCadastroLogado, ["tutor", "Tutor"]) || alunoLogado.tutor || "-";
+    const fotoId = pegarCampo(alunoCadastroLogado, ["foto", "Foto"]);
+    const foto = montarFoto(fotoId);
+
+    const conta = calcularContaAcademica(alunoLogado.nome, ra, bimestre);
+
+    dadosAluno.innerHTML = `
+        ${foto ? `<img class="foto" src="${foto}">` : `<div class="sem-foto">?</div>`}
+
+        <div>
+            <strong style="font-size:20px;">${escaparHTML(alunoLogado.nome)}</strong><br>
+            RA: ${escaparHTML(ra)}<br>
+            Tutor: ${escaparHTML(tutor)}<br>
+            Sala: ${escaparHTML(serieAtual.toUpperCase())}
+        </div>
+    `;
+
+    if(!conta){
+        conteudo.innerHTML = `
+        <div class="card">
+            <strong>Conta acadêmica indisponível para este bimestre.</strong>
+        </div>
+        `;
+        return;
+    }
+
+    let status = "Carteira acadêmica estável";
+
+    if(conta.deficit >= 4){
+        status = "Alto risco de déficit acadêmico";
+    }else if(conta.superavit > conta.deficit){
+        status = "Superávit acadêmico";
+    }else if(conta.deficit > 0){
+        status = "Atenção a ativos em baixa";
+    }
+
+    let carteiraHTML = `
+    <div class="card">
+        <h3>📈 Carteira de Disciplinas</h3>
+
+        <table>
+            <tr>
+                <th>Disciplina</th>
+                <th>Nota</th>
+                <th>Valor</th>
+                <th>Situação</th>
+            </tr>
+    `;
+
+    conta.ativos.forEach(item => {
+        const classe = item.situacao === "Déficit"
+            ? "baixa"
+            : item.situacao === "Superávit"
+                ? "alta"
+                : "estavel";
+
+        carteiraHTML += `
+        <tr>
+            <td>${escaparHTML(item.disciplina)}</td>
+            <td class="${classe}">${escaparHTML(item.nota)}</td>
+            <td>${formatarTC(item.valor)}</td>
+            <td class="${classe}">${escaparHTML(item.situacao)}</td>
+        </tr>
+        `;
+    });
+
+    carteiraHTML += `</table></div>`;
+
+    let ajustesHTML = `
+    <div class="card">
+        <h3>🏫 Movimentações Gerais da Sala</h3>
+
+        <table>
+            <tr>
+                <th>Data</th>
+                <th>Tipo</th>
+                <th>Valor</th>
+                <th>Motivo</th>
+            </tr>
+    `;
+
+    if(conta.ajustesGerais.length === 0){
+        ajustesHTML += `
+        <tr>
+            <td colspan="4">Nenhum déficit ou superávit geral lançado para esta sala.</td>
+        </tr>
+        `;
+    }else{
+        conta.ajustesGerais.forEach(item => {
+            ajustesHTML += `
+            <tr>
+                <td>${escaparHTML(item.data)}</td>
+                <td class="${item.valorFinal >= 0 ? "alta" : "baixa"}">${escaparHTML(item.tipo)}</td>
+                <td class="${item.valorFinal >= 0 ? "alta" : "baixa"}">${formatarTC(item.valorFinal)}</td>
+                <td>${escaparHTML(item.motivo)}</td>
+            </tr>
+            `;
+        });
+    }
+
+    ajustesHTML += `</table></div>`;
+
+    let ocorrenciasHTML = `
+    <div class="card">
+        <h3>📌 Ocorrências Individuais</h3>
+
+        <p>
+            Cada ocorrência desconta
+            <strong class="baixa">${DESCONTO_POR_OCORRENCIA} TC</strong>
+            da conta acadêmica.
+        </p>
+
+        <table>
+            <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Desconto</th>
+            </tr>
+    `;
+
+    if(conta.ocorrencias.length === 0){
+        ocorrenciasHTML += `
+        <tr>
+            <td colspan="3">Nenhuma ocorrência encontrada.</td>
+        </tr>
+        `;
+    }else{
+        conta.ocorrencias.forEach(item => {
+            ocorrenciasHTML += `
+            <tr>
+                <td>${escaparHTML(formatarDataBR(pegarDataOcorrencia(item)))}</td>
+                <td>${escaparHTML(pegarDescricaoOcorrencia(item) || "-")}</td>
+                <td class="baixa">-${formatarTC(DESCONTO_POR_OCORRENCIA)}</td>
+            </tr>
+            `;
+        });
+    }
+
+    ocorrenciasHTML += `</table></div>`;
+
+    conteudo.innerHTML = `
+        <div class="card saldo-card">
+            <div class="saldo-label">Saldo acadêmico disponível</div>
+            <div class="saldo-valor">${formatarTC(conta.saldoTotal)}</div>
+            <div class="saldo-status">${escaparHTML(status)}</div>
+        </div>
+
+        <div class="grid">
+            <div class="indicador">
+                Saldo das notas
+                <strong>${formatarTC(conta.saldoNotas)}</strong>
+            </div>
+
+            <div class="indicador">
+                Ajuste geral da sala
+                <strong class="${conta.saldoAjustesGerais >= 0 ? "alta" : "baixa"}">
+                    ${formatarTC(conta.saldoAjustesGerais)}
+                </strong>
+            </div>
+
+            <div class="indicador">
+                Desconto por ocorrências
+                <strong class="baixa">
+                    -${formatarTC(conta.descontoOcorrencias)}
+                </strong>
+            </div>
+        </div>
+
+        <div class="grid">
+            <div class="indicador">
+                Ativos em superávit
+                <strong class="alta">${conta.superavit}</strong>
+            </div>
+
+            <div class="indicador">
+                Ativos estáveis
+                <strong class="estavel">${conta.estaveis}</strong>
+            </div>
+
+            <div class="indicador">
+                Ativos em déficit
+                <strong class="baixa">${conta.deficit}</strong>
+            </div>
+        </div>
+
+        ${carteiraHTML}
+        ${ajustesHTML}
+        ${ocorrenciasHTML}
+    `;
+}
+
+function sair(){
+    alunoLogado = null;
+    alunoCadastroLogado = null;
+
+    document.getElementById("contaTela").classList.add("oculto");
+    document.getElementById("loginTela").classList.remove("oculto");
+    document.getElementById("loginSenha").value = "";
+}
+</script>
+
+</body>
+</html>
