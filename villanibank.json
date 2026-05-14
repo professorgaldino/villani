@@ -1,0 +1,306 @@
+{
+  "6a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 2,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "6b": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "6c": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "7a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "7b": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "7c": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "8a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "8b": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "8c": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "9a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "9b": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "9c": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "1a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "1b": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "1c": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "1d": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "2a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "2b": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ],
+  "3a": [
+    {
+      "data": "14/05/2026",
+      "bimestre": 1,
+      "tipo": "superavit",
+      "valor": 10,
+      "motivo": "Modelo: turma cumpriu a meta semanal"
+    },
+    {
+      "data": "15/05/2026",
+      "bimestre": 1,
+      "tipo": "deficit",
+      "valor": 5,
+      "motivo": "Modelo: atividade coletiva não entregue"
+    }
+  ]
+}
