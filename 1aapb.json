@@ -258,7 +258,7 @@
     },
     "totais": {
       "faltas_acumuladas": 61,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 59,
       "frequencia_anual": 83
     }
@@ -522,7 +522,7 @@
     },
     "totais": {
       "faltas_acumuladas": 43,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 41,
       "frequencia_anual": 88
     }
@@ -786,7 +786,7 @@
     },
     "totais": {
       "faltas_acumuladas": 131,
-      "frequencia": 71,
+      "frequencia": 72,
       "faltas_anual": 125,
       "frequencia_anual": 65
     }
@@ -1446,7 +1446,7 @@
     },
     "totais": {
       "faltas_acumuladas": 79,
-      "frequencia": 82,
+      "frequencia": 83,
       "faltas_anual": 74,
       "frequencia_anual": 79
     }
@@ -1486,9 +1486,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 12
       },
       "FILOSOFIA": {
@@ -1573,11 +1573,11 @@
         "numero": 6,
         "media": 4,
         "faltas": 0,
-        "acumulado": 37
+        "acumulado": 39
       }
     },
     "totais": {
-      "faltas_acumuladas": 37,
+      "faltas_acumuladas": 39,
       "frequencia": 92,
       "faltas_anual": 37,
       "frequencia_anual": 90
@@ -1710,7 +1710,7 @@
     },
     "totais": {
       "faltas_acumuladas": 89,
-      "frequencia": 80,
+      "frequencia": 81,
       "faltas_anual": 87,
       "frequencia_anual": 71
     }
@@ -1842,7 +1842,7 @@
     },
     "totais": {
       "faltas_acumuladas": 99,
-      "frequencia": 78,
+      "frequencia": 79,
       "faltas_anual": 96,
       "frequencia_anual": 73
     }
@@ -1882,9 +1882,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 15
       },
       "FILOSOFIA": {
@@ -1969,12 +1969,12 @@
         "numero": 5,
         "media": 10,
         "faltas": 5,
-        "acumulado": 102
+        "acumulado": 104
       }
     },
     "totais": {
-      "faltas_acumuladas": 102,
-      "frequencia": 77,
+      "faltas_acumuladas": 104,
+      "frequencia": 78,
       "faltas_anual": 97,
       "frequencia_anual": 73
     }
@@ -2014,9 +2014,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 16
       },
       "FILOSOFIA": {
@@ -2114,7 +2114,7 @@
   "17": {
     "numero": 17,
     "nome": "LORRAINY VICTÓRIA CARVALHO LEITE",
-    "situacao": "Ativo",
+    "situacao": "Remanejamento",
     "disciplinas": {
       "ARTE": {
         "codigo": 1813,
@@ -2410,9 +2410,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 19
       },
       "FILOSOFIA": {
@@ -2674,9 +2674,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 22
       },
       "FILOSOFIA": {
@@ -2938,7 +2938,7 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 24
@@ -3426,7 +3426,7 @@
     },
     "totais": {
       "faltas_acumuladas": 67,
-      "frequencia": 85,
+      "frequencia": 86,
       "faltas_anual": 64,
       "frequencia_anual": 82
     }
@@ -4086,7 +4086,7 @@
     },
     "totais": {
       "faltas_acumuladas": 16,
-      "frequencia": 96,
+      "frequencia": 97,
       "faltas_anual": 16,
       "frequencia_anual": 96
     }
@@ -4482,7 +4482,7 @@
     },
     "totais": {
       "faltas_acumuladas": 44,
-      "frequencia": 90,
+      "frequencia": 91,
       "faltas_anual": 44,
       "frequencia_anual": 88
     }
@@ -4614,7 +4614,7 @@
     },
     "totais": {
       "faltas_acumuladas": 118,
-      "frequencia": 74,
+      "frequencia": 75,
       "faltas_anual": 114,
       "frequencia_anual": 68
     }
@@ -4878,7 +4878,7 @@
     },
     "totais": {
       "faltas_acumuladas": 114,
-      "frequencia": 75,
+      "frequencia": 76,
       "faltas_anual": 106,
       "frequencia_anual": 70
     }
@@ -4918,9 +4918,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 39
       },
       "FILOSOFIA": {
