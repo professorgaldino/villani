@@ -89,9 +89,9 @@ button:disabled{
 .login-shell{
     width:100%;
     max-width:1180px;
-    min-height:660px;
+    min-height:650px;
     display:grid;
-    grid-template-columns:1.15fr 0.85fr;
+    grid-template-columns:minmax(0, 1.05fr) minmax(380px, 0.95fr);
     background:white;
     border:1px solid rgba(217,226,236,0.95);
     border-radius:28px;
@@ -104,8 +104,8 @@ button:disabled{
     padding:38px;
     color:white;
     background:
-        linear-gradient(135deg, rgba(15,23,42,0.96), rgba(29,78,216,0.92)),
-        radial-gradient(circle at top left, rgba(248,201,74,0.34), transparent 34%);
+        radial-gradient(circle at top left, rgba(248,201,74,0.30), transparent 32%),
+        linear-gradient(135deg, rgba(15,23,42,0.98), rgba(29,78,216,0.94));
     overflow:hidden;
 }
 
@@ -115,43 +115,45 @@ button:disabled{
     width:360px;
     height:360px;
     border-radius:50%;
-    right:-135px;
-    top:-90px;
+    right:-145px;
+    top:-95px;
     background:rgba(255,255,255,0.10);
 }
 
 .login-brand-panel:after{
     content:"";
     position:absolute;
-    width:230px;
-    height:230px;
+    width:250px;
+    height:250px;
     border-radius:50%;
-    left:-90px;
-    bottom:-80px;
+    left:-105px;
+    bottom:-90px;
     border:1px solid rgba(255,255,255,0.20);
 }
 
 .bank-badge{
     position:relative;
     z-index:1;
-    display:inline-flex;
+    display:grid;
+    grid-template-columns:170px minmax(0, 1fr);
     align-items:center;
-    gap:28px;
-    padding:28px 36px;
-    border:2px solid rgba(255,255,255,0.24);
-    border-radius:54px;
+    gap:26px;
+    padding:28px;
+    border:2px solid rgba(255,255,255,0.22);
+    border-radius:46px;
     background:rgba(255,255,255,0.10);
     backdrop-filter:blur(10px);
     width:100%;
-    max-width:900px;
+    max-width:620px;
+    overflow:hidden;
 }
 
 .brand-seal{
-    width:240px;
-    height:240px;
+    width:170px;
+    height:170px;
     border-radius:50%;
-    padding:16px;
-    background:linear-gradient(135deg, white, #f8c94a);
+    padding:12px;
+    background:linear-gradient(135deg, #ffffff, #fde68a, var(--gold));
     box-shadow:0 22px 48px rgba(0,0,0,0.30);
     flex:0 0 auto;
 }
@@ -165,13 +167,14 @@ button:disabled{
 }
 
 .bank-name{
-    line-height:1.05;
+    line-height:1.03;
+    min-width:0;
 }
 
 .bank-name span{
     display:block;
-    font-size:28px;
-    letter-spacing:7px;
+    font-size:clamp(18px, 2.2vw, 28px);
+    letter-spacing:clamp(3px, 0.55vw, 7px);
     text-transform:uppercase;
     color:rgba(255,255,255,0.72);
     font-weight:bold;
@@ -179,26 +182,28 @@ button:disabled{
 
 .bank-name strong{
     display:block;
-    font-size:72px;
+    font-size:clamp(46px, 5.1vw, 68px);
+    white-space:nowrap;
+    color:white;
 }
 
 .login-copy{
     position:relative;
     z-index:1;
-    margin-top:44px;
+    margin-top:46px;
     max-width:620px;
 }
 
 .login-copy h1{
     margin:0;
     font-size:42px;
-    line-height:1.06;
+    line-height:1.08;
     letter-spacing:0;
 }
 
 .login-copy p{
     margin:18px 0 0;
-    color:rgba(255,255,255,0.78);
+    color:rgba(255,255,255,0.80);
     font-size:16px;
     line-height:1.55;
 }
@@ -207,9 +212,9 @@ button:disabled{
     position:relative;
     z-index:1;
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
+    grid-template-columns:repeat(3, minmax(0, 1fr));
     gap:12px;
-    margin-top:34px;
+    margin-top:36px;
 }
 
 .proof-item{
@@ -237,8 +242,7 @@ button:disabled{
     align-items:center;
     justify-content:center;
     padding:38px;
-    background:
-        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+    background:linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
 }
 
 .login-card{
@@ -342,8 +346,7 @@ select:focus{
 }
 
 .app-topbar{
-    background:
-        linear-gradient(135deg, #0f172a, #1d4ed8);
+    background:linear-gradient(135deg, #0f172a, #1d4ed8);
     color:white;
     border-radius:22px;
     padding:18px;
@@ -693,13 +696,33 @@ th{
     line-height:1.55;
 }
 
-@media(max-width:900px){
+@media(max-width:980px){
     .login-shell{
         grid-template-columns:1fr;
     }
 
     .login-brand-panel{
         padding:28px;
+    }
+
+    .bank-badge{
+        max-width:100%;
+        grid-template-columns:150px minmax(0, 1fr);
+        gap:22px;
+        padding:24px;
+    }
+
+    .brand-seal{
+        width:150px;
+        height:150px;
+    }
+
+    .bank-name strong{
+        font-size:clamp(42px, 8vw, 62px);
+    }
+
+    .bank-name span{
+        font-size:clamp(16px, 3vw, 24px);
     }
 
     .login-copy{
@@ -711,7 +734,7 @@ th{
     }
 
     .login-proof{
-        grid-template-columns:1fr;
+        grid-template-columns:repeat(3, 1fr);
     }
 }
 
@@ -725,18 +748,23 @@ th{
         border-radius:20px;
     }
 
+    .login-brand-panel{
+        padding:20px;
+    }
+
     .bank-badge{
-        flex-direction:column;
-        align-items:center;
+        grid-template-columns:1fr;
+        justify-items:center;
         text-align:center;
-        padding:24px;
-        gap:16px;
-        border-radius:36px;
+        padding:22px;
+        gap:14px;
+        border-radius:34px;
     }
 
     .brand-seal{
-        width:130px;
-        height:130px;
+        width:132px;
+        height:132px;
+        padding:10px;
     }
 
     .bank-name strong{
@@ -749,7 +777,11 @@ th{
     }
 
     .login-copy h1{
-        font-size:30px;
+        font-size:29px;
+    }
+
+    .login-proof{
+        grid-template-columns:1fr;
     }
 
     .login-form-panel{
@@ -1090,747 +1122,4 @@ function formatarDataBR(valor){
 function dataSenha(valor){
     if(!valor) return "";
 
-    if(typeof valor === "string"){
-        const apenasNumeros = valor.replace(/\D/g, "");
-
-        if(apenasNumeros.length === 8){
-            return apenasNumeros;
-        }
-
-        if(valor.includes("T")){
-            const data = new Date(valor);
-
-            if(!isNaN(data.getTime())){
-                const dia = String(data.getUTCDate()).padStart(2, "0");
-                const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
-                const ano = data.getUTCFullYear();
-
-                return `${dia}${mes}${ano}`;
-            }
-        }
-    }
-
-    const data = new Date(valor);
-
-    if(!isNaN(data.getTime())){
-        const dia = String(data.getUTCDate()).padStart(2, "0");
-        const mes = String(data.getUTCMonth() + 1).padStart(2, "0");
-        const ano = data.getUTCFullYear();
-
-        return `${dia}${mes}${ano}`;
-    }
-
-    return "";
-}
-
-function gerarSenhaAluno(aluno){
-    const nome = pegarCampo(aluno, ["nome", "Nome", "Nome do Aluno"]);
-    const nascimento = pegarCampo(aluno, [
-        "dataNascimento",
-        "Data de Nascimento",
-        "nascimento",
-        "Nascimento",
-        "data_nascimento"
-    ]);
-
-    const primeiraLetra = String(nome || "").trim().charAt(0).toUpperCase();
-    const data = dataSenha(nascimento);
-
-    return `${primeiraLetra}${data}#`;
-}
-
-async function carregarCadastroAlunos(){
-    if(alunosCadastro.length > 0) return;
-
-    const res = await fetch(URL_ALUNOS);
-
-    if(!res.ok){
-        throw new Error("Erro ao carregar cadastro de alunos.");
-    }
-
-    alunosCadastro = await res.json();
-}
-
-function extrairListaOcorrencias(json){
-    if(!json) return [];
-
-    if(Array.isArray(json)){
-        return json;
-    }
-
-    const chavesPossiveis = [
-        "ocorrencias",
-        "ocorrências",
-        "dados",
-        "data",
-        "registros",
-        "lista",
-        "items",
-        "result",
-        "results"
-    ];
-
-    for(const chave of chavesPossiveis){
-        if(Array.isArray(json[chave])){
-            return json[chave];
-        }
-    }
-
-    for(const chave in json){
-        if(Array.isArray(json[chave])){
-            return json[chave];
-        }
-    }
-
-    return [];
-}
-
-async function carregarOcorrencias(){
-    try{
-        const res = await fetch(URL_OCORRENCIAS);
-
-        if(!res.ok){
-            throw new Error("Erro ao carregar ocorrências.");
-        }
-
-        const json = await res.json();
-        ocorrencias = extrairListaOcorrencias(json);
-
-    }catch(e){
-        ocorrencias = [];
-    }
-}
-
-async function carregarVillaniBank(){
-    try{
-        const res = await fetch(URL_VILLANIBANK + "?v=" + Date.now());
-
-        if(!res.ok){
-            throw new Error("Arquivo villanibank.json não encontrado.");
-        }
-
-        villaniBank = await res.json();
-
-    }catch(e){
-        villaniBank = {};
-    }
-}
-
-async function carregarBimestre(serie, n){
-    try{
-        const arquivo = `${serie}${BIMESTRES[n]}.json`;
-        const res = await fetch(arquivo);
-
-        if(!res.ok){
-            throw new Error("Arquivo não encontrado.");
-        }
-
-        return await res.json();
-
-    }catch(e){
-        return null;
-    }
-}
-
-async function carregarDadosSala(serie){
-    dadosBimestres = {};
-
-    for(let i = 1; i <= 4; i++){
-        dadosBimestres[i] = await carregarBimestre(serie, i);
-    }
-}
-
-function pegarBaseAlunos(){
-    for(let b = 1; b <= 4; b++){
-        if(dadosBimestres[b]){
-            return Object.values(dadosBimestres[b]);
-        }
-    }
-
-    return [];
-}
-
-function pegarAlunoBimestre(nomeAluno, bimestre){
-    const dados = dadosBimestres[bimestre];
-
-    if(!dados) return null;
-
-    return Object.values(dados).find(a =>
-        normalizar(a.nome) === normalizar(nomeAluno)
-    );
-}
-
-function encontrarCadastroPorRA(ra){
-    const raBusca = normalizarRA(ra);
-
-    return alunosCadastro.find(a => {
-        const raAluno = normalizarRA(pegarCampo(a, ["ra", "RA"]));
-        return raAluno && raAluno === raBusca;
-    });
-}
-
-function encontrarBoletimPorRAOuNome(ra, nome){
-    const raBusca = normalizarRA(ra);
-    const nomeBusca = normalizar(nome);
-    const base = pegarBaseAlunos();
-
-    return base.find(a => {
-        const bateRA = normalizarRA(a.ra) && normalizarRA(a.ra) === raBusca;
-        const bateNome = normalizar(a.nome) === nomeBusca;
-
-        return bateRA || bateNome;
-    });
-}
-
-function pegarOcorrenciasAluno(nomeAluno, raAluno){
-    const nomeBoletim = normalizar(nomeAluno);
-    const raBoletim = normalizarRA(raAluno);
-
-    return ocorrencias.filter(item => {
-        const nomeOcorrencia = normalizar(pegarCampo(item, [
-            "nome",
-            "Nome do Aluno",
-            "aluno"
-        ]));
-
-        const raOcorrencia = normalizarRA(pegarCampo(item, [
-            "ra",
-            "RA"
-        ]));
-
-        const bateRA =
-            raBoletim &&
-            raOcorrencia &&
-            raBoletim === raOcorrencia;
-
-        const bateNome =
-            nomeBoletim &&
-            nomeOcorrencia &&
-            nomeBoletim === nomeOcorrencia;
-
-        return bateRA || bateNome;
-    });
-}
-
-function pegarDataOcorrencia(item){
-    return pegarCampo(item, [
-        "dataFato",
-        "Data do Fato",
-        "dataRegistro",
-        "Data Registro",
-        "data",
-        "Data"
-    ]);
-}
-
-function pegarDescricaoOcorrencia(item){
-    return pegarCampo(item, [
-        "descricao",
-        "Descrição",
-        "ocorrencia",
-        "Ocorrência",
-        "motivo",
-        "Motivo"
-    ]);
-}
-
-function pegarAjustesGeraisSala(serie){
-    if(Array.isArray(villaniBank[serie])){
-        return villaniBank[serie];
-    }
-
-    if(villaniBank.salas && Array.isArray(villaniBank.salas[serie])){
-        return villaniBank.salas[serie];
-    }
-
-    return [];
-}
-
-function filtrarAjustesPorPeriodo(serie, periodo){
-    const ajustes = pegarAjustesGeraisSala(serie);
-
-    return ajustes.filter(item => {
-        if(periodo === "anual") return true;
-
-        if(item.bimestre === undefined || item.bimestre === null || item.bimestre === ""){
-            return true;
-        }
-
-        return Number(item.bimestre) === Number(periodo);
-    }).map(item => {
-        const tipoNormalizado = normalizar(item.tipo);
-        const valor = Math.abs(numero(item.valor));
-        const valorFinal = tipoNormalizado === "deficit" ? -valor : valor;
-
-        return {
-            data: item.data || "-",
-            tipo: tipoNormalizado === "deficit" ? "Déficit geral da sala" : "Superávit geral da sala",
-            valorFinal,
-            motivo: item.motivo || "-",
-            bimestre: item.bimestre || "-"
-        };
-    });
-}
-
-function calcularNotasBimestre(nomeAluno, bimestre){
-    const aluno = pegarAlunoBimestre(nomeAluno, bimestre);
-
-    if(!aluno || !aluno.disciplinas){
-        return {
-            saldoNotas:0,
-            ativos:[],
-            deficit:0,
-            superavit:0,
-            estaveis:0,
-            frequenciaAnual:NaN
-        };
-    }
-
-    let saldoNotas = 0;
-    let ativos = [];
-    let deficit = 0;
-    let superavit = 0;
-    let estaveis = 0;
-
-    Object.keys(aluno.disciplinas).forEach(disciplina => {
-        const nota = numero(aluno.disciplinas[disciplina].numero);
-
-        if(isNaN(nota)) return;
-
-        const valor = nota * 10;
-        saldoNotas += valor;
-
-        let situacao = "Estável";
-
-        if(nota < 5){
-            situacao = "Déficit";
-            deficit++;
-        }else if(nota >= 7){
-            situacao = "Superávit";
-            superavit++;
-        }else{
-            estaveis++;
-        }
-
-        ativos.push({
-            bimestre,
-            disciplina,
-            nota,
-            valor,
-            situacao
-        });
-    });
-
-    return {
-        saldoNotas,
-        ativos,
-        deficit,
-        superavit,
-        estaveis,
-        frequenciaAnual: numero(aluno.totais?.frequencia_anual)
-    };
-}
-
-function calcularFatorFrequencia(saldoNotas, frequencia){
-    if(isNaN(frequencia)){
-        return {
-            valor:0,
-            status:"Frequência anual não informada",
-            classe:"estavel"
-        };
-    }
-
-    if(frequencia < 80){
-        return {
-            valor: -Math.abs(saldoNotas * PERCENTUAL_FREQUENCIA),
-            status:"Desvalorização por frequência abaixo de 80%",
-            classe:"baixa"
-        };
-    }
-
-    if(frequencia >= 90){
-        return {
-            valor: Math.abs(saldoNotas * PERCENTUAL_FREQUENCIA),
-            status:"Valorização por frequência de 90% ou mais",
-            classe:"alta"
-        };
-    }
-
-    return {
-        valor:0,
-        status:"Frequência neutra",
-        classe:"estavel"
-    };
-}
-
-function calcularContaAcademica(nomeAluno, raAluno, periodo){
-    const bimestres = periodo === "anual"
-        ? [1,2,3,4]
-        : [Number(periodo)];
-
-    let saldoNotas = 0;
-    let ativos = [];
-    let deficit = 0;
-    let superavit = 0;
-    let estaveis = 0;
-    let ultimaFrequenciaAnual = NaN;
-
-    bimestres.forEach(bimestre => {
-        const dados = calcularNotasBimestre(nomeAluno, bimestre);
-
-        saldoNotas += dados.saldoNotas;
-        ativos = ativos.concat(dados.ativos);
-        deficit += dados.deficit;
-        superavit += dados.superavit;
-        estaveis += dados.estaveis;
-
-        if(!isNaN(dados.frequenciaAnual)){
-            ultimaFrequenciaAnual = dados.frequenciaAnual;
-        }
-    });
-
-    const listaOcorrencias = pegarOcorrenciasAluno(nomeAluno, raAluno);
-    const descontoOcorrencias = listaOcorrencias.length * DESCONTO_POR_OCORRENCIA;
-
-    const ajustesGerais = filtrarAjustesPorPeriodo(serieAtual, periodo);
-    const saldoAjustesGerais = ajustesGerais.reduce((total, item) => {
-        return total + Number(item.valorFinal || 0);
-    }, 0);
-
-    const fatorFrequencia = calcularFatorFrequencia(saldoNotas, ultimaFrequenciaAnual);
-    const saldoTotal = saldoNotas + saldoAjustesGerais - descontoOcorrencias + fatorFrequencia.valor;
-
-    return {
-        saldoNotas,
-        saldoAjustesGerais,
-        descontoOcorrencias,
-        fatorFrequencia,
-        saldoTotal,
-        ativos,
-        deficit,
-        superavit,
-        estaveis,
-        ocorrencias: listaOcorrencias,
-        ajustesGerais,
-        frequenciaAnual: ultimaFrequenciaAnual,
-        periodo
-    };
-}
-
-async function entrarAluno(){
-    const erro = document.getElementById("erroLogin");
-
-    erro.style.display = "none";
-    erro.innerHTML = "";
-    mostrarCarregando(true);
-
-    try{
-        serieAtual = document.getElementById("loginSala").value;
-
-        const ra = document.getElementById("loginRA").value;
-        const senha = document.getElementById("loginSenha").value;
-
-        await carregarCadastroAlunos();
-        await carregarDadosSala(serieAtual);
-        await carregarOcorrencias();
-        await carregarVillaniBank();
-
-        const cadastro = encontrarCadastroPorRA(ra);
-
-        if(!cadastro){
-            throw new Error("RA não encontrado no cadastro.");
-        }
-
-        const senhaCorreta = gerarSenhaAluno(cadastro);
-
-        if(senha !== senhaCorreta){
-            throw new Error("Senha incorreta. Use a primeira letra do nome maiúscula + nascimento + #.");
-        }
-
-        const nomeCadastro = pegarCampo(cadastro, ["nome", "Nome", "Nome do Aluno"]);
-        const boletim = encontrarBoletimPorRAOuNome(ra, nomeCadastro);
-
-        if(!boletim){
-            throw new Error("Aluno encontrado no cadastro, mas não encontrado nos arquivos desta sala.");
-        }
-
-        alunoLogado = boletim;
-        alunoCadastroLogado = cadastro;
-
-        document.getElementById("loginTela").classList.add("oculto");
-        document.getElementById("contaTela").classList.remove("oculto");
-
-        renderizarConta();
-
-    }catch(e){
-        erro.innerHTML = escaparHTML(e.message);
-        erro.style.display = "block";
-    }finally{
-        mostrarCarregando(false);
-    }
-}
-
-function renderizarConta(){
-    const periodo = document.getElementById("periodoConta").value;
-    const conteudo = document.getElementById("conteudoConta");
-    const dadosAluno = document.getElementById("dadosAluno");
-
-    const ra = pegarCampo(alunoCadastroLogado, ["ra", "RA"]) || alunoLogado.ra || "-";
-    const tutor = pegarCampo(alunoCadastroLogado, ["tutor", "Tutor"]) || alunoLogado.tutor || "-";
-    const fotoId = pegarCampo(alunoCadastroLogado, ["foto", "Foto"]);
-    const foto = montarFoto(fotoId);
-
-    const conta = calcularContaAcademica(alunoLogado.nome, ra, periodo);
-
-    dadosAluno.innerHTML = `
-        ${foto ? `<img class="foto" src="${foto}">` : `<div class="sem-foto">?</div>`}
-
-        <div>
-            <strong style="font-size:21px;">${escaparHTML(alunoLogado.nome)}</strong><br>
-
-            <div class="aluno-tags">
-                <span class="tag">RA: ${escaparHTML(ra)}</span>
-                <span class="tag">Tutor: ${escaparHTML(tutor)}</span>
-                <span class="tag">Sala: ${escaparHTML(serieAtual.toUpperCase())}</span>
-            </div>
-        </div>
-    `;
-
-    let status = "Carteira acadêmica estável";
-
-    if(conta.deficit >= 4){
-        status = "Alto risco de déficit acadêmico";
-    }else if(conta.superavit > conta.deficit){
-        status = "Superávit acadêmico";
-    }else if(conta.deficit > 0){
-        status = "Atenção a ativos em baixa";
-    }
-
-    let carteiraHTML = `
-    <div class="card">
-        <h3>Carteira de Disciplinas</h3>
-
-        <table>
-            <tr>
-                <th>Bimestre</th>
-                <th>Disciplina</th>
-                <th>Nota</th>
-                <th>Valor</th>
-                <th>Situação</th>
-            </tr>
-    `;
-
-    if(conta.ativos.length === 0){
-        carteiraHTML += `<tr><td colspan="5">Nenhuma nota encontrada para este período.</td></tr>`;
-    }else{
-        conta.ativos.forEach(item => {
-            const classe = item.situacao === "Déficit"
-                ? "baixa"
-                : item.situacao === "Superávit"
-                    ? "alta"
-                    : "estavel";
-
-            carteiraHTML += `
-            <tr>
-                <td>${item.bimestre}º</td>
-                <td>${escaparHTML(item.disciplina)}</td>
-                <td class="${classe}">${escaparHTML(item.nota)}</td>
-                <td>${formatarTC(item.valor)}</td>
-                <td class="${classe}">${escaparHTML(item.situacao)}</td>
-            </tr>
-            `;
-        });
-    }
-
-    carteiraHTML += `</table></div>`;
-
-    let ajustesHTML = `
-    <div class="card">
-        <h3>Movimentações Gerais da Sala</h3>
-
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Bimestre</th>
-                <th>Tipo</th>
-                <th>Valor</th>
-                <th>Motivo</th>
-            </tr>
-    `;
-
-    if(conta.ajustesGerais.length === 0){
-        ajustesHTML += `<tr><td colspan="5">Nenhum déficit ou superávit geral lançado para esta sala.</td></tr>`;
-    }else{
-        conta.ajustesGerais.forEach(item => {
-            ajustesHTML += `
-            <tr>
-                <td>${escaparHTML(item.data)}</td>
-                <td>${escaparHTML(item.bimestre)}</td>
-                <td class="${item.valorFinal >= 0 ? "alta" : "baixa"}">${escaparHTML(item.tipo)}</td>
-                <td class="${item.valorFinal >= 0 ? "alta" : "baixa"}">${formatarTC(item.valorFinal)}</td>
-                <td>${escaparHTML(item.motivo)}</td>
-            </tr>
-            `;
-        });
-    }
-
-    ajustesHTML += `</table></div>`;
-
-    let ocorrenciasHTML = `
-    <div class="card">
-        <h3>Ocorrências Individuais</h3>
-
-        <p>
-            Quantidade encontrada:
-            <strong>${conta.ocorrencias.length}</strong>.
-            Cada ocorrência desconta
-            <strong class="baixa">${DESCONTO_POR_OCORRENCIA} TC</strong>.
-        </p>
-
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Descrição</th>
-                <th>Desconto</th>
-            </tr>
-    `;
-
-    if(conta.ocorrencias.length === 0){
-        ocorrenciasHTML += `<tr><td colspan="3">Nenhuma ocorrência encontrada.</td></tr>`;
-    }else{
-        conta.ocorrencias.forEach(item => {
-            ocorrenciasHTML += `
-            <tr>
-                <td>${escaparHTML(formatarDataBR(pegarDataOcorrencia(item)))}</td>
-                <td>${escaparHTML(pegarDescricaoOcorrencia(item) || "-")}</td>
-                <td class="baixa">-${formatarTC(DESCONTO_POR_OCORRENCIA)}</td>
-            </tr>
-            `;
-        });
-    }
-
-    ocorrenciasHTML += `</table></div>`;
-
-    conteudo.innerHTML = `
-        <div class="card saldo-card">
-            <div class="saldo-top">
-                <div>
-                    <div class="saldo-label">
-                        Saldo acadêmico disponível
-                        <button class="btn-info" onclick="abrirInfo('saldo')">?</button>
-                    </div>
-
-                    <div class="saldo-valor">${formatarTC(conta.saldoTotal)}</div>
-                    <div class="saldo-status">${escaparHTML(status)}</div>
-                </div>
-
-                <div class="mini-card-brand">
-                    <img src="logoescola.jpeg" alt="Logo da escola">
-                    <strong>VillaniBank Card</strong>
-                    <span>${escaparHTML(alunoLogado.nome)}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Saldo das notas
-                    <button class="btn-info" onclick="abrirInfo('tc')">?</button>
-                </div>
-                <strong>${formatarTC(conta.saldoNotas)}</strong>
-            </div>
-
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Ajuste geral da sala
-                    <button class="btn-info" onclick="abrirInfo('superavit')">?</button>
-                </div>
-                <strong class="${conta.saldoAjustesGerais >= 0 ? "alta" : "baixa"}">
-                    ${formatarTC(conta.saldoAjustesGerais)}
-                </strong>
-            </div>
-
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Ocorrências
-                    <button class="btn-info" onclick="abrirInfo('ocorrencias')">?</button>
-                </div>
-                <strong class="baixa">-${formatarTC(conta.descontoOcorrencias)}</strong>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Frequência anual
-                    <button class="btn-info" onclick="abrirInfo('frequencia')">?</button>
-                </div>
-                <strong class="${conta.fatorFrequencia.classe}">
-                    ${isNaN(conta.frequenciaAnual) ? "-" : conta.frequenciaAnual + "%"}
-                </strong>
-            </div>
-
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Valorização/Desvalorização
-                    <button class="btn-info" onclick="abrirInfo('frequencia')">?</button>
-                </div>
-                <strong class="${conta.fatorFrequencia.classe}">
-                    ${formatarTC(conta.fatorFrequencia.valor)}
-                </strong>
-                <div class="muted">${escaparHTML(conta.fatorFrequencia.status)}</div>
-            </div>
-
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Período
-                    <button class="btn-info" onclick="abrirInfo('tc')">?</button>
-                </div>
-                <strong>${periodo === "anual" ? "Anual" : periodo + "º"}</strong>
-            </div>
-        </div>
-
-        <div class="grid">
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Ativos em superávit
-                    <button class="btn-info" onclick="abrirInfo('superavit')">?</button>
-                </div>
-                <strong class="alta">${conta.superavit}</strong>
-            </div>
-
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Ativos estáveis
-                </div>
-                <strong class="estavel">${conta.estaveis}</strong>
-            </div>
-
-            <div class="indicador">
-                <div class="indicador-topo">
-                    Ativos em déficit
-                    <button class="btn-info" onclick="abrirInfo('deficit')">?</button>
-                </div>
-                <strong class="baixa">${conta.deficit}</strong>
-            </div>
-        </div>
-
-        ${carteiraHTML}
-        ${ajustesHTML}
-        ${ocorrenciasHTML}
-    `;
-}
-
-function sair(){
-    alunoLogado = null;
-    alunoCadastroLogado = null;
-
-    document.getElementById("contaTela").classList.add("oculto");
-    document.getElementById("loginTela").classList.remove("oculto");
-    document.getElementById("loginSenha").value = "";
-}
-</script>
-
-</body>
-</html>
+   
