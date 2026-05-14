@@ -159,7 +159,7 @@
       },
       "Empreendedorismo": {
         "codigo": 50424,
-        "numero": null,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 2
@@ -173,7 +173,7 @@
       },
       "HISTORIA": {
         "codigo": 2200,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 2
@@ -187,21 +187,21 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 2
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": null,
+        "numero": 5,
         "media": 2,
         "faltas": 0,
         "acumulado": 2
       },
       "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
         "codigo": 55208,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 2
@@ -229,7 +229,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 2
@@ -869,7 +869,7 @@
     },
     "totais": {
       "faltas_acumuladas": 56,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 56,
       "frequencia_anual": 82
     }
@@ -909,7 +909,7 @@
       },
       "Empreendedorismo": {
         "codigo": 50424,
-        "numero": null,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 8
@@ -923,7 +923,7 @@
       },
       "HISTORIA": {
         "codigo": 2200,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 8
@@ -937,21 +937,21 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 8
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 8
       },
       "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
         "codigo": 55208,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 8
@@ -979,7 +979,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 8
@@ -1744,7 +1744,7 @@
     },
     "totais": {
       "faltas_acumuladas": 52,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 52,
       "frequencia_anual": 83
     }
@@ -2152,9 +2152,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 18
       },
       "Empreendedorismo": {
@@ -2619,7 +2619,7 @@
     },
     "totais": {
       "faltas_acumuladas": 61,
-      "frequencia": 85,
+      "frequencia": 86,
       "faltas_anual": 60,
       "frequencia_anual": 83
     }
@@ -2744,7 +2744,7 @@
     },
     "totais": {
       "faltas_acumuladas": 32,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 32,
       "frequencia_anual": 91
     }
@@ -3159,7 +3159,7 @@
       },
       "Empreendedorismo": {
         "codigo": 50424,
-        "numero": null,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 26
@@ -3173,7 +3173,7 @@
       },
       "HISTORIA": {
         "codigo": 2200,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 26
@@ -3187,21 +3187,21 @@
       },
       "LINGUA_PORTUGUESA": {
         "codigo": 1100,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 26
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": null,
+        "numero": 5,
         "media": 5,
         "faltas": 0,
         "acumulado": 26
       },
       "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
         "codigo": 55208,
-        "numero": null,
+        "numero": 5,
         "media": 1,
         "faltas": 0,
         "acumulado": 26
@@ -3229,7 +3229,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 26
@@ -3244,7 +3244,7 @@
     },
     "totais": {
       "faltas_acumuladas": 19,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 19,
       "frequencia_anual": 94
     }
@@ -3369,7 +3369,7 @@
     },
     "totais": {
       "faltas_acumuladas": 31,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 31,
       "frequencia_anual": 91
     }
