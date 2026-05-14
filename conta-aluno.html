@@ -15,12 +15,13 @@
     --text:#172033;
     --muted:#64748b;
     --primary:#1d4ed8;
-    --primary-dark:#172554;
+    --primary-dark:#0f172a;
     --success:#15803d;
     --danger:#b91c1c;
     --warning:#b45309;
-    --shadow:0 18px 45px rgba(15,23,42,0.12);
-    --radius:14px;
+    --gold:#f8c94a;
+    --shadow:0 18px 45px rgba(15,23,42,0.14);
+    --radius:16px;
 }
 
 *{
@@ -31,115 +32,281 @@ body{
     margin:0;
     font-family:Arial, Helvetica, sans-serif;
     background:
-        radial-gradient(circle at top left, rgba(29,78,216,0.14), transparent 34%),
+        radial-gradient(circle at top left, rgba(248,201,74,0.18), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(29,78,216,0.18), transparent 32%),
         linear-gradient(180deg, #f8fafc 0%, var(--bg) 100%);
     color:var(--text);
-    padding:18px;
+    min-height:100vh;
+}
+
+button,
+input,
+select{
+    font-family:inherit;
+}
+
+button{
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    transition:0.18s ease;
+}
+
+button:hover{
+    transform:translateY(-1px);
+    filter:brightness(0.98);
+}
+
+button:disabled{
+    opacity:0.6;
+    cursor:not-allowed;
+    transform:none;
 }
 
 .container{
-    max-width:1220px;
+    max-width:1240px;
     margin:auto;
+    padding:18px;
 }
 
 .card{
-    background:var(--surface);
-    border:1px solid var(--border);
+    background:rgba(255,255,255,0.94);
+    border:1px solid rgba(217,226,236,0.95);
     border-radius:var(--radius);
     padding:18px;
     box-shadow:var(--shadow);
     margin-bottom:16px;
 }
 
+.login-page{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.login-shell{
+    width:100%;
+    max-width:1060px;
+    min-height:620px;
+    display:grid;
+    grid-template-columns:1.08fr 0.92fr;
+    background:white;
+    border:1px solid rgba(217,226,236,0.95);
+    border-radius:28px;
+    overflow:hidden;
+    box-shadow:0 30px 90px rgba(15,23,42,0.22);
+}
+
+.login-brand-panel{
+    position:relative;
+    padding:38px;
+    color:white;
+    background:
+        linear-gradient(135deg, rgba(15,23,42,0.96), rgba(29,78,216,0.92)),
+        radial-gradient(circle at top left, rgba(248,201,74,0.34), transparent 34%);
+    overflow:hidden;
+}
+
+.login-brand-panel:before{
+    content:"";
+    position:absolute;
+    width:360px;
+    height:360px;
+    border-radius:50%;
+    right:-135px;
+    top:-90px;
+    background:rgba(255,255,255,0.10);
+}
+
+.login-brand-panel:after{
+    content:"";
+    position:absolute;
+    width:230px;
+    height:230px;
+    border-radius:50%;
+    left:-90px;
+    bottom:-80px;
+    border:1px solid rgba(255,255,255,0.20);
+}
+
+.bank-badge{
+    position:relative;
+    z-index:1;
+    display:inline-flex;
+    align-items:center;
+    gap:16px;
+    padding:12px 16px;
+    border:1px solid rgba(255,255,255,0.22);
+    border-radius:22px;
+    background:rgba(255,255,255,0.10);
+    backdrop-filter:blur(10px);
+}
+
+.brand-seal{
+    width:94px;
+    height:94px;
+    border-radius:50%;
+    padding:7px;
+    background:linear-gradient(135deg, white, #f8c94a);
+    box-shadow:0 18px 40px rgba(0,0,0,0.26);
+}
+
+.brand-seal img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    background:white;
+}
+
+.bank-name{
+    line-height:1.05;
+}
+
+.bank-name span{
+    display:block;
+    font-size:13px;
+    letter-spacing:1.6px;
+    text-transform:uppercase;
+    color:rgba(255,255,255,0.72);
+    font-weight:bold;
+}
+
+.bank-name strong{
+    display:block;
+    font-size:31px;
+}
+
+.login-copy{
+    position:relative;
+    z-index:1;
+    margin-top:58px;
+    max-width:520px;
+}
+
+.login-copy h1{
+    margin:0;
+    font-size:44px;
+    line-height:1.06;
+    letter-spacing:0;
+}
+
+.login-copy p{
+    margin:18px 0 0;
+    color:rgba(255,255,255,0.78);
+    font-size:16px;
+    line-height:1.55;
+}
+
+.login-proof{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:12px;
+    margin-top:42px;
+}
+
+.proof-item{
+    padding:14px;
+    border-radius:16px;
+    background:rgba(255,255,255,0.10);
+    border:1px solid rgba(255,255,255,0.16);
+}
+
+.proof-item strong{
+    display:block;
+    color:var(--gold);
+    font-size:20px;
+    margin-bottom:4px;
+}
+
+.proof-item span{
+    color:rgba(255,255,255,0.74);
+    font-size:12px;
+    font-weight:bold;
+}
+
+.login-form-panel{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:38px;
+    background:
+        linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
 .login-card{
-    max-width:480px;
-    margin:42px auto;
+    width:100%;
+    max-width:420px;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:12px;
+.login-card h2{
+    margin:0 0 8px;
+    font-size:27px;
 }
 
-.logo{
-    width:54px;
-    height:54px;
-    object-fit:cover;
-    border-radius:14px;
-    border:1px solid var(--border);
-    background:white;
-}
-
-.logo-grande{
-    width:72px;
-    height:72px;
-    object-fit:cover;
-    border-radius:18px;
-    border:1px solid var(--border);
-    background:white;
-}
-
-.topo{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:12px;
-    flex-wrap:wrap;
-    background:white;
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:16px 18px;
-    margin-bottom:16px;
-    box-shadow:var(--shadow);
-}
-
-h1,h2,h3{
-    margin-top:0;
-}
-
-h2{
-    margin-bottom:6px;
+.login-card .muted{
+    margin-bottom:22px;
 }
 
 label{
     display:block;
     font-size:13px;
     font-weight:bold;
-    margin:12px 0 6px;
+    margin:14px 0 7px;
+    color:#334155;
 }
 
 input,
 select{
     width:100%;
-    padding:12px;
+    padding:13px 14px;
     border:1px solid var(--border);
-    border-radius:10px;
-    font-family:inherit;
+    border-radius:12px;
     color:var(--text);
     background:white;
+    outline:none;
+    transition:0.18s ease;
 }
 
-button{
-    border:none;
-    border-radius:10px;
-    padding:11px 16px;
+input:focus,
+select:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(29,78,216,0.12);
+}
+
+.input-row{
+    position:relative;
+}
+
+.input-icon{
+    position:absolute;
+    left:13px;
+    top:50%;
+    transform:translateY(-50%);
+    color:var(--muted);
     font-weight:bold;
-    cursor:pointer;
-    font-family:inherit;
 }
 
-button:disabled{
-    opacity:0.6;
-    cursor:not-allowed;
+.input-row input{
+    padding-left:40px;
 }
 
 .btn-primary{
-    background:var(--primary);
+    width:100%;
+    padding:14px 18px;
+    border-radius:12px;
+    background:linear-gradient(135deg, var(--primary), #172554);
     color:white;
+    box-shadow:0 14px 28px rgba(29,78,216,0.26);
 }
 
 .btn-soft{
+    padding:11px 16px;
+    border-radius:12px;
     background:#e2e8f0;
     color:var(--text);
 }
@@ -152,22 +319,96 @@ button:disabled{
     background:#dbeafe;
     color:var(--primary);
     font-weight:bold;
+    flex:0 0 auto;
 }
 
 .erro{
     display:none;
-    margin-top:12px;
+    margin-top:14px;
     background:#fee2e2;
     border:1px solid #fecaca;
     color:#991b1b;
-    padding:10px;
-    border-radius:10px;
+    padding:11px;
+    border-radius:12px;
     font-size:13px;
     font-weight:bold;
 }
 
 .oculto{
     display:none;
+}
+
+.app-topbar{
+    background:
+        linear-gradient(135deg, #0f172a, #1d4ed8);
+    color:white;
+    border-radius:22px;
+    padding:18px;
+    margin-bottom:16px;
+    box-shadow:0 24px 60px rgba(15,23,42,0.20);
+}
+
+.app-topbar-inner{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.logo-wrap{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    padding:5px;
+    background:linear-gradient(135deg, #ffffff, var(--gold));
+    box-shadow:0 12px 28px rgba(0,0,0,0.24);
+}
+
+.logo-wrap img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:50%;
+    background:white;
+}
+
+.app-title h2{
+    margin:0;
+    font-size:25px;
+}
+
+.app-title div{
+    margin-top:3px;
+    color:rgba(255,255,255,0.76);
+    font-size:13px;
+    font-weight:bold;
+}
+
+.app-controls{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:center;
+}
+
+.app-controls select{
+    min-width:180px;
+    border-color:rgba(255,255,255,0.28);
+}
+
+.aluno-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+    flex-wrap:wrap;
 }
 
 .aluno-resumo{
@@ -180,7 +421,7 @@ button:disabled{
 .foto{
     width:92px;
     height:92px;
-    border-radius:18px;
+    border-radius:22px;
     object-fit:cover;
     border:3px solid white;
     box-shadow:0 8px 20px rgba(15,23,42,0.16);
@@ -194,38 +435,71 @@ button:disabled{
     align-items:center;
     justify-content:center;
     color:var(--danger);
-    border-radius:18px;
+    border-radius:22px;
     border:1px solid var(--border);
     font-size:26px;
 }
 
+.aluno-tags{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-top:8px;
+}
+
+.tag{
+    display:inline-flex;
+    align-items:center;
+    border-radius:999px;
+    padding:6px 10px;
+    background:#eff6ff;
+    color:#1d4ed8;
+    font-size:12px;
+    font-weight:bold;
+}
+
 .saldo-card{
-    background:linear-gradient(135deg, #0f172a, #1d4ed8);
+    background:
+        linear-gradient(135deg, rgba(15,23,42,0.98), rgba(29,78,216,0.94)),
+        radial-gradient(circle at right top, rgba(248,201,74,0.28), transparent 30%);
     color:white;
     border:none;
     position:relative;
     overflow:hidden;
+    min-height:190px;
 }
 
 .saldo-card:after{
     content:"";
     position:absolute;
-    right:-80px;
+    right:-75px;
     top:-80px;
-    width:220px;
-    height:220px;
+    width:230px;
+    height:230px;
     background:rgba(255,255,255,0.12);
     border-radius:50%;
+}
+
+.saldo-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:16px;
+    position:relative;
+    z-index:1;
 }
 
 .saldo-label{
     color:rgba(255,255,255,0.78);
     font-size:14px;
     margin-bottom:8px;
+    display:flex;
+    gap:8px;
+    align-items:center;
 }
 
 .saldo-valor{
-    font-size:42px;
+    font-size:46px;
     font-weight:bold;
     margin-bottom:10px;
 }
@@ -239,6 +513,37 @@ button:disabled{
     font-size:13px;
 }
 
+.mini-card-brand{
+    position:relative;
+    z-index:1;
+    width:210px;
+    min-height:115px;
+    border-radius:18px;
+    padding:14px;
+    background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.18);
+    backdrop-filter:blur(10px);
+}
+
+.mini-card-brand img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    background:white;
+}
+
+.mini-card-brand strong{
+    display:block;
+    margin-top:16px;
+    font-size:13px;
+}
+
+.mini-card-brand span{
+    color:rgba(255,255,255,0.76);
+    font-size:12px;
+}
+
 .grid{
     display:grid;
     grid-template-columns:repeat(3, minmax(0, 1fr));
@@ -247,10 +552,11 @@ button:disabled{
 }
 
 .indicador{
-    background:var(--surface-soft);
+    background:var(--surface);
     border:1px solid var(--border);
-    border-radius:12px;
-    padding:14px;
+    border-radius:14px;
+    padding:15px;
+    box-shadow:0 8px 22px rgba(15,23,42,0.06);
 }
 
 .indicador-topo{
@@ -258,12 +564,15 @@ button:disabled{
     justify-content:space-between;
     gap:8px;
     align-items:center;
+    color:#334155;
+    font-size:13px;
+    font-weight:bold;
 }
 
 .indicador strong{
     display:block;
-    font-size:22px;
-    margin-top:6px;
+    font-size:23px;
+    margin-top:8px;
 }
 
 table{
@@ -281,7 +590,7 @@ table{
 th,td{
     border-right:1px solid var(--border);
     border-bottom:1px solid var(--border);
-    padding:8px;
+    padding:9px;
     text-align:center;
 }
 
@@ -295,7 +604,7 @@ td:last-child{
 }
 
 th{
-    background:var(--primary);
+    background:#1d4ed8;
     color:white;
 }
 
@@ -329,14 +638,33 @@ th{
     text-align:center;
     color:#0f172a;
     font-weight:bold;
-    font-size:22px;
 }
 
 .loading-box{
     background:white;
-    padding:26px 34px;
-    border-radius:18px;
+    padding:28px 34px;
+    border-radius:20px;
     box-shadow:0 30px 80px rgba(15,23,42,0.25);
+    min-width:260px;
+}
+
+.loading-logo{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:14px;
+    border:4px solid #dbeafe;
+}
+
+.loading-text{
+    font-size:21px;
+}
+
+.loading-sub{
+    margin-top:6px;
+    color:var(--muted);
+    font-size:13px;
 }
 
 .popup{
@@ -353,8 +681,8 @@ th{
     width:95%;
     max-width:560px;
     margin:70px auto;
-    border-radius:18px;
-    padding:22px;
+    border-radius:20px;
+    padding:24px;
     box-shadow:0 30px 80px rgba(0,0,0,0.28);
 }
 
@@ -362,21 +690,86 @@ th{
     line-height:1.55;
 }
 
+@media(max-width:900px){
+    .login-shell{
+        grid-template-columns:1fr;
+    }
+
+    .login-brand-panel{
+        padding:28px;
+    }
+
+    .login-copy{
+        margin-top:34px;
+    }
+
+    .login-copy h1{
+        font-size:34px;
+    }
+
+    .login-proof{
+        grid-template-columns:1fr;
+    }
+}
+
 @media(max-width:760px){
-    body{
+    .container,
+    .login-page{
         padding:10px;
+    }
+
+    .login-shell{
+        border-radius:20px;
+    }
+
+    .bank-badge{
+        align-items:flex-start;
+    }
+
+    .brand-seal{
+        width:78px;
+        height:78px;
+    }
+
+    .bank-name strong{
+        font-size:25px;
+    }
+
+    .login-copy h1{
+        font-size:30px;
+    }
+
+    .login-form-panel{
+        padding:24px;
     }
 
     .grid{
         grid-template-columns:1fr;
     }
 
-    .saldo-valor{
-        font-size:31px;
+    .saldo-top{
+        flex-direction:column;
     }
 
-    .topo{
+    .saldo-valor{
+        font-size:34px;
+    }
+
+    .mini-card-brand{
+        width:100%;
+    }
+
+    .app-topbar-inner{
         align-items:flex-start;
+    }
+
+    .app-controls{
+        width:100%;
+    }
+
+    .app-controls select,
+    .app-controls button{
+        width:100%;
     }
 
     table{
@@ -392,7 +785,9 @@ th{
 
 <div id="loading" class="loading">
     <div class="loading-box">
-        Carregando dados...
+        <img class="loading-logo" src="logoescola.jpeg" alt="Logo da escola">
+        <div class="loading-text">Carregando dados...</div>
+        <div class="loading-sub">Validando sua conta acadêmica</div>
     </div>
 </div>
 
@@ -404,85 +799,135 @@ th{
     </div>
 </div>
 
-<div class="container">
+<div id="loginTela" class="login-page">
+    <div class="login-shell">
 
-<div id="loginTela" class="card login-card">
-    <div class="brand">
-        <img class="logo-grande" src="logoescola.jpeg" alt="Logo da escola">
-        <div>
-            <h2>VillaniBank</h2>
-            <div class="muted">Conta acadêmica individual</div>
-        </div>
+        <section class="login-brand-panel">
+            <div class="bank-badge">
+                <div class="brand-seal">
+                    <img src="logoescola.jpeg" alt="Logo da escola">
+                </div>
+
+                <div class="bank-name">
+                    <span>Banco Acadêmico</span>
+                    <strong>VillaniBank</strong>
+                </div>
+            </div>
+
+            <div class="login-copy">
+                <h1>Sua vida escolar em formato de conta digital.</h1>
+                <p>
+                    Acompanhe seu saldo em TC, veja seus ativos acadêmicos,
+                    entenda déficits, superávits, ocorrências e valorização por frequência.
+                </p>
+            </div>
+
+            <div class="login-proof">
+                <div class="proof-item">
+                    <strong>TC</strong>
+                    <span>Therezinha Coin</span>
+                </div>
+
+                <div class="proof-item">
+                    <strong>Extrato</strong>
+                    <span>Notas e movimentações</span>
+                </div>
+
+                <div class="proof-item">
+                    <strong>Conta</strong>
+                    <span>Individual e anual</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="login-form-panel">
+            <div class="login-card">
+                <h2>Acessar conta</h2>
+                <div class="muted">Entre com RA e senha para consultar seu VillaniBank.</div>
+
+                <label>Sala</label>
+                <select id="loginSala">
+                    <option value="6a">6º Ano A</option>
+                    <option value="6b">6º Ano B</option>
+                    <option value="6c">6º Ano C</option>
+                    <option value="7a">7º Ano A</option>
+                    <option value="7b">7º Ano B</option>
+                    <option value="7c">7º Ano C</option>
+                    <option value="8a">8º Ano A</option>
+                    <option value="8b">8º Ano B</option>
+                    <option value="8c">8º Ano C</option>
+                    <option value="9a">9º Ano A</option>
+                    <option value="9b">9º Ano B</option>
+                    <option value="9c">9º Ano C</option>
+                    <option value="1a">1º Ano A</option>
+                    <option value="1b">1º Ano B</option>
+                    <option value="1c">1º Ano C</option>
+                    <option value="1d">1º Ano D</option>
+                    <option value="2a">2º Ano A</option>
+                    <option value="2b">2º Ano B</option>
+                    <option value="3a">3º Ano A</option>
+                </select>
+
+                <label>RA</label>
+                <div class="input-row">
+                    <span class="input-icon">ID</span>
+                    <input id="loginRA" type="text" placeholder="Digite seu RA">
+                </div>
+
+                <label>Senha</label>
+                <div class="input-row">
+                    <span class="input-icon">#</span>
+                    <input id="loginSenha" type="password" placeholder="Exemplo: J07081997#">
+                </div>
+
+                <div style="margin-top:18px;">
+                    <button id="btnEntrar" class="btn-primary" onclick="entrarAluno()">Entrar no VillaniBank</button>
+                </div>
+
+                <div id="erroLogin" class="erro"></div>
+            </div>
+        </section>
+
     </div>
-
-    <label>Sala</label>
-    <select id="loginSala">
-        <option value="6a">6º Ano A</option>
-        <option value="6b">6º Ano B</option>
-        <option value="6c">6º Ano C</option>
-        <option value="7a">7º Ano A</option>
-        <option value="7b">7º Ano B</option>
-        <option value="7c">7º Ano C</option>
-        <option value="8a">8º Ano A</option>
-        <option value="8b">8º Ano B</option>
-        <option value="8c">8º Ano C</option>
-        <option value="9a">9º Ano A</option>
-        <option value="9b">9º Ano B</option>
-        <option value="9c">9º Ano C</option>
-        <option value="1a">1º Ano A</option>
-        <option value="1b">1º Ano B</option>
-        <option value="1c">1º Ano C</option>
-        <option value="1d">1º Ano D</option>
-        <option value="2a">2º Ano A</option>
-        <option value="2b">2º Ano B</option>
-        <option value="3a">3º Ano A</option>
-    </select>
-
-    <label>RA</label>
-    <input id="loginRA" type="text" placeholder="Digite seu RA">
-
-    <label>Senha</label>
-    <input id="loginSenha" type="password" placeholder="Exemplo: J07081997#">
-
-    <div style="margin-top:16px;">
-        <button id="btnEntrar" class="btn-primary" onclick="entrarAluno()">Entrar</button>
-    </div>
-
-    <div id="erroLogin" class="erro"></div>
 </div>
 
 <div id="contaTela" class="oculto">
+    <div class="container">
 
-    <div class="topo">
-        <div class="brand">
-            <img class="logo" src="logoescola.jpeg" alt="Logo da escola">
-            <div>
-                <h2>VillaniBank</h2>
-                <div class="muted">Painel financeiro acadêmico</div>
+        <div class="app-topbar">
+            <div class="app-topbar-inner">
+                <div class="brand">
+                    <div class="logo-wrap">
+                        <img src="logoescola.jpeg" alt="Logo da escola">
+                    </div>
+
+                    <div class="app-title">
+                        <h2>VillaniBank</h2>
+                        <div>Conta acadêmica digital</div>
+                    </div>
+                </div>
+
+                <div class="app-controls">
+                    <select id="periodoConta" onchange="renderizarConta()">
+                        <option value="anual">Extrato Anual</option>
+                        <option value="1">1º Bimestre</option>
+                        <option value="2">2º Bimestre</option>
+                        <option value="3">3º Bimestre</option>
+                        <option value="4">4º Bimestre</option>
+                    </select>
+
+                    <button class="btn-soft" onclick="sair()">Sair</button>
+                </div>
             </div>
         </div>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <select id="periodoConta" onchange="renderizarConta()">
-                <option value="anual">Extrato Anual</option>
-                <option value="1">1º Bimestre</option>
-                <option value="2">2º Bimestre</option>
-                <option value="3">3º Bimestre</option>
-                <option value="4">4º Bimestre</option>
-            </select>
-
-            <button class="btn-soft" onclick="sair()">Sair</button>
+        <div class="card aluno-card">
+            <div id="dadosAluno" class="aluno-resumo"></div>
         </div>
+
+        <div id="conteudoConta"></div>
+
     </div>
-
-    <div class="card">
-        <div id="dadosAluno" class="aluno-resumo"></div>
-    </div>
-
-    <div id="conteudoConta"></div>
-
-</div>
-
 </div>
 
 <script>
@@ -1128,10 +1573,13 @@ function renderizarConta(){
         ${foto ? `<img class="foto" src="${foto}">` : `<div class="sem-foto">?</div>`}
 
         <div>
-            <strong style="font-size:20px;">${escaparHTML(alunoLogado.nome)}</strong><br>
-            RA: ${escaparHTML(ra)}<br>
-            Tutor: ${escaparHTML(tutor)}<br>
-            Sala: ${escaparHTML(serieAtual.toUpperCase())}
+            <strong style="font-size:21px;">${escaparHTML(alunoLogado.nome)}</strong><br>
+
+            <div class="aluno-tags">
+                <span class="tag">RA: ${escaparHTML(ra)}</span>
+                <span class="tag">Tutor: ${escaparHTML(tutor)}</span>
+                <span class="tag">Sala: ${escaparHTML(serieAtual.toUpperCase())}</span>
+            </div>
         </div>
     `;
 
@@ -1252,19 +1700,30 @@ function renderizarConta(){
 
     conteudo.innerHTML = `
         <div class="card saldo-card">
-            <div class="saldo-label">
-                Saldo acadêmico disponível
-                <button class="btn-info" onclick="abrirInfo('saldo')">i</button>
+            <div class="saldo-top">
+                <div>
+                    <div class="saldo-label">
+                        Saldo acadêmico disponível
+                        <button class="btn-info" onclick="abrirInfo('saldo')">?</button>
+                    </div>
+
+                    <div class="saldo-valor">${formatarTC(conta.saldoTotal)}</div>
+                    <div class="saldo-status">${escaparHTML(status)}</div>
+                </div>
+
+                <div class="mini-card-brand">
+                    <img src="logoescola.jpeg" alt="Logo da escola">
+                    <strong>VillaniBank Card</strong>
+                    <span>${escaparHTML(alunoLogado.nome)}</span>
+                </div>
             </div>
-            <div class="saldo-valor">${formatarTC(conta.saldoTotal)}</div>
-            <div class="saldo-status">${escaparHTML(status)}</div>
         </div>
 
         <div class="grid">
             <div class="indicador">
                 <div class="indicador-topo">
                     Saldo das notas
-                    <button class="btn-info" onclick="abrirInfo('tc')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('tc')">?</button>
                 </div>
                 <strong>${formatarTC(conta.saldoNotas)}</strong>
             </div>
@@ -1272,7 +1731,7 @@ function renderizarConta(){
             <div class="indicador">
                 <div class="indicador-topo">
                     Ajuste geral da sala
-                    <button class="btn-info" onclick="abrirInfo('superavit')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('superavit')">?</button>
                 </div>
                 <strong class="${conta.saldoAjustesGerais >= 0 ? "alta" : "baixa"}">
                     ${formatarTC(conta.saldoAjustesGerais)}
@@ -1282,7 +1741,7 @@ function renderizarConta(){
             <div class="indicador">
                 <div class="indicador-topo">
                     Ocorrências
-                    <button class="btn-info" onclick="abrirInfo('ocorrencias')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('ocorrencias')">?</button>
                 </div>
                 <strong class="baixa">-${formatarTC(conta.descontoOcorrencias)}</strong>
             </div>
@@ -1292,7 +1751,7 @@ function renderizarConta(){
             <div class="indicador">
                 <div class="indicador-topo">
                     Frequência anual
-                    <button class="btn-info" onclick="abrirInfo('frequencia')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('frequencia')">?</button>
                 </div>
                 <strong class="${conta.fatorFrequencia.classe}">
                     ${isNaN(conta.frequenciaAnual) ? "-" : conta.frequenciaAnual + "%"}
@@ -1302,7 +1761,7 @@ function renderizarConta(){
             <div class="indicador">
                 <div class="indicador-topo">
                     Valorização/Desvalorização
-                    <button class="btn-info" onclick="abrirInfo('frequencia')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('frequencia')">?</button>
                 </div>
                 <strong class="${conta.fatorFrequencia.classe}">
                     ${formatarTC(conta.fatorFrequencia.valor)}
@@ -1313,7 +1772,7 @@ function renderizarConta(){
             <div class="indicador">
                 <div class="indicador-topo">
                     Período
-                    <button class="btn-info" onclick="abrirInfo('tc')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('tc')">?</button>
                 </div>
                 <strong>${periodo === "anual" ? "Anual" : periodo + "º"}</strong>
             </div>
@@ -1323,20 +1782,22 @@ function renderizarConta(){
             <div class="indicador">
                 <div class="indicador-topo">
                     Ativos em superávit
-                    <button class="btn-info" onclick="abrirInfo('superavit')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('superavit')">?</button>
                 </div>
                 <strong class="alta">${conta.superavit}</strong>
             </div>
 
             <div class="indicador">
-                Ativos estáveis
+                <div class="indicador-topo">
+                    Ativos estáveis
+                </div>
                 <strong class="estavel">${conta.estaveis}</strong>
             </div>
 
             <div class="indicador">
                 <div class="indicador-topo">
                     Ativos em déficit
-                    <button class="btn-info" onclick="abrirInfo('deficit')">i</button>
+                    <button class="btn-info" onclick="abrirInfo('deficit')">?</button>
                 </div>
                 <strong class="baixa">${conta.deficit}</strong>
             </div>
