@@ -550,7 +550,7 @@
     },
     "totais": {
       "faltas_acumuladas": 55,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 55,
       "frequencia_anual": 84
     }
@@ -861,9 +861,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 4,
+        "faltas": 0,
         "acumulado": 7
       },
       "Empreendedorismo": {
@@ -962,11 +962,11 @@
         "numero": 4,
         "media": 10,
         "faltas": 0,
-        "acumulado": 96
+        "acumulado": 100
       }
     },
     "totais": {
-      "faltas_acumuladas": 96,
+      "faltas_acumuladas": 100,
       "frequencia": 78,
       "faltas_anual": 96,
       "frequencia_anual": 73
@@ -1245,7 +1245,7 @@
     },
     "totais": {
       "faltas_acumuladas": 64,
-      "frequencia": 85,
+      "frequencia": 86,
       "faltas_anual": 64,
       "frequencia_anual": 80
     }
@@ -1384,7 +1384,7 @@
     },
     "totais": {
       "faltas_acumuladas": 52,
-      "frequencia": 88,
+      "frequencia": 89,
       "faltas_anual": 52,
       "frequencia_anual": 84
     }
@@ -1633,7 +1633,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 7,
         "media": 2,
         "faltas": 0,
         "acumulado": 12
@@ -1662,7 +1662,7 @@
     },
     "totais": {
       "faltas_acumuladas": 46,
-      "frequencia": 89,
+      "frequencia": 90,
       "faltas_anual": 46,
       "frequencia_anual": 87
     }
@@ -2496,7 +2496,7 @@
     },
     "totais": {
       "faltas_acumuladas": 11,
-      "frequencia": 97,
+      "frequencia": 98,
       "faltas_anual": 11,
       "frequencia_anual": 97
     }
@@ -2529,9 +2529,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 19
       },
       "Empreendedorismo": {
@@ -3085,9 +3085,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 23
       },
       "Empreendedorismo": {
@@ -3134,7 +3134,7 @@
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 23
@@ -3162,7 +3162,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 6,
         "media": 0,
         "faltas": 0,
         "acumulado": 23
@@ -3224,9 +3224,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 24
       },
       "Empreendedorismo": {
@@ -3273,7 +3273,7 @@
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": null,
+        "numero": 4,
         "media": 0,
         "faltas": 0,
         "acumulado": 24
@@ -3301,7 +3301,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 5,
         "media": 0,
         "faltas": 0,
         "acumulado": 24
@@ -3363,9 +3363,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 8,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 25
       },
       "Empreendedorismo": {
@@ -3412,7 +3412,7 @@
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": null,
+        "numero": 6,
         "media": 0,
         "faltas": 0,
         "acumulado": 25
@@ -3440,7 +3440,7 @@
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": null,
+        "numero": 7,
         "media": 0,
         "faltas": 0,
         "acumulado": 25
