@@ -522,7 +522,7 @@
     },
     "totais": {
       "faltas_acumuladas": 38,
-      "frequencia": 91,
+      "frequencia": 92,
       "faltas_anual": 38,
       "frequencia_anual": 89
     }
@@ -786,7 +786,7 @@
     },
     "totais": {
       "faltas_acumuladas": 47,
-      "frequencia": 89,
+      "frequencia": 90,
       "faltas_anual": 43,
       "frequencia_anual": 87
     }
@@ -1542,7 +1542,7 @@
       },
       "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
         "codigo": 55208,
-        "numero": null,
+        "numero": 4,
         "media": 1,
         "faltas": 0,
         "acumulado": 12
@@ -2502,7 +2502,7 @@
     },
     "totais": {
       "faltas_acumuladas": 33,
-      "frequencia": 92,
+      "frequencia": 93,
       "faltas_anual": 31,
       "frequencia_anual": 91
     }
@@ -2634,7 +2634,7 @@
     },
     "totais": {
       "faltas_acumuladas": 73,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 73,
       "frequencia_anual": 75
     }
@@ -2766,7 +2766,7 @@
     },
     "totais": {
       "faltas_acumuladas": 56,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 52,
       "frequencia_anual": 85
     }
@@ -2898,7 +2898,7 @@
     },
     "totais": {
       "faltas_acumuladas": 20,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 20,
       "frequencia_anual": 93
     }
@@ -2938,9 +2938,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 23
       },
       "FILOSOFIA": {
@@ -3690,7 +3690,7 @@
     },
     "totais": {
       "faltas_acumuladas": 29,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 25,
       "frequencia_anual": 93
     }
@@ -3954,7 +3954,7 @@
     },
     "totais": {
       "faltas_acumuladas": 162,
-      "frequencia": 62,
+      "frequencia": 64,
       "faltas_anual": 158,
       "frequencia_anual": 53
     }
@@ -4218,7 +4218,7 @@
     },
     "totais": {
       "faltas_acumuladas": 98,
-      "frequencia": 77,
+      "frequencia": 78,
       "faltas_anual": 89,
       "frequencia_anual": 74
     }
@@ -4258,9 +4258,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 33
       },
       "FILOSOFIA": {
@@ -4482,7 +4482,7 @@
     },
     "totais": {
       "faltas_acumuladas": 50,
-      "frequencia": 88,
+      "frequencia": 89,
       "faltas_anual": 50,
       "frequencia_anual": 83
     }
@@ -4614,7 +4614,7 @@
     },
     "totais": {
       "faltas_acumuladas": 55,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 55,
       "frequencia_anual": 84
     }
@@ -4786,9 +4786,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 37
       },
       "FILOSOFIA": {
