@@ -88,10 +88,10 @@ button:disabled{
 
 .login-shell{
     width:100%;
-    max-width:1060px;
-    min-height:620px;
+    max-width:1180px;
+    min-height:660px;
     display:grid;
-    grid-template-columns:1.08fr 0.92fr;
+    grid-template-columns:1.15fr 0.85fr;
     background:white;
     border:1px solid rgba(217,226,236,0.95);
     border-radius:28px;
@@ -136,21 +136,24 @@ button:disabled{
     z-index:1;
     display:inline-flex;
     align-items:center;
-    gap:16px;
-    padding:12px 16px;
-    border:1px solid rgba(255,255,255,0.22);
-    border-radius:22px;
+    gap:28px;
+    padding:28px 36px;
+    border:2px solid rgba(255,255,255,0.24);
+    border-radius:54px;
     background:rgba(255,255,255,0.10);
     backdrop-filter:blur(10px);
+    width:100%;
+    max-width:900px;
 }
 
 .brand-seal{
-    width:94px;
-    height:94px;
+    width:240px;
+    height:240px;
     border-radius:50%;
-    padding:7px;
+    padding:16px;
     background:linear-gradient(135deg, white, #f8c94a);
-    box-shadow:0 18px 40px rgba(0,0,0,0.26);
+    box-shadow:0 22px 48px rgba(0,0,0,0.30);
+    flex:0 0 auto;
 }
 
 .brand-seal img{
@@ -167,8 +170,8 @@ button:disabled{
 
 .bank-name span{
     display:block;
-    font-size:13px;
-    letter-spacing:1.6px;
+    font-size:28px;
+    letter-spacing:7px;
     text-transform:uppercase;
     color:rgba(255,255,255,0.72);
     font-weight:bold;
@@ -176,19 +179,19 @@ button:disabled{
 
 .bank-name strong{
     display:block;
-    font-size:31px;
+    font-size:72px;
 }
 
 .login-copy{
     position:relative;
     z-index:1;
-    margin-top:58px;
-    max-width:520px;
+    margin-top:44px;
+    max-width:620px;
 }
 
 .login-copy h1{
     margin:0;
-    font-size:44px;
+    font-size:42px;
     line-height:1.06;
     letter-spacing:0;
 }
@@ -206,7 +209,7 @@ button:disabled{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
     gap:12px;
-    margin-top:42px;
+    margin-top:34px;
 }
 
 .proof-item{
@@ -723,16 +726,26 @@ th{
     }
 
     .bank-badge{
-        align-items:flex-start;
+        flex-direction:column;
+        align-items:center;
+        text-align:center;
+        padding:24px;
+        gap:16px;
+        border-radius:36px;
     }
 
     .brand-seal{
-        width:78px;
-        height:78px;
+        width:130px;
+        height:130px;
     }
 
     .bank-name strong{
-        font-size:25px;
+        font-size:38px;
+    }
+
+    .bank-name span{
+        font-size:14px;
+        letter-spacing:3px;
     }
 
     .login-copy h1{
