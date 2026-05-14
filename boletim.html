@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 2.2</title>
+<title>Boletim Escolar 2.3</title>
 
 <style>
 :root{
@@ -664,20 +664,66 @@ function pegarBaseAlunos(){
     return [];
 }
 
-function pegarAlunoBimestre(nomeAluno, n){
+function pegarAlunoBimestre(alunoReferencia, n){
     const dados = dadosBimestres[n];
 
     if(!dados) return null;
 
-    return Object.values(dados)
-        .find(a =>
-            normalizar(a.nome) === normalizar(nomeAluno)
+    const nomeReferencia = typeof alunoReferencia === "string"
+        ? alunoReferencia
+        : alunoReferencia?.nome;
+
+    const numeroReferencia = typeof alunoReferencia === "object"
+        ? alunoReferencia?.numero
+        : null;
+
+    const situacaoReferencia = typeof alunoReferencia === "object"
+        ? alunoReferencia?.situacao
+        : "";
+
+    const encontrados = Object.values(dados)
+        .filter(a =>
+            normalizar(a.nome) === normalizar(nomeReferencia)
         );
+
+    if(encontrados.length === 0){
+        return null;
+    }
+
+    if(
+        numeroReferencia !== null &&
+        numeroReferencia !== undefined &&
+        numeroReferencia !== ""
+    ){
+        const mesmoNumero = encontrados.find(a =>
+            String(a.numero) === String(numeroReferencia)
+        );
+
+        if(mesmoNumero){
+            return mesmoNumero;
+        }
+    }
+
+    if(alunoAtivo(situacaoReferencia)){
+        const ativo = encontrados.find(a => alunoAtivo(a.situacao));
+
+        if(ativo){
+            return ativo;
+        }
+    }
+
+    const ativo = encontrados.find(a => alunoAtivo(a.situacao));
+
+    if(ativo){
+        return ativo;
+    }
+
+    return encontrados[0];
 }
 
-function pegarAlunoQualquerBimestre(nomeAluno){
+function pegarAlunoQualquerBimestre(alunoReferencia){
     for(let b = 1; b <= 4; b++){
-        const aluno = pegarAlunoBimestre(nomeAluno, b);
+        const aluno = pegarAlunoBimestre(alunoReferencia, b);
 
         if(aluno){
             return aluno;
@@ -687,11 +733,11 @@ function pegarAlunoQualquerBimestre(nomeAluno){
     return null;
 }
 
-function pegarDisciplinasAluno(nomeAluno){
+function pegarDisciplinasAluno(alunoReferencia){
     const disciplinas = [];
 
     for(let b = 1; b <= 4; b++){
-        const aluno = pegarAlunoBimestre(nomeAluno, b);
+        const aluno = pegarAlunoBimestre(alunoReferencia, b);
 
         if(!aluno || !aluno.disciplinas) continue;
 
@@ -882,9 +928,9 @@ function montarOcorrencias(nomeAluno, raAluno){
     return html;
 }
 
-function montarTabelaUnica(nomeAluno){
-    const alunoReferencia = pegarAlunoQualquerBimestre(nomeAluno);
-    const disciplinas = pegarDisciplinasAluno(nomeAluno);
+function montarTabelaUnica(alunoBaseBoletim){
+    const alunoReferencia = pegarAlunoQualquerBimestre(alunoBaseBoletim);
+    const disciplinas = pegarDisciplinasAluno(alunoBaseBoletim);
 
     if(!alunoReferencia || disciplinas.length === 0){
         return `
@@ -928,7 +974,7 @@ function montarTabelaUnica(nomeAluno){
         html += `<td>${escaparHTML(disciplina)}</td>`;
 
         for(let b = 1; b <= 4; b++){
-            const aluno = pegarAlunoBimestre(nomeAluno, b);
+            const aluno = pegarAlunoBimestre(alunoBaseBoletim, b);
 
             if(!dadosBimestres[b]){
                 html += `
@@ -984,7 +1030,7 @@ function montarTabelaUnica(nomeAluno){
     html += `</table>`;
 
     for(let b = 1; b <= 4; b++){
-        const aluno = pegarAlunoBimestre(nomeAluno, b);
+        const aluno = pegarAlunoBimestre(alunoBaseBoletim, b);
 
         html += `<br>`;
         html += `<strong>📘 ${b}° Bimestre</strong><br>`;
@@ -1129,7 +1175,7 @@ function mostrarAluno(index){
 
             <br>
 
-            ${montarTabelaUnica(a.nome)}
+            ${montarTabelaUnica(a)}
         </div>
     </div>
     `;
