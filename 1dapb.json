@@ -390,7 +390,7 @@
     },
     "totais": {
       "faltas_acumuladas": 15,
-      "frequencia": 96,
+      "frequencia": 97,
       "faltas_anual": 15,
       "frequencia_anual": 95
     }
@@ -654,7 +654,7 @@
     },
     "totais": {
       "faltas_acumuladas": 132,
-      "frequencia": 68,
+      "frequencia": 70,
       "faltas_anual": 128,
       "frequencia_anual": 60
     }
@@ -918,7 +918,7 @@
     },
     "totais": {
       "faltas_acumuladas": 103,
-      "frequencia": 75,
+      "frequencia": 76,
       "faltas_anual": 100,
       "frequencia_anual": 71
     }
@@ -1486,9 +1486,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 7,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 12
       },
       "FILOSOFIA": {
@@ -1618,9 +1618,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 13
       },
       "FILOSOFIA": {
@@ -1710,7 +1710,7 @@
     },
     "totais": {
       "faltas_acumuladas": 75,
-      "frequencia": 82,
+      "frequencia": 83,
       "faltas_anual": 75,
       "frequencia_anual": 78
     }
@@ -1974,7 +1974,7 @@
     },
     "totais": {
       "faltas_acumuladas": 134,
-      "frequencia": 68,
+      "frequencia": 69,
       "faltas_anual": 130,
       "frequencia_anual": 62
     }
@@ -2278,9 +2278,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 5,
+        "media": 2,
+        "faltas": 0,
         "acumulado": 18
       },
       "FILOSOFIA": {
@@ -2365,11 +2365,11 @@
         "numero": 8,
         "media": 6,
         "faltas": 0,
-        "acumulado": 61
+        "acumulado": 63
       }
     },
     "totais": {
-      "faltas_acumuladas": 61,
+      "faltas_acumuladas": 63,
       "frequencia": 85,
       "faltas_anual": 61,
       "frequencia_anual": 82
@@ -2766,7 +2766,7 @@
     },
     "totais": {
       "faltas_acumuladas": 61,
-      "frequencia": 85,
+      "frequencia": 86,
       "faltas_anual": 57,
       "frequencia_anual": 83
     }
@@ -3070,9 +3070,9 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": null,
-        "media": null,
-        "faltas": null,
+        "numero": 6,
+        "media": 0,
+        "faltas": 0,
         "acumulado": 24
       },
       "FILOSOFIA": {
@@ -3162,7 +3162,7 @@
     },
     "totais": {
       "faltas_acumuladas": 36,
-      "frequencia": 91,
+      "frequencia": 92,
       "faltas_anual": 36,
       "frequencia_anual": 89
     }
@@ -3294,7 +3294,7 @@
     },
     "totais": {
       "faltas_acumuladas": 91,
-      "frequencia": 78,
+      "frequencia": 79,
       "faltas_anual": 91,
       "frequencia_anual": 72
     }
@@ -3426,7 +3426,7 @@
     },
     "totais": {
       "faltas_acumuladas": 57,
-      "frequencia": 86,
+      "frequencia": 87,
       "faltas_anual": 57,
       "frequencia_anual": 82
     }
@@ -4086,7 +4086,7 @@
     },
     "totais": {
       "faltas_acumuladas": 71,
-      "frequencia": 83,
+      "frequencia": 84,
       "faltas_anual": 67,
       "frequencia_anual": 80
     }
@@ -5274,7 +5274,7 @@
     },
     "totais": {
       "faltas_acumuladas": 19,
-      "frequencia": 95,
+      "frequencia": 96,
       "faltas_anual": 19,
       "frequencia_anual": 94
     }
@@ -5670,7 +5670,7 @@
     },
     "totais": {
       "faltas_acumuladas": 54,
-      "frequencia": 87,
+      "frequencia": 88,
       "faltas_anual": 52,
       "frequencia_anual": 85
     }
@@ -5802,7 +5802,7 @@
     },
     "totais": {
       "faltas_acumuladas": 28,
-      "frequencia": 93,
+      "frequencia": 94,
       "faltas_anual": 28,
       "frequencia_anual": 91
     }
@@ -6726,7 +6726,7 @@
     },
     "totais": {
       "faltas_acumuladas": 61,
-      "frequencia": 85,
+      "frequencia": 86,
       "faltas_anual": 61,
       "frequencia_anual": 81
     }
@@ -7530,14 +7530,14 @@
     "disciplinas": {
       "ARTE": {
         "codigo": 1813,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
       },
       "BIOLOGIA": {
         "codigo": 2400,
-        "numero": 4,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
@@ -7558,14 +7558,14 @@
       },
       "ELETIVAS": {
         "codigo": 8465,
-        "numero": 10,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
       },
       "FILOSOFIA": {
         "codigo": 3100,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
@@ -7586,14 +7586,14 @@
       },
       "HISTORIA": {
         "codigo": 2200,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
       },
       "LINGUA_INGLESA": {
         "codigo": 8467,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
@@ -7607,7 +7607,7 @@
       },
       "MATEMATICA": {
         "codigo": 2700,
-        "numero": 5,
+        "numero": null,
         "media": 2,
         "faltas": 0,
         "acumulado": 59
@@ -7621,14 +7621,14 @@
       },
       "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
         "codigo": 55207,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
       },
       "PROJETO_DE_VIDA": {
         "codigo": 8441,
-        "numero": 5,
+        "numero": null,
         "media": 0,
         "faltas": 0,
         "acumulado": 59
@@ -7653,6 +7653,138 @@
       "frequencia": 98,
       "faltas_anual": 7,
       "frequencia_anual": 98
+    }
+  },
+  "60": {
+    "numero": 60,
+    "nome": "LORRAINY VICTÓRIA CARVALHO LEITE",
+    "situacao": "Ativo",
+    "disciplinas": {
+      "ARTE": {
+        "codigo": 1813,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "BIOLOGIA": {
+        "codigo": 2400,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "EDUCAÇAO_FINANCEIRA": {
+        "codigo": 52000,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "EDUCACAO_FISICA": {
+        "codigo": 1900,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "ELETIVAS": {
+        "codigo": 8465,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "FILOSOFIA": {
+        "codigo": 3100,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "FISICA": {
+        "codigo": 2600,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "GEOGRAFIA": {
+        "codigo": 2100,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "HISTORIA": {
+        "codigo": 2200,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "LINGUA_INGLESA": {
+        "codigo": 8467,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "LINGUA_PORTUGUESA": {
+        "codigo": 1100,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "MATEMATICA": {
+        "codigo": 2700,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "ORIENTAÇAO_DE_ESTUDO_-_LINGUA_PORTUGUESA": {
+        "codigo": 55208,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 60
+      },
+      "ORIENTAÇAO_DE_ESTUDO_-_MATEMATICA": {
+        "codigo": 55207,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "PROJETO_DE_VIDA": {
+        "codigo": 8441,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "QUIMICA": {
+        "codigo": 2800,
+        "numero": null,
+        "media": 0,
+        "faltas": 0,
+        "acumulado": 60
+      },
+      "REDAÇAO_E_LEITURA": {
+        "codigo": 52001,
+        "numero": null,
+        "media": null,
+        "faltas": null,
+        "acumulado": 0
+      }
+    },
+    "totais": {
+      "faltas_acumuladas": 0,
+      "frequencia": 100,
+      "faltas_anual": 0,
+      "frequencia_anual": 100
     }
   }
 }
