@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 2.1</title>
+<title>Boletim Escolar 2.2</title>
 
 <style>
 :root{
@@ -138,6 +138,11 @@ button{
     display:flex;
     gap:16px;
     box-shadow:var(--shadow);
+}
+
+.aluno-status-inativo{
+    background:#fee2e2;
+    border-color:#fecaca;
 }
 
 .foto{
@@ -441,6 +446,10 @@ function normalizar(t){
         .replace(/[\u0300-\u036f]/g, "")
         .replace(/\s+/g, " ")
         .trim();
+}
+
+function alunoAtivo(situacao){
+    return normalizar(situacao) === "ativo";
 }
 
 function normalizarRA(ra){
@@ -1093,9 +1102,11 @@ function mostrarAluno(index){
 
     const raAluno = alunoBase?.ra || a.ra || "";
     const tutorAluno = alunoBase?.tutor || a.tutor || "-";
+    const situacaoAluno = a.situacao || alunoBase?.situacao || "Não informada";
+    const classeSituacao = alunoAtivo(situacaoAluno) ? "" : "aluno-status-inativo";
 
     box.innerHTML = `
-    <div class="aluno">
+    <div class="aluno ${classeSituacao}">
         ${fotoHTML}
 
         <div class="info">
@@ -1109,7 +1120,7 @@ function mostrarAluno(index){
 
             Situação:
             <strong>
-            ${escaparHTML(a.situacao || "Não informada")}
+            ${escaparHTML(situacaoAluno)}
             </strong><br>
 
             ${montarEletivas(alunoBase)}
@@ -1156,6 +1167,8 @@ function gerarDashboard(){
 
     Object.values(dados).forEach(aluno => {
         let qtdNotasBaixas = 0;
+        const notasBaixasAluno = [];
+        const alunoEstaAtivo = alunoAtivo(aluno.situacao || "ativo");
 
         for(let disc in aluno.disciplinas){
             const d = aluno.disciplinas[disc];
@@ -1176,18 +1189,27 @@ function gerarDashboard(){
                 d.numero === null ||
                 isNaN(nota)
             ){
-                disciplinas[disc].sem++;
-                alunosSemNota.push(`${aluno.nome} - ${disc}`);
+                if(alunoEstaAtivo){
+                    disciplinas[disc].sem++;
+                    alunosSemNota.push(`${aluno.nome} - ${disc}`);
+                }
             }else if(nota < 5){
                 disciplinas[disc].ruins++;
                 qtdNotasBaixas++;
+                notasBaixasAluno.push({
+                    disciplina: disc,
+                    nota: d.numero
+                });
             }else{
                 disciplinas[disc].boas++;
             }
         }
 
         if(qtdNotasBaixas >= 4){
-            alunosRisco.push(aluno.nome);
+            alunosRisco.push({
+                nome: aluno.nome,
+                notas: notasBaixasAluno
+            });
         }
     });
 
@@ -1229,14 +1251,22 @@ function gerarDashboard(){
         <table>
             <tr>
                 <th>Aluno</th>
+                <th>Disciplinas e Notas Vermelhas</th>
             </tr>
         `;
 
         alunosRisco.forEach(a => {
+            const notasHTML = a.notas.map(item => {
+                return `${escaparHTML(item.disciplina)}: <span class="baixa-nota">${escaparHTML(item.nota)}</span>`;
+            }).join("<br>");
+
             riscoHTML += `
             <tr>
                 <td class="baixa-nota">
-                    ${escaparHTML(a)}
+                    ${escaparHTML(a.nome)}
+                </td>
+                <td>
+                    ${notasHTML}
                 </td>
             </tr>
             `;
