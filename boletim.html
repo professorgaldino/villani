@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Boletim Escolar 2.3</title>
+<title>Boletim Escolar 2.4</title>
 
 <style>
 :root{
@@ -110,6 +110,58 @@ button{
 .btn-aluno.ativo{
     background:var(--success);
     box-shadow:0 6px 14px rgba(22,163,74,0.28);
+}
+
+.busca-aluno-box{
+    margin-bottom:18px;
+    background:rgba(255,255,255,0.92);
+    border:1px solid rgba(217,226,236,0.95);
+    border-radius:var(--radius);
+    padding:14px;
+    box-shadow:var(--shadow);
+}
+
+.busca-aluno-box label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    color:var(--muted);
+    margin-bottom:8px;
+}
+
+.busca-aluno-input{
+    width:100%;
+    padding:12px 14px;
+    border:1px solid var(--border);
+    border-radius:10px;
+    outline:none;
+    font-size:14px;
+}
+
+.busca-aluno-input:focus{
+    border-color:var(--primary);
+    box-shadow:0 0 0 4px rgba(37,99,235,0.12);
+}
+
+.resultado-busca{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:10px;
+}
+
+.resultado-busca button{
+    border:none;
+    border-radius:999px;
+    padding:8px 12px;
+    background:#eff6ff;
+    color:#1d4ed8;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.resultado-busca button:hover{
+    background:#dbeafe;
 }
 
 .btn-dashboard{
@@ -378,6 +430,19 @@ th{
 </div>
 
 <div id="navegacaoAlunos" class="navegacao-alunos"></div>
+
+<div class="busca-aluno-box">
+    <label>Buscar aluno pelo nome</label>
+    <input
+        id="buscaAluno"
+        class="busca-aluno-input"
+        type="text"
+        placeholder="Digite parte do nome. Ex: joao, maria, ana..."
+        oninput="buscarAlunoRapido()"
+        onkeydown="atalhoBuscaAluno(event)"
+    >
+    <div id="resultadoBuscaAluno" class="resultado-busca"></div>
+</div>
 
 <div style="margin-bottom:15px;">
     <button onclick="abrirDashboard()" class="btn-dashboard">
@@ -754,6 +819,8 @@ function pegarDisciplinasAluno(alunoReferencia){
 async function carregar(){
     const box = document.getElementById("boletim");
     const nav = document.getElementById("navegacaoAlunos");
+    const busca = document.getElementById("buscaAluno");
+    const resultadoBusca = document.getElementById("resultadoBuscaAluno");
 
     box.innerHTML = `
     <div class="nao-lancado">
@@ -762,6 +829,10 @@ async function carregar(){
     `;
 
     nav.innerHTML = "";
+
+    if(busca) busca.value = "";
+    if(resultadoBusca) resultadoBusca.innerHTML = "";
+
     dadosBimestres = {};
     ocorrencias = [];
     ocorrenciasCarregadas = false;
@@ -1085,6 +1156,144 @@ function montarTabelaUnica(alunoBaseBoletim){
     }
 
     return html;
+}
+
+function distanciaTexto(a, b){
+    a = normalizar(a);
+    b = normalizar(b);
+
+    const matriz = [];
+
+    for(let i = 0; i <= b.length; i++){
+        matriz[i] = [i];
+    }
+
+    for(let j = 0; j <= a.length; j++){
+        matriz[0][j] = j;
+    }
+
+    for(let i = 1; i <= b.length; i++){
+        for(let j = 1; j <= a.length; j++){
+            if(b.charAt(i - 1) === a.charAt(j - 1)){
+                matriz[i][j] = matriz[i - 1][j - 1];
+            }else{
+                matriz[i][j] = Math.min(
+                    matriz[i - 1][j - 1] + 1,
+                    matriz[i][j - 1] + 1,
+                    matriz[i - 1][j] + 1
+                );
+            }
+        }
+    }
+
+    return matriz[b.length][a.length];
+}
+
+function pontuarBuscaAluno(nome, termo){
+    const nomeNormalizado = normalizar(nome);
+    const termoNormalizado = normalizar(termo);
+
+    if(!termoNormalizado) return 999;
+
+    if(nomeNormalizado === termoNormalizado) return 0;
+
+    if(nomeNormalizado.includes(termoNormalizado)) return 1;
+
+    const partes = nomeNormalizado.split(" ");
+
+    if(partes.some(p => p.startsWith(termoNormalizado))){
+        return 2;
+    }
+
+    const menorDistanciaParte = Math.min(
+        ...partes.map(p => distanciaTexto(p, termoNormalizado))
+    );
+
+    if(menorDistanciaParte <= 2){
+        return 3;
+    }
+
+    const distanciaNomeCompleto = distanciaTexto(nomeNormalizado, termoNormalizado);
+
+    if(distanciaNomeCompleto <= 3){
+        return 4;
+    }
+
+    return 999;
+}
+
+function buscarAlunoRapido(){
+    const input = document.getElementById("buscaAluno");
+    const resultado = document.getElementById("resultadoBuscaAluno");
+
+    if(!input || !resultado) return;
+
+    const termo = input.value.trim();
+    const base = pegarBaseAlunos();
+
+    resultado.innerHTML = "";
+
+    if(termo.length < 2 || base.length === 0){
+        return;
+    }
+
+    const encontrados = base
+        .map((aluno, index) => ({
+            aluno,
+            index,
+            score: pontuarBuscaAluno(aluno.nome, termo)
+        }))
+        .filter(item => item.score < 999)
+        .sort((a, b) => {
+            if(a.score !== b.score) return a.score - b.score;
+
+            return normalizar(a.aluno.nome).localeCompare(
+                normalizar(b.aluno.nome)
+            );
+        })
+        .slice(0, 10);
+
+    if(encontrados.length === 0){
+        resultado.innerHTML = `
+        <span class="nao-lancado">
+            Nenhum aluno encontrado
+        </span>
+        `;
+        return;
+    }
+
+    encontrados.forEach(item => {
+        resultado.innerHTML += `
+        <button onclick="abrirAlunoBusca(${item.index})">
+            ${escaparHTML(item.aluno.nome)}
+        </button>
+        `;
+    });
+}
+
+function abrirAlunoBusca(index){
+    mostrarAluno(index);
+
+    const input = document.getElementById("buscaAluno");
+    const resultado = document.getElementById("resultadoBuscaAluno");
+
+    if(input) input.value = "";
+    if(resultado) resultado.innerHTML = "";
+
+    document.getElementById("boletim").scrollIntoView({
+        behavior:"smooth",
+        block:"start"
+    });
+}
+
+function atalhoBuscaAluno(event){
+    if(event.key !== "Enter") return;
+
+    const primeiro = document.querySelector("#resultadoBuscaAluno button");
+
+    if(primeiro){
+        primeiro.click();
+    }
 }
 
 function montarNavegacao(){
