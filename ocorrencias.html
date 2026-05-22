@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Registro de Ocorrências 39</title>
+<title>Registro de Ocorrências 40</title>
 
 <style>
   body {
@@ -36,6 +36,7 @@
 
   input, select, textarea {
     width: 100%;
+    box-sizing: border-box;
     padding: 10px;
     margin-top: 5px;
     border-radius: 6px;
@@ -70,7 +71,7 @@
 
   <label>Selecione a Sala</label>
   <select id="salaSelect">
-    <option>Carregando salas...</option>
+    <option value="">Carregando salas...</option>
   </select>
 
   <label>Selecione o Aluno</label>
@@ -116,45 +117,65 @@ const salaSelect = document.getElementById("salaSelect");
 const alunoSelect = document.getElementById("alunoSelect");
 const botao = document.getElementById("btnEnviar");
 
-// ============================
-// CORREÇÃO DE ACENTUAÇÃO
-// ============================
 function corrigirTexto(msg) {
   return msg
     .replace(/OCORRENCIA/g, "OCORRÊNCIA")
+    .replace(/Ocorrencia/g, "Ocorrência")
     .replace(/Descricao/g, "Descrição")
     .replace(/Acao/g, "Ação");
 }
 
-// ============================
-// CACHE
-// ============================
 function carregarAlunos() {
   const cache = localStorage.getItem(CACHE_KEY);
-  const cacheTime = localStorage.getItem(CACHE_KEY + "_time");
+  const cacheTime = Number(localStorage.getItem(CACHE_KEY + "_time"));
 
-  if (cache && cacheTime && (Date.now() - cacheTime < CACHE_TIME)) {
-    alunosExternos = JSON.parse(cache);
-    montarSalas();
-    return;
+  if (cache && cacheTime && Date.now() - cacheTime < CACHE_TIME) {
+    try {
+      alunosExternos = JSON.parse(cache);
+      montarSalas();
+      return;
+    } catch (e) {
+      localStorage.removeItem(CACHE_KEY);
+      localStorage.removeItem(CACHE_KEY + "_time");
+    }
   }
 
   fetch(ALUNOS_URL)
-    .then(res => res.json())
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro ao buscar alunos");
+      }
+      return res.json();
+    })
     .then(data => {
-      alunosExternos = data;
-      localStorage.setItem(CACHE_KEY, JSON.stringify(data));
-      localStorage.setItem(CACHE_KEY + "_time", Date.now());
+      alunosExternos = Array.isArray(data) ? data : [];
+
+      localStorage.setItem(CACHE_KEY, JSON.stringify(alunosExternos));
+      localStorage.setItem(CACHE_KEY + "_time", Date.now().toString());
+
       montarSalas();
     })
-    .catch(() => {
-      salaSelect.innerHTML = '<option>Erro ao carregar salas</option>';
+    .catch(err => {
+      console.error(err);
+      salaSelect.innerHTML = '<option value="">Erro ao carregar salas</option>';
+      alunoSelect.innerHTML = '<option value="">Escolha um aluno</option>';
     });
 }
 
 function montarSalas() {
-  const salas = [...new Set(alunosExternos.map(a => a.sala).filter(Boolean))].sort();
+  const salas = [...new Set(
+    alunosExternos
+      .map(a => a.sala)
+      .filter(Boolean)
+  )].sort();
+
   salaSelect.innerHTML = '<option value="">Escolha uma sala</option>';
+
+  if (salas.length === 0) {
+    salaSelect.innerHTML = '<option value="">Nenhuma sala encontrada</option>';
+    return;
+  }
+
   salas.forEach(sala => {
     const opt = document.createElement("option");
     opt.value = sala;
@@ -163,18 +184,20 @@ function montarSalas() {
   });
 }
 
-salaSelect.addEventListener("change", function(){
+salaSelect.addEventListener("change", function() {
   const selectedSala = this.value;
+
   alunoSelect.innerHTML = '<option value="">Escolha um aluno</option>';
 
   alunosExternos
     .filter(a => a.sala === selectedSala)
+    .sort((a, b) => String(a.nome || "").localeCompare(String(b.nome || "")))
     .forEach(aluno => {
       const opt = document.createElement("option");
-      opt.value = aluno.ra;
-      opt.textContent = aluno.nome;
-      opt.dataset.tutor = aluno.tutor;
-      opt.dataset.nome = aluno.nome;
+      opt.value = aluno.ra || "";
+      opt.textContent = aluno.nome || "Aluno sem nome";
+      opt.dataset.tutor = aluno.tutor || "";
+      opt.dataset.nome = aluno.nome || "";
       alunoSelect.appendChild(opt);
     });
 
@@ -182,30 +205,27 @@ salaSelect.addEventListener("change", function(){
   document.getElementById("ra").value = "";
 });
 
-alunoSelect.addEventListener("change", function(){
+alunoSelect.addEventListener("change", function() {
   const selected = this.options[this.selectedIndex];
+
   document.getElementById("tutor").value = selected.dataset.tutor || "";
   document.getElementById("ra").value = selected.value || "";
 });
 
-// ============================
-// ENVIO
-// ============================
 function enviar() {
-
   if (enviando) return;
 
   const sala = salaSelect.value;
   const ra = document.getElementById("ra").value;
   const tutor = document.getElementById("tutor").value;
-  const nome = alunoSelect.selectedOptions[0]?.dataset.nome;
-  const professor = document.getElementById("professor").value;
-  const descricao = document.getElementById("descricao").value;
-  const acao = document.getElementById("acao").value;
+  const nome = alunoSelect.selectedOptions[0]?.dataset.nome || "";
+  const professor = document.getElementById("professor").value.trim();
+  const descricao = document.getElementById("descricao").value.trim();
+  const acao = document.getElementById("acao").value.trim();
   const dataFato = document.getElementById("dataFato").value;
   const horaFato = document.getElementById("horaFato").value;
 
-  if(!sala || !ra || !professor || !descricao || !dataFato || !horaFato){
+  if (!sala || !ra || !nome || !professor || !descricao || !dataFato || !horaFato) {
     alert("Preencha todos os campos obrigatórios!");
     return;
   }
@@ -215,7 +235,7 @@ function enviar() {
   botao.innerText = "Enviando...";
 
   const [ano, mes, dia] = dataFato.split("-");
-  const dataFormatada = ${dia}/${mes}/${ano};
+  const dataFormatada = `${dia}/${mes}/${ano}`;
 
   const formData = new URLSearchParams({
     sala,
@@ -229,58 +249,55 @@ function enviar() {
     horaFato
   });
 
-  fetch(WEBAPP_URL + "?action=registrar&" + formData.toString())
-  .then(res => res.json())
-  .then(data => {
+  fetch(`${WEBAPP_URL}?action=registrar&${formData.toString()}`)
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Erro na comunicação com o servidor");
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (data.status === "duplicado") {
+        alert("Essa ocorrência já foi registrada anteriormente.");
+        return;
+      }
 
-    if (data.status === "duplicado") {
-      alert("⚠️ Essa ocorrência já foi registrada anteriormente.");
-      return;
-    }
+      if (data.status !== "ok") {
+        throw new Error(data.message || "Erro no servidor");
+      }
 
-    if (data.status !== "ok") {
-      throw new Error("Erro no servidor");
-    }
+      if (!data.whatsapp) {
+        throw new Error("Link do WhatsApp não foi retornado pelo servidor");
+      }
 
-    const link = data.whatsapp;
+      abrirWhatsApp(data.whatsapp);
+    })
+    .catch(err => {
+      alert("Erro ao enviar: " + err.message);
+    })
+    .finally(() => {
+      enviando = false;
+      botao.disabled = false;
+      botao.innerText = "Enviar Ocorrência";
+    });
+}
 
-    // 🔥 REGEX CORRIGIDO (não pega lixo)
-    const match = link.match(/wa\.me\/(\d+)\?text=([^&]+)/);
+function abrirWhatsApp(link) {
+  const match = link.match(/wa\.me\/(\d+)\?text=([^&]+)/);
 
-    let finalUrl = link;
+  if (!match) {
+    window.location.href = link;
+    return;
+  }
 
-    if (match) {
+  const phone = match[1];
+  let text = decodeURIComponent(match[2]);
 
-      const phone = match[1];
-      let text = match[2];
+  text = corrigirTexto(text);
 
-      text = decodeURIComponent(text);
-      text = corrigirTexto(text);
-      text = encodeURIComponent(text);
+  const whatsappUrl = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`;
 
-      const appUrl = whatsapp://send?phone=${phone}&text=${text};
-      const webUrl = https://wa.me/${phone}?text=${text};
-
-      finalUrl = appUrl;
-
-      setTimeout(() => {
-        window.location.href = webUrl;
-      }, 800);
-    }
-
-    window.location.href = finalUrl;
-
-    setTimeout(() => location.reload(), 1000);
-
-  })
-  .catch(err => {
-    alert("Erro ao enviar: " + err.message);
-  })
-  .finally(() => {
-    enviando = false;
-    botao.disabled = false;
-    botao.innerText = "Enviar Ocorrência";
-  });
+  window.location.href = whatsappUrl;
 }
 
 carregarAlunos();
