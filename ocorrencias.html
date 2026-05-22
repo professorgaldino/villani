@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Registro de Ocorrências 38</title>
+<title>Registro de Ocorrências 39</title>
 
 <style>
   body {
@@ -258,19 +258,31 @@ function enviar() {
       text = corrigirTexto(text);
       text = encodeURIComponent(text);
 
+      const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
       const appUrl = `whatsapp://send?phone=${phone}&text=${text}`;
-      const webUrl = `https://wa.me/${phone}?text=${text}`;
+      const webUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${text}`;
+      const waMeUrl = `https://wa.me/${phone}?text=${text}`;
 
-      finalUrl = appUrl;
+      if (isMobile) {
+        finalUrl = appUrl;
 
-      setTimeout(() => {
-        window.location.href = webUrl;
-      }, 800);
+        setTimeout(() => {
+          window.location.href = waMeUrl;
+        }, 1200);
+
+        window.location.href = finalUrl;
+      } else {
+        const novaAba = window.open(webUrl, "_blank");
+
+        if (!novaAba || novaAba.closed || typeof novaAba.closed === "undefined") {
+          window.location.href = webUrl;
+        }
+      }
+
+    } else {
+      window.open(finalUrl, "_blank");
     }
-
-    window.location.href = finalUrl;
-
-    setTimeout(() => location.reload(), 1000);
 
   })
   .catch(err => {
