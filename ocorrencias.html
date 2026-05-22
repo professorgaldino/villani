@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Registro de Ocorrências 41</title>
+<title>Registro de Ocorrências 38</title>
 
 <style>
   body {
@@ -189,45 +189,6 @@ alunoSelect.addEventListener("change", function(){
 });
 
 // ============================
-// ABRIR WHATSAPP AUTOMATICAMENTE
-// ============================
-function abrirWhatsAppAutomatico(link) {
-  const match = link.match(/wa\.me\/(\d+)\?text=([^&]+)/);
-
-  if (!match) {
-    window.location.href = link;
-    return;
-  }
-
-  const phone = match[1];
-  let text = match[2];
-
-  text = decodeURIComponent(text);
-  text = corrigirTexto(text);
-  text = encodeURIComponent(text);
-
-  const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
-
-  const appUrl = `whatsapp://send?phone=${phone}&text=${text}`;
-  const waMeUrl = `https://wa.me/${phone}?text=${text}`;
-  const webUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${text}`;
-
-  if (isMobile) {
-    window.location.href = appUrl;
-
-    setTimeout(() => {
-      window.location.href = waMeUrl;
-    }, 1500);
-  } else {
-    window.location.href = appUrl;
-
-    setTimeout(() => {
-      window.location.href = webUrl;
-    }, 1500);
-  }
-}
-
-// ============================
 // ENVIO
 // ============================
 function enviar() {
@@ -254,7 +215,7 @@ function enviar() {
   botao.innerText = "Enviando...";
 
   const [ano, mes, dia] = dataFato.split("-");
-  const dataFormatada = `${dia}/${mes}/${ano}`;
+  const dataFormatada = ${dia}/${mes}/${ano};
 
   const formData = new URLSearchParams({
     sala,
@@ -281,7 +242,35 @@ function enviar() {
       throw new Error("Erro no servidor");
     }
 
-    abrirWhatsAppAutomatico(data.whatsapp);
+    const link = data.whatsapp;
+
+    // 🔥 REGEX CORRIGIDO (não pega lixo)
+    const match = link.match(/wa\.me\/(\d+)\?text=([^&]+)/);
+
+    let finalUrl = link;
+
+    if (match) {
+
+      const phone = match[1];
+      let text = match[2];
+
+      text = decodeURIComponent(text);
+      text = corrigirTexto(text);
+      text = encodeURIComponent(text);
+
+      const appUrl = whatsapp://send?phone=${phone}&text=${text};
+      const webUrl = https://wa.me/${phone}?text=${text};
+
+      finalUrl = appUrl;
+
+      setTimeout(() => {
+        window.location.href = webUrl;
+      }, 800);
+    }
+
+    window.location.href = finalUrl;
+
+    setTimeout(() => location.reload(), 1000);
 
   })
   .catch(err => {
