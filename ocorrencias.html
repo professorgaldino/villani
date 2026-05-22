@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Registro de Ocorrências 38</title>
+<title>Registro de Ocorrências 40</title>
 
 <style>
   body {
@@ -60,6 +60,34 @@
     background: #999;
     cursor: not-allowed;
   }
+
+  .whatsapp-opcoes {
+    display: none;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #dcdcdc;
+  }
+
+  .whatsapp-opcoes p {
+    margin: 0 0 10px;
+    font-size: 14px;
+    color: #333;
+    text-align: center;
+    font-weight: 600;
+  }
+
+  .btn-whatsapp {
+    margin-top: 10px;
+    background: #25d366;
+  }
+
+  .btn-web {
+    background: #128c7e;
+  }
+
+  .btn-link {
+    background: #075e54;
+  }
 </style>
 </head>
 
@@ -100,6 +128,13 @@
   <textarea id="acao" rows="2"></textarea>
 
   <button id="btnEnviar" onclick="enviar()">Enviar Ocorrência</button>
+
+  <div id="whatsappOpcoes" class="whatsapp-opcoes">
+    <p>Ocorrência registrada. Escolha como enviar pelo WhatsApp:</p>
+    <button class="btn-whatsapp" onclick="abrirWhatsAppApp()">Abrir no aplicativo</button>
+    <button class="btn-web" onclick="abrirWhatsAppWeb()">Abrir no WhatsApp Web</button>
+    <button class="btn-link" onclick="abrirWhatsAppLink()">Abrir link padrão</button>
+  </div>
 </div>
 
 <script>
@@ -111,10 +146,14 @@ const CACHE_TIME = 10 * 60 * 1000;
 
 let alunosExternos = [];
 let enviando = false;
+let whatsappAppUrl = "";
+let whatsappWebUrl = "";
+let whatsappLinkUrl = "";
 
 const salaSelect = document.getElementById("salaSelect");
 const alunoSelect = document.getElementById("alunoSelect");
 const botao = document.getElementById("btnEnviar");
+const whatsappOpcoes = document.getElementById("whatsappOpcoes");
 
 // ============================
 // CORREÇÃO DE ACENTUAÇÃO
@@ -188,6 +227,40 @@ alunoSelect.addEventListener("change", function(){
   document.getElementById("ra").value = selected.value || "";
 });
 
+function prepararLinksWhatsApp(link) {
+  const match = link.match(/wa\.me\/(\d+)\?text=([^&]+)/);
+
+  if (!match) {
+    whatsappAppUrl = link;
+    whatsappWebUrl = link;
+    whatsappLinkUrl = link;
+    return;
+  }
+
+  const phone = match[1];
+  let text = match[2];
+
+  text = decodeURIComponent(text);
+  text = corrigirTexto(text);
+  text = encodeURIComponent(text);
+
+  whatsappAppUrl = `whatsapp://send?phone=${phone}&text=${text}`;
+  whatsappWebUrl = `https://web.whatsapp.com/send?phone=${phone}&text=${text}`;
+  whatsappLinkUrl = `https://wa.me/${phone}?text=${text}`;
+}
+
+function abrirWhatsAppApp() {
+  window.location.href = whatsappAppUrl;
+}
+
+function abrirWhatsAppWeb() {
+  window.open(whatsappWebUrl, "_blank");
+}
+
+function abrirWhatsAppLink() {
+  window.open(whatsappLinkUrl, "_blank");
+}
+
 // ============================
 // ENVIO
 // ============================
@@ -215,7 +288,7 @@ function enviar() {
   botao.innerText = "Enviando...";
 
   const [ano, mes, dia] = dataFato.split("-");
-  const dataFormatada = ${dia}/${mes}/${ano};
+  const dataFormatada = `${dia}/${mes}/${ano}`;
 
   const formData = new URLSearchParams({
     sala,
@@ -242,35 +315,11 @@ function enviar() {
       throw new Error("Erro no servidor");
     }
 
-    const link = data.whatsapp;
+    prepararLinksWhatsApp(data.whatsapp);
 
-    // 🔥 REGEX CORRIGIDO (não pega lixo)
-    const match = link.match(/wa\.me\/(\d+)\?text=([^&]+)/);
+    whatsappOpcoes.style.display = "block";
 
-    let finalUrl = link;
-
-    if (match) {
-
-      const phone = match[1];
-      let text = match[2];
-
-      text = decodeURIComponent(text);
-      text = corrigirTexto(text);
-      text = encodeURIComponent(text);
-
-      const appUrl = whatsapp://send?phone=${phone}&text=${text};
-      const webUrl = https://wa.me/${phone}?text=${text};
-
-      finalUrl = appUrl;
-
-      setTimeout(() => {
-        window.location.href = webUrl;
-      }, 800);
-    }
-
-    window.location.href = finalUrl;
-
-    setTimeout(() => location.reload(), 1000);
+    alert("Ocorrência registrada com sucesso! Agora escolha como deseja abrir o WhatsApp.");
 
   })
   .catch(err => {
