@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Conversor MAPÃO → JSON (CORRIGIDO)</title>
+
+<style>
+body { font-family: Arial; background:#f4f6f8; padding:20px; }
+textarea { width:100%; height:200px; }
+button { padding:10px; margin-right:10px; background:#0077cc; color:white; border:none; cursor:pointer; }
+button.copy { background:#28a745; }
+pre { background:#eee; padding:10px; overflow:auto; white-space:pre-wrap; }
+</style>
+</head>
+
+<body>
+
+<h2>Conversor MAPÃO → JSON (CORRIGIDO)</h2>
+
+<textarea id="input"></textarea>
+
+<br><br>
+
+<button onclick="converter()">Converter</button>
+<button class="copy" onclick="copiarJSON()">Copiar JSON</button>
+
+<pre id="out"></pre>
+
+<script>
+
+let ultimoJSON = "";
+
+function clean(t){
+  return (t || "")
+    .toString()
+    .replace(/\n/g," ")
+    .replace(/\r/g," ")
+    .trim();
+}
+
+// 🔥 NOVO: extrai disciplinas do cabeçalho de forma robusta
+function extrairDisciplinas(texto){
+
+  const disciplinas = [];
+
+  const regex = /"([^"\n]+)\n(\d+)"/g;
+
+  let match;
+
+  while ((match = regex.exec(texto)) !== null){
+
+    const nome = clean(match[1]);
+    const codigo = parseInt(match[2]);
+
+    disciplinas.push({
+      nome: nome.replace(/\s+/g,"_"),
+      codigo
+    });
+  }
+
+  return disciplinas;
+}
+
+function converter(){
+
+  const texto = document.getElementById("input").value;
+  const linhas = texto.split("\n");
+
+  const disciplinas = extrairDisciplinas(texto);
+
+  const json = {};
+
+  for (let linha of linhas){
+
+    const cols = linha.split(/\t+/).map(clean);
+
+    if (cols.length < 5) continue;
+
+    const nome = cols[0];
+    const situacao = cols[1];
+
+    if (!nome || nome === "ALUNO" || nome.includes("ARTE")) continue;
+    if (!isNaN(nome)) continue;
+
+    const numero = parseInt(cols[2]);
+    if (!numero) continue;
+
+    let baseIndex = 3;
+
+    let aluno = {
+      numero,
+      nome,
+      situacao,
+      disciplinas: {},
+      totais: {}
+    };
+
+    disciplinas.forEach((d, i) => {
+
+      const idx = baseIndex + (i * 4);
+
+      const n = cols[idx] ?? null;
+      const m = cols[idx+1] ?? null;
+      const f = cols[idx+2] ?? null;
+      const ac = cols[idx+3] ?? null;
+
+      // ignora disciplinas totalmente vazias
+      if (!n && !m && !f && !ac) return;
+
+      aluno.disciplinas[d.nome] = {
+        codigo: d.codigo,
+        numero: n === "-" ? null : parseInt(n),
+        media: m === "-" ? null : parseFloat(m),
+        faltas: f === "-" ? null : parseInt(f),
+        acumulado: ac === "-" ? null : parseInt(ac)
+      };
+    });
+
+    // totais (últimos 4 campos reais)
+    const last = cols.slice(-4);
+
+    aluno.totais = {
+      faltas_acumuladas: parseInt(last[0]) || 0,
+      frequencia: parseFloat(last[1]) || 0,
+      faltas_anual: parseInt(last[2]) || 0,
+      frequencia_anual: parseFloat(last[3]) || 0
+    };
+
+    json[numero] = aluno;
+  }
+
+  ultimoJSON = JSON.stringify(json, null, 2);
+  document.getElementById("out").textContent = ultimoJSON;
+}
+
+// copiar JSON
+function copiarJSON(){
+
+  if (!ultimoJSON){
+    alert("Gere o JSON primeiro!");
+    return;
+  }
+
+  navigator.clipboard.writeText(ultimoJSON)
+    .then(() => alert("JSON copiado com sucesso!"))
+    .catch(() => alert("Erro ao copiar JSON"));
+}
+
+</script>
+
+</body>
+</html>
